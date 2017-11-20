@@ -2,9 +2,9 @@ import { applyMiddleware, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
-import reducers from './reducers';
+import rootReducer from './reducers';
 
 export default createStore(
-  reducers,
+  rootReducer,
   composeWithDevTools(applyMiddleware(thunk, logger))
 );
