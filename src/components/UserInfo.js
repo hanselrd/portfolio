@@ -7,8 +7,12 @@ class UserInfo extends Component {
     const { user, actions } = this.props;
     return (
       <div className="UserInfo">
-        <p onClick={() => actions.changeName('Button')}>Name: {user.name}</p>
-        <p onClick={() => actions.changeAge(99)}>Age: {user.age}</p>
+        <p onClick={() => actions.changeName(user, { name: 'Button' })}>
+          Name: {user.name}
+        </p>
+        <p onClick={() => actions.changeAge(user, { age: 99 })}>
+          Age: {user.age}
+        </p>
       </div>
     );
   }

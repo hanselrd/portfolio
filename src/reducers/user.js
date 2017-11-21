@@ -4,14 +4,14 @@ import { createReducer } from '../utils';
 const changeName = (state, payload) => {
   return {
     ...state,
-    name: payload
+    name: payload.name
   };
 };
 
 const changeAge = (state, payload) => {
   return {
     ...state,
-    age: payload
+    age: payload.age
   };
 };
 
