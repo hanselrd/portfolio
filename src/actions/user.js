@@ -1,7 +1,5 @@
 import { createAction } from '../utils';
-
-export const USER_CHANGE_NAME = 'USER_CHANGE_NAME';
-export const USER_CHANGE_AGE = 'USER_CHANGE_AGE';
+import { USER_CHANGE_NAME, USER_CHANGE_AGE } from './types';
 
 // export const changeName = name => {
 //   return {
