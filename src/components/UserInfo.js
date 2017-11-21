@@ -4,13 +4,11 @@ import PropTypes from 'prop-types';
 
 class UserInfo extends Component {
   render() {
-    const { user, dispatch, actions } = this.props;
+    const { user, actions } = this.props;
     return (
       <div className="UserInfo">
-        <p onClick={() => dispatch(actions.changeName('Button'))}>
-          Name: {user.name}
-        </p>
-        <p onClick={() => dispatch(actions.changeAge(99))}>Age: {user.age}</p>
+        <p onClick={() => actions.changeName('Button')}>Name: {user.name}</p>
+        <p onClick={() => actions.changeAge(99)}>Age: {user.age}</p>
       </div>
     );
   }
@@ -18,7 +16,6 @@ class UserInfo extends Component {
 
 UserInfo.propTypes = {
   user: PropTypes.object.isRequired,
-  dispatch: PropTypes.func.isRequired,
   actions: PropTypes.object.isRequired
 };
 
