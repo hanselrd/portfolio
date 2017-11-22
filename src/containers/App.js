@@ -2,8 +2,22 @@ import React, { Component } from 'react';
 import '../styles/App.css';
 import { connect } from 'react-redux';
 import { mapStateToProps, mapDispatchToProps } from '../utils';
+import firebase from '../firebase';
 import Counter from '../components/Counter';
 import UserInfo from '../components/UserInfo';
+
+if (!firebase.auth().currentUser) {
+  firebase
+    .auth()
+    .signInWithPopup(new firebase.auth.GoogleAuthProvider())
+    .then(auth => {
+      console.log('auth', auth.user.toJSON());
+      firebase.auth().signOut();
+    })
+    .catch(error => {
+      console.log('error', error);
+    });
+}
 
 class App extends Component {
   render() {
