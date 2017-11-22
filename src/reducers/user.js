@@ -1,35 +1,25 @@
-import { createReducer } from '../utils';
-
-// utility functions
-const changeName = (state, payload) => {
-  return {
-    ...state,
-    name: payload.name
-  };
-};
-
-const changeAge = (state, payload) => {
-  return {
-    ...state,
-    age: payload.age
-  };
-};
-
-// case reducers
-const userChangeName = (state, action) => {
-  return changeName(state, action.payload);
-};
-
-const userChangeAge = (state, action) => {
-  return changeAge(state, action.payload);
-};
+import { createNameableReducer } from '../utils';
+import { changeName, changeAge } from '../actions/user';
 
 const initialState = {
   name: '',
   age: 0
 };
 
-export default createReducer(initialState, {
-  USER_CHANGE_NAME: userChangeName,
-  USER_CHANGE_AGE: userChangeAge
-});
+export default createNameableReducer(
+  {
+    [changeName]: (state, payload) => {
+      return {
+        ...state,
+        name: payload
+      };
+    },
+    [changeAge]: (state, payload) => {
+      return {
+        ...state,
+        age: payload
+      };
+    }
+  },
+  initialState
+);
