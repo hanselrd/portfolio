@@ -1,5 +1,5 @@
-import { createAction } from '../utils';
-import { COUNTER_UP, COUNTER_DOWN } from './types';
+import { createAction } from 'redux-act';
 
-export const counterUp = createAction(COUNTER_UP);
-export const counterDown = createAction(COUNTER_DOWN);
+export const increment = createAction('Increment counter');
+export const decrement = createAction('Decrement counter');
+export const add = createAction('Add to counter');

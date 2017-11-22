@@ -1,32 +1,17 @@
-/*
-  When calling a reducer created by this function you can optionally
-  pass in a name, for example:
+import { createReducer } from 'redux-act';
 
-  const rootReducer = combineReducers({
-    exampleA: exampleReducer('A'),
-    exampleB: exampleReducer('B')
-    user: userReducer() // default handlers
-  });
-*/
-export default (initialState, handlers) => {
+export default (handlers, initialState) => {
   return name => {
-    let computedHandlers = null;
+    let customHandlers = null;
     if (name) {
-      computedHandlers = {};
+      customHandlers = {};
       Object.keys(handlers).forEach(key => {
-        computedHandlers[`${key}_${name}`] = handlers[key];
+        customHandlers[`${key} (${name})`] = handlers[key];
       });
     }
-    const activeHandlers = computedHandlers ? computedHandlers : handlers;
-    return (state = initialState, action) => {
-      if (activeHandlers.hasOwnProperty(action.type)) {
-        return activeHandlers[action.type](state, action);
-      } else {
-        return {
-          ...state,
-          _____name: name
-        };
-      }
-    };
+    return createReducer(
+      customHandlers ? customHandlers : handlers,
+      initialState
+    );
   };
 };
