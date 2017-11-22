@@ -9,9 +9,9 @@ export default (handlers, initialState) => {
         namedHandlers[`${key} (${name})`] = handlers[key];
       });
     }
-    return createReducer(
-      namedHandlers ? namedHandlers : handlers,
-      initialState
-    );
+    return createReducer(namedHandlers ? namedHandlers : handlers, {
+      ...initialState,
+      __metadata: name
+    });
   };
 };

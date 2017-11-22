@@ -22,20 +22,20 @@ class App extends Component {
         <header className="App-header">
           <h1 className="App-title">Hansel De La Cruz</h1>
         </header>
-        <p>Counter: {counter1}</p>
+        <p>Counter: {counter1.count}</p>
         <div>
-          <button onClick={() => increment(1)}>Increment</button>
-          <button onClick={() => decrement(1)}>Decrement</button>
-          <button onClick={() => add(1, 5)}>Add 5</button>
+          <button onClick={() => increment(counter1)}>Increment</button>
+          <button onClick={() => decrement(counter1)}>Decrement</button>
+          <button onClick={() => add(counter1, 5)}>Add 5</button>
         </div>
-        <p>Counter: {counter2}</p>
+        <p>Counter: {counter2.count}</p>
         <div>
-          <button onClick={() => increment(2)}>Increment</button>
-          <button onClick={() => decrement(2)}>Decrement</button>
-          <button onClick={() => add(2, 5)}>Add 5</button>
+          <button onClick={() => increment(counter2)}>Increment</button>
+          <button onClick={() => decrement(counter2)}>Decrement</button>
+          <button onClick={() => add(counter2, 5)}>Add 5</button>
         </div>
-        <UserInfo user={user1} name={1} actions={{ changeName, changeAge }} />
-        <UserInfo user={user2} name={2} actions={{ changeName, changeAge }} />
+        <UserInfo user={user1} actions={{ changeName, changeAge }} />
+        <UserInfo user={user2} actions={{ changeName, changeAge }} />
       </div>
     );
   }

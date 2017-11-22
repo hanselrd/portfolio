@@ -1,18 +1,29 @@
 import { createNameableReducer } from '../utils';
 import { increment, decrement, add } from '../actions/counter';
 
-const initialState = 0;
+const initialState = {
+  count: 0
+};
 
 export default createNameableReducer(
   {
     [increment]: state => {
-      return state + 1;
+      return {
+        ...state,
+        count: state.count + 1
+      };
     },
     [decrement]: state => {
-      return state - 1;
+      return {
+        ...state,
+        count: state.count - 1
+      };
     },
     [add]: (state, payload) => {
-      return state + payload;
+      return {
+        ...state,
+        count: state.count + payload
+      };
     }
   },
   initialState
