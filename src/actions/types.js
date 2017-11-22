@@ -1,5 +1,0 @@
-export const USER_CHANGE_NAME = 'USER_CHANGE_NAME';
-export const USER_CHANGE_AGE = 'USER_CHANGE_AGE';
-
-export const COUNTER_UP = 'COUNTER_UP';
-export const COUNTER_DOWN = 'COUNTER_DOWN';
