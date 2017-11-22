@@ -1,5 +1,5 @@
-export default (actionCreator, name) => {
-  return (...args) => {
+export default actionCreator => {
+  return (name, ...args) => {
     let action = actionCreator(...args);
     if (name) {
       action.type = `${action.type} (${name})`;

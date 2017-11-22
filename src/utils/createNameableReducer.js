@@ -2,15 +2,15 @@ import { createReducer } from 'redux-act';
 
 export default (handlers, initialState) => {
   return name => {
-    let customHandlers = null;
+    let namedHandlers = null;
     if (name) {
-      customHandlers = {};
+      namedHandlers = {};
       Object.keys(handlers).forEach(key => {
-        customHandlers[`${key} (${name})`] = handlers[key];
+        namedHandlers[`${key} (${name})`] = handlers[key];
       });
     }
     return createReducer(
-      customHandlers ? customHandlers : handlers,
+      namedHandlers ? namedHandlers : handlers,
       initialState
     );
   };
