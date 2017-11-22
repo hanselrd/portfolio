@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../styles/App.css';
 import { connect } from 'react-redux';
 import { mapStateToProps, mapDispatchToProps } from '../utils';
+import Counter from '../components/Counter';
 import UserInfo from '../components/UserInfo';
 
 class App extends Component {
@@ -22,18 +23,8 @@ class App extends Component {
         <header className="App-header">
           <h1 className="App-title">Hansel De La Cruz</h1>
         </header>
-        <p>Counter: {counter1.count}</p>
-        <div>
-          <button onClick={() => increment(counter1)}>Increment</button>
-          <button onClick={() => decrement(counter1)}>Decrement</button>
-          <button onClick={() => add(counter1, 5)}>Add 5</button>
-        </div>
-        <p>Counter: {counter2.count}</p>
-        <div>
-          <button onClick={() => increment(counter2)}>Increment</button>
-          <button onClick={() => decrement(counter2)}>Decrement</button>
-          <button onClick={() => add(counter2, 5)}>Add 5</button>
-        </div>
+        <Counter counter={counter1} actions={{ increment, decrement, add }} />
+        <Counter counter={counter2} actions={{ increment, decrement, add }} />
         <UserInfo user={user1} actions={{ changeName, changeAge }} />
         <UserInfo user={user2} actions={{ changeName, changeAge }} />
       </div>
