@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 
 class UserInfo extends Component {
   render() {
-    const { user, name, actions } = this.props;
+    const { user, actions } = this.props;
     return (
       <div className="UserInfo">
-        <p onClick={() => actions.changeName(name, 'Button')}>
+        <p onClick={() => actions.changeName(user, 'Button')}>
           Name: {user.name}
         </p>
-        <p onClick={() => actions.changeAge(name, 99)}>Age: {user.age}</p>
+        <p onClick={() => actions.changeAge(user, 99)}>Age: {user.age}</p>
       </div>
     );
   }
@@ -18,7 +18,6 @@ class UserInfo extends Component {
 
 UserInfo.propTypes = {
   user: PropTypes.object.isRequired,
-  name: PropTypes.any.isRequired,
   actions: PropTypes.object.isRequired
 };
 
