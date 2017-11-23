@@ -1,6 +1,3 @@
-import makeActionsNameable from './makeActionsNameable';
-import * as counterActions from '../actions/counter';
+import * as actions from '../actions';
 
-export default {
-  ...makeActionsNameable(counterActions)
-};
+export default { ...actions };
