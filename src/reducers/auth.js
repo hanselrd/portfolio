@@ -1,5 +1,5 @@
 import { createReducer } from 'redux-act';
-import { start, login, logout, error } from '../actions/auth';
+import { _start, _login, _logout, _error } from '../actions/auth';
 
 const initialState = {
   running: false,
@@ -9,21 +9,21 @@ const initialState = {
 
 export default createReducer(
   {
-    [start]: state => ({
+    [_start]: state => ({
       ...state,
       running: true
     }),
-    [login]: (state, payload) => ({
+    [_login]: (state, payload) => ({
       ...state,
       running: false,
       user: payload
     }),
-    [logout]: state => ({
+    [_logout]: state => ({
       ...state,
       running: false,
       user: null
     }),
-    [error]: (state, payload) => ({
+    [_error]: (state, payload) => ({
       ...state,
       running: false,
       error: payload
