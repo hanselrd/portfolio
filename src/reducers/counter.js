@@ -7,24 +7,18 @@ const initialState = {
 
 export default createNameableReducer(
   {
-    [increment]: state => {
-      return {
-        ...state,
-        count: state.count + 1
-      };
-    },
-    [decrement]: state => {
-      return {
-        ...state,
-        count: state.count - 1
-      };
-    },
-    [add]: (state, payload) => {
-      return {
-        ...state,
-        count: state.count + payload
-      };
-    }
+    [increment]: state => ({
+      ...state,
+      count: state.count + 1
+    }),
+    [decrement]: state => ({
+      ...state,
+      count: state.count - 1
+    }),
+    [add]: (state, payload) => ({
+      ...state,
+      count: state.count + payload
+    })
   },
   initialState
 );
