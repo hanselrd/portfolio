@@ -8,7 +8,7 @@ import FontAwesome from 'react-fontawesome';
 
 class App extends Component {
   componentDidMount() {
-    this.props.getUser();
+    this.props.handleAuthStateChanged();
   }
   render() {
     const { auth, counter1, counter2, increment, decrement, add } = this.props;
