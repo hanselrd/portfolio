@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import '../styles/App.css';
 import { connect } from 'react-redux';
 import { mapStateToProps, mapDispatchToProps } from '../utils';
-import firebase from '../firebase';
 import Counter from '../components/Counter';
 import FontAwesome from 'react-fontawesome';
 
@@ -11,7 +10,16 @@ class App extends Component {
     this.props.handleAuthStateChanged();
   }
   render() {
-    const { auth, counter1, counter2, increment, decrement, add } = this.props;
+    const {
+      auth,
+      login,
+      logout,
+      counter1,
+      counter2,
+      increment,
+      decrement,
+      add
+    } = this.props;
     return (
       <div className="App">
         <header className="App-header">
@@ -23,19 +31,13 @@ class App extends Component {
         {!auth.running &&
           !auth.user && (
             <button
-              onClick={() =>
-                firebase
-                  .auth()
-                  .signInWithPopup(new firebase.auth.GoogleAuthProvider())
-              }
+              onClick={() => login({ provider: 'google', type: 'popup' })}
             >
               Login
             </button>
           )}
         {!auth.running &&
-          auth.user && (
-            <button onClick={() => firebase.auth().signOut()}>Logout</button>
-          )}
+          auth.user && <button onClick={() => logout()}>Logout</button>}
         <p>{auth.user && JSON.stringify(auth.user)}</p>
       </div>
     );
