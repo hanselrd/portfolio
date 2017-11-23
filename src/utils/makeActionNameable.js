@@ -1,8 +1,8 @@
 export default actionCreator => {
-  return (slice, ...args) => {
+  return (obj, ...args) => {
     let action = actionCreator(...args);
-    if (slice) {
-      action.type = `${action.type} (${slice.__metadata})`;
+    if (obj) {
+      action.type = `${action.type} (${obj.__name})`;
     }
     return action;
   };
