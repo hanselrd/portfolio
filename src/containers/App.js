@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import '../styles/App.css';
 import { connect } from 'react-redux';
 import { mapStateToProps, mapDispatchToProps } from '../utils';
+import DocumentTitle from 'react-document-title';
+import Header from '../components/Header';
 import Counter from '../components/Counter';
-import FontAwesome from 'react-fontawesome';
 
 class App extends Component {
   componentDidMount() {
@@ -21,27 +22,23 @@ class App extends Component {
       add
     } = this.props;
     return (
-      <div className="App">
-        <Counter counter={counter1} actions={{ increment, decrement, add }} />
-        <Counter counter={counter2} actions={{ increment, decrement, add }} />
-        {!auth.user &&
-          auth.login.loading && <FontAwesome name="spinner" size="3x" spin />}
-        {!auth.user &&
-          !auth.login.loading && (
-            <button
-              onClick={() => login({ provider: 'google', type: 'popup' })}
-            >
-              Log in
-            </button>
-          )}
-        {auth.user &&
-          auth.logout.loading && <FontAwesome name="spinner" size="3x" spin />}
-        {auth.user &&
-          !auth.logout.loading && (
-            <button onClick={() => logout()}>Log out</button>
-          )}
-        <p>{auth.user && JSON.stringify(auth.user)}</p>
-      </div>
+      <DocumentTitle title="App.js | Hansel De La Cruz">
+        <div className="App">
+          <Header auth={auth} actions={{ login, logout }} />
+          <div className="App-content">
+            <Counter
+              counter={counter1}
+              actions={{ increment, decrement, add }}
+            />
+            <Counter
+              counter={counter2}
+              actions={{ increment, decrement, add }}
+            />
+            {auth.user && <hr />}
+            <p>{auth.user && JSON.stringify(auth.user)}</p>
+          </div>
+        </div>
+      </DocumentTitle>
     );
   }
 }
