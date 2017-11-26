@@ -22,9 +22,6 @@ class App extends Component {
     } = this.props;
     return (
       <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Hansel De La Cruz</h1>
-        </header>
         <Counter counter={counter1} actions={{ increment, decrement, add }} />
         <Counter counter={counter2} actions={{ increment, decrement, add }} />
         {!auth.user &&
