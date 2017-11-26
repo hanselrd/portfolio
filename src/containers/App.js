@@ -35,7 +35,17 @@ class App extends Component {
               actions={{ increment, decrement, add }}
             />
             {auth.user && <hr />}
-            <p>{auth.user && JSON.stringify(auth.user)}</p>
+            <div>
+              {auth.user &&
+                Object.keys(JSON.parse(JSON.stringify(auth.user))).map(key => {
+                  return (
+                    <div key={key}>
+                      <h2>{key}</h2>
+                      <p>{JSON.stringify(auth.user[key])}</p>
+                    </div>
+                  );
+                })}
+            </div>
           </div>
         </div>
       </DocumentTitle>
