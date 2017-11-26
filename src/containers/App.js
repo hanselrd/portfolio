@@ -27,17 +27,22 @@ class App extends Component {
         </header>
         <Counter counter={counter1} actions={{ increment, decrement, add }} />
         <Counter counter={counter2} actions={{ increment, decrement, add }} />
-        {auth.running && <FontAwesome name="spinner" size="3x" spin />}
-        {!auth.running &&
-          !auth.user && (
+        {!auth.user &&
+          auth.login.loading && <FontAwesome name="spinner" size="3x" spin />}
+        {!auth.user &&
+          !auth.login.loading && (
             <button
               onClick={() => login({ provider: 'google', type: 'popup' })}
             >
-              Login
+              Log in
             </button>
           )}
-        {!auth.running &&
-          auth.user && <button onClick={() => logout()}>Logout</button>}
+        {auth.user &&
+          auth.logout.loading && <FontAwesome name="spinner" size="3x" spin />}
+        {auth.user &&
+          !auth.logout.loading && (
+            <button onClick={() => logout()}>Log out</button>
+          )}
         <p>{auth.user && JSON.stringify(auth.user)}</p>
       </div>
     );

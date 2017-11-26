@@ -1,20 +1,21 @@
 import { createReducer } from 'redux-act';
-import { userFound, userNotFound } from '../actions/auth';
+import { createReducerAsync } from 'redux-act-async';
+import { combineReducers } from 'redux';
+import { userFound, userNotFound, login, logout } from '../actions/auth';
 
-const initialState = {
-  user: null
-};
-
-export default createReducer(
+const userReducer = createReducer(
   {
-    [userFound]: (state, payload) => ({
-      ...state,
-      user: payload
-    }),
-    [userNotFound]: state => ({
-      ...state,
-      user: null
-    })
+    [userFound]: (state, payload) => payload,
+    [userNotFound]: state => null
   },
-  initialState
+  null
 );
+
+const loginReducer = createReducerAsync(login);
+const logoutReducer = createReducerAsync(logout);
+
+export default combineReducers({
+  user: userReducer,
+  login: loginReducer,
+  logout: logoutReducer
+});
