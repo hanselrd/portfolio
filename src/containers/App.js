@@ -41,7 +41,11 @@ class App extends Component {
                   return (
                     <div key={key}>
                       <h2>{key}</h2>
-                      <p>{JSON.stringify(auth.user[key])}</p>
+                      <p>
+                        {JSON.stringify(
+                          JSON.parse(JSON.stringify(auth.user))[key]
+                        )}
+                      </p>
                     </div>
                   );
                 })}
