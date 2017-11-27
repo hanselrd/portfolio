@@ -56,16 +56,18 @@ class Header extends Component {
   render() {
     const { auth, actions } = this.props;
     return (
-      <AppBar
-        title={<small>Hansel De La Cruz</small>}
-        iconElementRight={
-          auth.user ? (
-            <Auth auth={auth} actions={actions} />
-          ) : (
-            <Guest auth={auth} actions={actions} />
-          )
-        }
-      />
+      <div className="Header">
+        <AppBar
+          title={<small>Hansel De La Cruz</small>}
+          iconElementRight={
+            auth.user ? (
+              <Auth auth={auth} actions={actions} />
+            ) : (
+              <Guest auth={auth} actions={actions} />
+            )
+          }
+        />
+      </div>
     );
   }
 }
