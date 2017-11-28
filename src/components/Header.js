@@ -53,6 +53,19 @@ class Header extends Component {
           {Object.keys(links).map(key => {
             return <Menu.Item key={key}>{links[key].name}</Menu.Item>;
           })}
+          {auth && ( // should be auth.user
+            <Menu.SubMenu
+              title={
+                <span>
+                  User <FontAwesome name="caret-down" size="lg" />
+                </span>
+              }
+            >
+              <Menu.Item key="profile">Profile</Menu.Item>
+              <Menu.Item key="settings">Settings</Menu.Item>
+              <Menu.Item key="logout">Log out</Menu.Item>
+            </Menu.SubMenu>
+          )}
         </Menu>
         <div className="Header-menu-mobile">
           <Dropdown
@@ -100,26 +113,6 @@ class Header extends Component {
               <FontAwesome name="navicon" size="lg" />
             </Button>
           </Dropdown>
-        </div>
-        <div className="Header-menu-user">
-          {auth && ( // should be auth.user
-            <Dropdown
-              overlay={
-                <Menu onClick={item => this.handleUserOptions(item)}>
-                  <Menu.Item key="profile">Profile</Menu.Item>
-                  <Menu.Item key="settings">Settings</Menu.Item>
-                  <Menu.Item key="logout">Log out</Menu.Item>
-                </Menu>
-              }
-              placement="bottomRight"
-              trigger={['click']}
-            >
-              <Button ghost size="large" style={{ border: 0 }}>
-                User {/* {auth.user.displayName} */}
-                <FontAwesome name="caret-down" />
-              </Button>
-            </Dropdown>
-          )}
         </div>
       </Layout.Header>
     );
