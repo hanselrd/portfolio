@@ -5,8 +5,8 @@ import { mapStateToProps, mapDispatchToProps } from '../utils';
 import { Helmet } from 'react-helmet';
 import { Container } from 'semantic-ui-react';
 import Header from '../components/Header';
+import Routes from './Routes';
 import Footer from '../components/Footer';
-import Counter from '../components/Counter';
 
 class App extends Component {
   componentDidMount() {
@@ -31,16 +31,7 @@ class App extends Component {
         </Helmet>
         <Header auth={auth} authActions={{ login, logout }} />
         <Container text style={{ marginTop: '3em', flex: 1 }}>
-          {/* <Header as="h1">App.js</Header> */}
-          <h1>App.js</h1>
-          <Counter
-            counter={counter1}
-            counterActions={{ increment, decrement, add }}
-          />
-          <Counter
-            counter={counter2}
-            counterActions={{ increment, decrement, add }}
-          />
+          <Routes />
         </Container>
         <Footer />
       </div>
