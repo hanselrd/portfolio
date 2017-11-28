@@ -3,15 +3,3 @@
   flex-direction: column;
   min-height: 100vh;
 }
-
-.App-content {
-  margin-top: 64px;
-  flex: 1 0 auto;
-}
-
-.App-footer {
-  text-align: center;
-  background: #333;
-  color: white;
-  padding: 40px 0;
-}
