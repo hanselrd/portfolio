@@ -21,12 +21,19 @@
   font-size: 1.25em;
 }
 
+.Header-menu-item-mobile {
+  text-align: center;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
 .Header-spacer {
   flex: 1 0 auto;
 }
 
 @media only screen and (max-width: 570px) {
-  .Header-menu {
+  .Header-menu,
+  .Header-menu-user {
     display: none;
   }
 }
