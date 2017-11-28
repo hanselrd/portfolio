@@ -10,6 +10,10 @@ import {
 } from 'semantic-ui-react';
 
 class Footer extends Component {
+  state = {
+    date: new Date()
+  };
+
   render() {
     return (
       <div className="Footer">
@@ -94,7 +98,8 @@ class Footer extends Component {
             <Divider inverted section />
             <Container style={{ marginBottom: 20 }}>
               <span>
-                &copy; Copyright 2017 <strong>Hansel De La Cruz</strong>
+                &copy; Copyright {this.state.date.getFullYear()}{' '}
+                <strong>Hansel De La Cruz</strong>
               </span>
             </Container>
             <List horizontal inverted divided link>
