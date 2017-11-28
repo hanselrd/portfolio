@@ -5,27 +5,19 @@ import PropTypes from 'prop-types';
 
 class Counter extends Component {
   render() {
-    const { counter, actions } = this.props;
+    const { counter, counterActions } = this.props;
     return (
       <div className="Counter">
         <p>Counter: {counter.count}</p>
-        <div>
-          <Button type="primary" onClick={() => actions.increment(counter)}>
+        <Button.Group>
+          <Button onClick={() => counterActions.increment(counter)}>
             Increment
           </Button>
-          {/* <RaisedButton
-            label="Decrement"
-            primary
-            style={style}
-            onClick={() => actions.decrement(counter)}
-          />
-          <RaisedButton
-            label="Add 5"
-            primary
-            style={style}
-            onClick={() => actions.add(counter, 5)}
-          /> */}
-        </div>
+          <Button onClick={() => counterActions.decrement(counter)}>
+            Decrement
+          </Button>
+          <Button onClick={() => counterActions.add(counter, 5)}>Add 5</Button>
+        </Button.Group>
       </div>
     );
   }
@@ -33,7 +25,7 @@ class Counter extends Component {
 
 Counter.propTypes = {
   counter: PropTypes.object.isRequired,
-  actions: PropTypes.object.isRequired
+  counterActions: PropTypes.object.isRequired
 };
 
 export default Counter;

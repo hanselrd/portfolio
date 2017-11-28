@@ -5,6 +5,7 @@ import { mapStateToProps, mapDispatchToProps } from '../utils';
 import { Helmet } from 'react-helmet';
 import { Layout, Card } from 'antd';
 import Header from '../components/Header';
+import Counter from '../components/Counter';
 
 class App extends Component {
   componentDidMount() {
@@ -12,7 +13,16 @@ class App extends Component {
   }
 
   render() {
-    const { auth, login, logout } = this.props;
+    const {
+      auth,
+      login,
+      logout,
+      counter1,
+      counter2,
+      increment,
+      decrement,
+      add
+    } = this.props;
     const user = JSON.parse(JSON.stringify(auth.user));
     return (
       <div className="App">
@@ -29,6 +39,14 @@ class App extends Component {
                 </h1>
               }
             >
+              <Counter
+                counter={counter1}
+                counterActions={{ increment, decrement, add }}
+              />
+              <Counter
+                counter={counter2}
+                counterActions={{ increment, decrement, add }}
+              />
               {auth.user &&
                 Object.keys(user).map(key => {
                   return (
