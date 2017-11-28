@@ -15,13 +15,12 @@ const links = {
 
 class Header extends Component {
   state = {
-    selectedKeys: ['login']
+    selectedKeys: 'login'
   };
 
-  handleOnSelect(item) {
-    console.log(item.keyPath);
+  handleMenuOnClick(item) {
     this.setState({
-      selectedKeys: item.keyPath
+      selectedKeys: item.key
     });
   }
 
@@ -45,9 +44,11 @@ class Header extends Component {
         <Menu
           theme="dark"
           mode="horizontal"
-          defaultSelectedKeys={this.state.selectedKeys}
           className="Header-menu"
-          onSelect={item => this.handleOnSelect(item)}
+          selectedKeys={[this.state.selectedKeys]}
+          onClick={item => {
+            this.handleMenuOnClick(item);
+          }}
         >
           {Object.keys(links).map(key => {
             return <Menu.Item key={key}>{links[key].name}</Menu.Item>;
@@ -57,13 +58,39 @@ class Header extends Component {
           <Dropdown
             overlay={
               <Menu
-                defaultSelectedKeys={this.state.selectedKeys}
-                style={{ width: 100 }}
-                onClick={item => this.handleOnSelect(item)}
+                selectedKeys={[this.state.selectedKeys]}
+                onClick={item => {
+                  this.handleMenuOnClick(item);
+                }}
               >
-                {Object.keys(links).map(key => {
-                  return <Menu.Item key={key}>{links[key].name}</Menu.Item>;
-                })}
+                <Menu.ItemGroup title="Navigation">
+                  {Object.keys(links).map(key => {
+                    return (
+                      <Menu.Item key={key} className="Header-menu-item-mobile">
+                        {links[key].name}
+                      </Menu.Item>
+                    );
+                  })}
+                </Menu.ItemGroup>
+                {auth && ( // should be auth.user
+                  <Menu.ItemGroup title="User">
+                    <Menu.Item
+                      key="profile"
+                      className="Header-menu-item-mobile"
+                    >
+                      Profile
+                    </Menu.Item>
+                    <Menu.Item
+                      key="settings"
+                      className="Header-menu-item-mobile"
+                    >
+                      Settings
+                    </Menu.Item>
+                    <Menu.Item key="logout" className="Header-menu-item-mobile">
+                      Log out
+                    </Menu.Item>
+                  </Menu.ItemGroup>
+                )}
               </Menu>
             }
             placement="bottomRight"
@@ -74,21 +101,26 @@ class Header extends Component {
             </Button>
           </Dropdown>
         </div>
-        {auth.user && (
-          <Dropdown
-            overlay={
-              <Menu onClick={item => this.handleUserOptions(item)}>
-                <Menu.Item key="logout">Log out</Menu.Item>
-              </Menu>
-            }
-            placement="bottomRight"
-            trigger={['click']}
-          >
-            <Button ghost size="large" style={{ border: 0 }}>
-              {auth.user && auth.user.displayName}
-            </Button>
-          </Dropdown>
-        )}
+        <div className="Header-menu-user">
+          {auth && ( // should be auth.user
+            <Dropdown
+              overlay={
+                <Menu onClick={item => this.handleUserOptions(item)}>
+                  <Menu.Item key="profile">Profile</Menu.Item>
+                  <Menu.Item key="settings">Settings</Menu.Item>
+                  <Menu.Item key="logout">Log out</Menu.Item>
+                </Menu>
+              }
+              placement="bottomRight"
+              trigger={['click']}
+            >
+              <Button ghost size="large" style={{ border: 0 }}>
+                User {/* {auth.user.displayName} */}
+                <FontAwesome name="caret-down" />
+              </Button>
+            </Dropdown>
+          )}
+        </div>
       </Layout.Header>
     );
   }
