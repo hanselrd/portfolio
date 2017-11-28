@@ -60,7 +60,10 @@ class Header extends Component {
                   {!auth.user && (
                     <Dropdown.Item
                       onClick={() =>
-                        authActions.login({ provider: 'google', type: 'popup' })
+                        authActions.login({
+                          provider: 'google',
+                          type: 'popup'
+                        })
                       }
                     >
                       Login
