@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../styles/Counter.css';
-import { Button } from 'antd';
+import { Button } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
 class Counter extends Component {
@@ -9,15 +9,13 @@ class Counter extends Component {
     return (
       <div className="Counter">
         <p>Counter: {counter.count}</p>
-        <Button.Group>
-          <Button onClick={() => counterActions.increment(counter)}>
-            Increment
-          </Button>
-          <Button onClick={() => counterActions.decrement(counter)}>
-            Decrement
-          </Button>
-          <Button onClick={() => counterActions.add(counter, 5)}>Add 5</Button>
-        </Button.Group>
+        <Button onClick={() => counterActions.increment(counter)}>
+          Increment
+        </Button>
+        <Button onClick={() => counterActions.decrement(counter)}>
+          Decrement
+        </Button>
+        <Button onClick={() => counterActions.add(counter, 5)}>Add 5</Button>
       </div>
     );
   }

@@ -1,120 +1,57 @@
 import React, { Component } from 'react';
-import '../styles/Header.css';
-import { Layout, Menu, Button, Dropdown } from 'antd';
-import FontAwesome from 'react-fontawesome';
+import { Container, Dropdown, Icon, Menu, Responsive } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
-const links = {
-  // home: { name: 'Home', path: '' },
-  // blog: { name: 'Blog', path: '' },
-  // projects: { name: 'Projects', path: '' },
-  // cv: { name: 'CV', path: '' },
-  login: { name: 'Login', path: '' },
-  signup: { name: 'Signup', path: '' }
-};
-
 class Header extends Component {
-  state = {
-    selectedKeys: 'login'
-  };
-
-  handleMenuOnClick(item) {
-    this.setState({
-      selectedKeys: item.key
-    });
-  }
-
-  handleUserOptions(item) {
-    const { authActions } = this.props;
-    switch (item.key) {
-      case 'logout':
-        authActions.logout();
-        break;
-      default:
-        break;
-    }
-  }
-
   render() {
-    const { auth } = this.props;
     return (
-      <Layout.Header className="Header">
-        <span className="Header-logo">Hansel De La Cruz</span>
-        <span className="Header-spacer" />
-        <Menu
-          theme="dark"
-          mode="horizontal"
-          className="Header-menu"
-          selectedKeys={[this.state.selectedKeys]}
-          onClick={item => {
-            this.handleMenuOnClick(item);
-          }}
-        >
-          {Object.keys(links).map(key => {
-            return <Menu.Item key={key}>{links[key].name}</Menu.Item>;
-          })}
-          {auth && ( // should be auth.user
-            <Menu.SubMenu
-              title={
-                <span>
-                  User <FontAwesome name="caret-down" size="lg" />
-                </span>
-              }
-            >
-              <Menu.Item key="profile">Profile</Menu.Item>
-              <Menu.Item key="settings">Settings</Menu.Item>
-              <Menu.Item key="logout">Log out</Menu.Item>
-            </Menu.SubMenu>
-          )}
-        </Menu>
-        <div className="Header-menu-mobile">
-          <Dropdown
-            overlay={
-              <Menu
-                selectedKeys={[this.state.selectedKeys]}
-                onClick={item => {
-                  this.handleMenuOnClick(item);
-                }}
+      <div className="Header">
+        <Menu fixed="top" inverted>
+          <Container>
+            <Menu.Item as="a" header>
+              <span>Hansel De La Cruz</span>
+            </Menu.Item>
+            <Responsive as={Menu.Menu} position="right" minWidth={501}>
+              <Menu.Item as="a" active>
+                Home
+              </Menu.Item>
+              <Menu.Item as="a">Blog</Menu.Item>
+              <Menu.Item as="a">Projects</Menu.Item>
+              <Menu.Item as="a">CV</Menu.Item>
+              <Dropdown item simple text="User">
+                <Dropdown.Menu>
+                  <Dropdown.Item>Profile</Dropdown.Item>
+                  <Dropdown.Item>Settings</Dropdown.Item>
+                  <Dropdown.Item>Log out</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            </Responsive>
+            <Responsive as={Menu.Menu} position="right" maxWidth={500}>
+              <Dropdown
+                item
+                icon={
+                  <span>
+                    <Icon name="sidebar" /> Menu
+                  </span>
+                }
               >
-                <Menu.ItemGroup title="Navigation">
-                  {Object.keys(links).map(key => {
-                    return (
-                      <Menu.Item key={key} className="Header-menu-item-mobile">
-                        {links[key].name}
-                      </Menu.Item>
-                    );
-                  })}
-                </Menu.ItemGroup>
-                {auth && ( // should be auth.user
-                  <Menu.ItemGroup title="User">
-                    <Menu.Item
-                      key="profile"
-                      className="Header-menu-item-mobile"
-                    >
-                      Profile
-                    </Menu.Item>
-                    <Menu.Item
-                      key="settings"
-                      className="Header-menu-item-mobile"
-                    >
-                      Settings
-                    </Menu.Item>
-                    <Menu.Item key="logout" className="Header-menu-item-mobile">
-                      Log out
-                    </Menu.Item>
-                  </Menu.ItemGroup>
-                )}
-              </Menu>
-            }
-            placement="bottomRight"
-            trigger={['click']}
-          >
-            <Button ghost size="large" style={{ border: 0 }}>
-              <FontAwesome name="navicon" size="lg" />
-            </Button>
-          </Dropdown>
-        </div>
-      </Layout.Header>
+                <Dropdown.Menu>
+                  <Dropdown.Header>Navigation</Dropdown.Header>
+                  <Dropdown.Item active>Home</Dropdown.Item>
+                  <Dropdown.Item>Blog</Dropdown.Item>
+                  <Dropdown.Item>Projects</Dropdown.Item>
+                  <Dropdown.Item>CV</Dropdown.Item>
+                  <Dropdown.Divider />
+                  <Dropdown.Header>User</Dropdown.Header>
+                  <Dropdown.Item>Profile</Dropdown.Item>
+                  <Dropdown.Item>Settings</Dropdown.Item>
+                  <Dropdown.Item>Log out</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            </Responsive>
+          </Container>
+        </Menu>
+      </div>
     );
   }
 }
