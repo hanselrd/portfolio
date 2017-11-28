@@ -4,29 +4,6 @@
   min-height: 100vh;
 }
 
-.App-header {
-  position: fixed;
-  width: 100%;
-  padding: 0 30px;
-  display: flex;
-  flex-direction: row;
-  z-index: 1;
-}
-
-.App-logo {
-  margin-right: 20px;
-  height: 31px;
-  float: left;
-  color: white;
-  font-size: 1.5em;
-  font-weight: bold;
-}
-
-.App-menu {
-  line-height: 64px;
-  font-size: 1.25em;
-}
-
 .App-content {
   margin-top: 64px;
   flex: 1 0 auto;
@@ -37,20 +14,4 @@
   background: #333;
   color: white;
   padding: 40px 0;
-}
-
-.App-spacer {
-  flex: 1 0 auto;
-}
-
-@media only screen and (max-width: 570px) {
-  .App-menu {
-    display: none;
-  }
-}
-
-@media only screen and (min-width: 571px) {
-  .App-menu-mobile {
-    display: none;
-  }
 }

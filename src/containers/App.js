@@ -3,24 +3,16 @@ import '../styles/App.css';
 import { connect } from 'react-redux';
 import { mapStateToProps, mapDispatchToProps } from '../utils';
 import { Helmet } from 'react-helmet';
-import { Layout, Menu, Card, Button, Dropdown } from 'antd';
-import FontAwesome from 'react-fontawesome';
-
-const menu = (
-  <Menu style={{ width: 100 }} defaultSelectedKeys={['home']}>
-    <Menu.Item key="home">Home</Menu.Item>
-    <Menu.Item key="blog">Blog</Menu.Item>
-    <Menu.Item key="projects">Projects</Menu.Item>
-    <Menu.Item key="cv">CV</Menu.Item>
-  </Menu>
-);
+import { Layout, Card } from 'antd';
+import Header from '../components/Header';
 
 class App extends Component {
   componentDidMount() {
     this.props.handleAuthStateChanged();
   }
+
   render() {
-    const { auth } = this.props;
+    const { auth, login, logout } = this.props;
     const user = JSON.parse(JSON.stringify(auth.user));
     return (
       <div className="App">
@@ -28,32 +20,7 @@ class App extends Component {
           <title>App.js | Hansel De La Cruz</title>
         </Helmet>
         <Layout>
-          <Layout.Header className="App-header">
-            <span className="App-logo">Hansel De La Cruz</span>
-            <span className="App-spacer" />
-            <Menu
-              theme="dark"
-              mode="horizontal"
-              defaultSelectedKeys={['home']}
-              className="App-menu"
-            >
-              <Menu.Item key={'home'}>Home</Menu.Item>
-              <Menu.Item key={'blog'}>Blog</Menu.Item>
-              <Menu.Item key={'projects'}>Projects</Menu.Item>
-              <Menu.Item key={'cv'}>CV</Menu.Item>
-            </Menu>
-            <div className="App-menu-mobile">
-              <Dropdown
-                overlay={menu}
-                placement="bottomRight"
-                trigger={['click']}
-              >
-                <Button ghost size="large" style={{ border: 0 }}>
-                  <FontAwesome name="navicon" size="lg" />
-                </Button>
-              </Dropdown>
-            </div>
-          </Layout.Header>
+          <Header auth={auth} authActions={{ login, logout }} />
           <Layout.Content className="App-content">
             <Card
               title={
@@ -65,7 +32,7 @@ class App extends Component {
               {auth.user &&
                 Object.keys(user).map(key => {
                   return (
-                    <div>
+                    <div key={key}>
                       <h2>{key}</h2>
                       <p>{JSON.stringify(user[key])}</p>
                     </div>

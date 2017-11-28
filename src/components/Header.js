@@ -1,79 +1,102 @@
 import React, { Component } from 'react';
+import '../styles/Header.css';
+import { Layout, Menu, Button, Dropdown } from 'antd';
+import FontAwesome from 'react-fontawesome';
 import PropTypes from 'prop-types';
 
-// class Auth extends Component {
-//   static muiName = 'FlatButton';
-
-//   render() {
-//     const { auth, actions } = this.props;
-//     return (
-//       <IconMenu
-//         iconButtonElement={
-//           <FlatButton
-//             {...this.props}
-//             labelPosition="before"
-//             labelStyle={{ textTransform: 'none' }}
-//             label={auth.user.displayName}
-//             icon={<MoreVertIcon />}
-//           />
-//         }
-//         targetOrigin={{ horizontal: 'right', vertical: 'top' }}
-//         anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-//       >
-//         <MenuItem primaryText="Help" />
-//         <MenuItem
-//           primaryText="Log out"
-//           disabled={auth.logout.loading}
-//           onClick={() => actions.logout()}
-//         />
-//       </IconMenu>
-//     );
-//   }
-// }
-
-// class Guest extends Component {
-//   static muiName = 'FlatButton';
-
-//   render() {
-//     const { auth, actions } = this.props;
-//     return (
-//       <div>
-//         <FlatButton
-//           {...this.props}
-//           label="Login"
-//           disabled={auth.login.loading}
-//           onClick={() => actions.login({ provider: 'google', type: 'popup' })}
-//         />
-//         <FlatButton {...this.props} label="Signup" />
-//       </div>
-//     );
-//   }
-// }
+const links = {
+  // home: { name: 'Home', path: '' },
+  // blog: { name: 'Blog', path: '' },
+  // projects: { name: 'Projects', path: '' },
+  // cv: { name: 'CV', path: '' },
+  login: { name: 'Login', path: '' },
+  signup: { name: 'Signup', path: '' }
+};
 
 class Header extends Component {
+  state = {
+    selectedKeys: ['login']
+  };
+
+  handleOnSelect(item) {
+    console.log(item.keyPath);
+    this.setState({
+      selectedKeys: item.keyPath
+    });
+  }
+
+  handleUserOptions(item) {
+    const { authActions } = this.props;
+    switch (item.key) {
+      case 'logout':
+        authActions.logout();
+        break;
+      default:
+        break;
+    }
+  }
+
   render() {
-    const { auth, actions } = this.props;
+    const { auth } = this.props;
     return (
-      <div className="Header">
-        Header
-        {/* <AppBar
-          title={<small>Hansel De La Cruz</small>}
-          iconElementRight={
-            auth.user ? (
-              <Auth auth={auth} actions={actions} />
-            ) : (
-              <Guest auth={auth} actions={actions} />
-            )
-          }
-        /> */}
-      </div>
+      <Layout.Header className="Header">
+        <span className="Header-logo">Hansel De La Cruz</span>
+        <span className="Header-spacer" />
+        <Menu
+          theme="dark"
+          mode="horizontal"
+          defaultSelectedKeys={this.state.selectedKeys}
+          className="Header-menu"
+          onSelect={item => this.handleOnSelect(item)}
+        >
+          {Object.keys(links).map(key => {
+            return <Menu.Item key={key}>{links[key].name}</Menu.Item>;
+          })}
+        </Menu>
+        <div className="Header-menu-mobile">
+          <Dropdown
+            overlay={
+              <Menu
+                defaultSelectedKeys={this.state.selectedKeys}
+                style={{ width: 100 }}
+                onClick={item => this.handleOnSelect(item)}
+              >
+                {Object.keys(links).map(key => {
+                  return <Menu.Item key={key}>{links[key].name}</Menu.Item>;
+                })}
+              </Menu>
+            }
+            placement="bottomRight"
+            trigger={['click']}
+          >
+            <Button ghost size="large" style={{ border: 0 }}>
+              <FontAwesome name="navicon" size="lg" />
+            </Button>
+          </Dropdown>
+        </div>
+        {auth.user && (
+          <Dropdown
+            overlay={
+              <Menu onClick={item => this.handleUserOptions(item)}>
+                <Menu.Item key="logout">Log out</Menu.Item>
+              </Menu>
+            }
+            placement="bottomRight"
+            trigger={['click']}
+          >
+            <Button ghost size="large" style={{ border: 0 }}>
+              {auth.user && auth.user.displayName}
+            </Button>
+          </Dropdown>
+        )}
+      </Layout.Header>
     );
   }
 }
 
 Header.propTypes = {
   auth: PropTypes.object.isRequired,
-  actions: PropTypes.object.isRequired
+  authActions: PropTypes.object.isRequired
 };
 
 export default Header;
