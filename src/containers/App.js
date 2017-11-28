@@ -2,57 +2,84 @@ import React, { Component } from 'react';
 import '../styles/App.css';
 import { connect } from 'react-redux';
 import { mapStateToProps, mapDispatchToProps } from '../utils';
-import DocumentTitle from 'react-document-title';
-import Header from '../components/Header';
-import Counter from '../components/Counter';
+import { Helmet } from 'react-helmet';
+import { Layout, Menu, Card, Button, Dropdown } from 'antd';
+import FontAwesome from 'react-fontawesome';
+
+const menu = (
+  <Menu style={{ width: 100 }} defaultSelectedKeys={['home']}>
+    <Menu.Item key="home">Home</Menu.Item>
+    <Menu.Item key="blog">Blog</Menu.Item>
+    <Menu.Item key="projects">Projects</Menu.Item>
+    <Menu.Item key="cv">CV</Menu.Item>
+  </Menu>
+);
 
 class App extends Component {
   componentDidMount() {
     this.props.handleAuthStateChanged();
   }
   render() {
-    const {
-      auth,
-      login,
-      logout,
-      counter1,
-      counter2,
-      increment,
-      decrement,
-      add
-    } = this.props;
+    const { auth } = this.props;
+    const user = JSON.parse(JSON.stringify(auth.user));
     return (
-      <DocumentTitle title="App.js | Hansel De La Cruz">
-        <div className="App">
-          <Header auth={auth} actions={{ login, logout }} />
-          <div className="App-content">
-            <Counter
-              counter={counter1}
-              actions={{ increment, decrement, add }}
-            />
-            <Counter
-              counter={counter2}
-              actions={{ increment, decrement, add }}
-            />
-            {auth.user && <hr />}
-            <div>
+      <div className="App">
+        <Helmet>
+          <title>App.js | Hansel De La Cruz</title>
+        </Helmet>
+        <Layout>
+          <Layout.Header className="App-header">
+            <span className="App-logo">Hansel De La Cruz</span>
+            <span className="App-spacer" />
+            <Menu
+              theme="dark"
+              mode="horizontal"
+              defaultSelectedKeys={['home']}
+              className="App-menu"
+            >
+              <Menu.Item key={'home'}>Home</Menu.Item>
+              <Menu.Item key={'blog'}>Blog</Menu.Item>
+              <Menu.Item key={'projects'}>Projects</Menu.Item>
+              <Menu.Item key={'cv'}>CV</Menu.Item>
+            </Menu>
+            <div className="App-menu-mobile">
+              <Dropdown
+                overlay={menu}
+                placement="bottomRight"
+                trigger={['click']}
+              >
+                <Button ghost size="large" style={{ border: 0 }}>
+                  <FontAwesome name="navicon" size="lg" />
+                </Button>
+              </Dropdown>
+            </div>
+          </Layout.Header>
+          <Layout.Content className="App-content">
+            <Card
+              title={
+                <h1>
+                  <strong>App.js</strong>
+                </h1>
+              }
+            >
               {auth.user &&
-                Object.keys(JSON.parse(JSON.stringify(auth.user))).map(key => {
+                Object.keys(user).map(key => {
                   return (
-                    <div key={key}>
+                    <div>
                       <h2>{key}</h2>
-                      <p>
-                        {JSON.stringify(
-                          JSON.parse(JSON.stringify(auth.user))[key]
-                        )}
-                      </p>
+                      <p>{JSON.stringify(user[key])}</p>
                     </div>
                   );
                 })}
-            </div>
-          </div>
-        </div>
-      </DocumentTitle>
+            </Card>
+          </Layout.Content>
+          <Layout.Footer className="App-footer">
+            <p>fb in github</p>
+            <p>&copy; Copyright 2017 Hansel De La Cruz</p>
+            <p>Privacy Policy Sitemap Contact</p>
+          </Layout.Footer>
+        </Layout>
+      </div>
     );
   }
 }

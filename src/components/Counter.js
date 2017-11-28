@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import '../styles/Counter.css';
-import { RaisedButton } from 'material-ui';
+import { Button } from 'antd';
 import PropTypes from 'prop-types';
-
-const style = {
-  margin: 7
-};
 
 class Counter extends Component {
   render() {
@@ -14,13 +10,10 @@ class Counter extends Component {
       <div className="Counter">
         <p>Counter: {counter.count}</p>
         <div>
-          <RaisedButton
-            label="Increment"
-            primary
-            style={style}
-            onClick={() => actions.increment(counter)}
-          />
-          <RaisedButton
+          <Button type="primary" onClick={() => actions.increment(counter)}>
+            Increment
+          </Button>
+          {/* <RaisedButton
             label="Decrement"
             primary
             style={style}
@@ -31,7 +24,7 @@ class Counter extends Component {
             primary
             style={style}
             onClick={() => actions.add(counter, 5)}
-          />
+          /> */}
         </div>
       </div>
     );
