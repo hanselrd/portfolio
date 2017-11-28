@@ -31,14 +31,14 @@
   flex: 1 0 auto;
 }
 
-@media only screen and (max-width: 570px) {
+@media only screen and (max-width: 768px) {
   .Header-menu,
   .Header-menu-user {
     display: none;
   }
 }
 
-@media only screen and (min-width: 571px) {
+@media only screen and (min-width: 769px) {
   .Header-menu-mobile {
     display: none;
   }
