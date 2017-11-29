@@ -36,8 +36,12 @@ class Header extends Component {
               {auth.user && (
                 <Dropdown item simple text={auth.user.displayName}>
                   <Dropdown.Menu>
-                    <Dropdown.Item>Profile</Dropdown.Item>
-                    <Dropdown.Item>Settings</Dropdown.Item>
+                    <Dropdown.Item as={NavLink} to="/profile">
+                      Profile
+                    </Dropdown.Item>
+                    <Dropdown.Item as={NavLink} to="/settings">
+                      Settings
+                    </Dropdown.Item>
                     <Dropdown.Item onClick={() => authActions.logout()}>
                       Log out
                     </Dropdown.Item>
@@ -77,8 +81,12 @@ class Header extends Component {
                     <Aux>
                       <Dropdown.Divider />
                       <Dropdown.Header>{auth.user.displayName}</Dropdown.Header>
-                      <Dropdown.Item>Profile</Dropdown.Item>
-                      <Dropdown.Item>Settings</Dropdown.Item>
+                      <Dropdown.Item as={NavLink} to="/profile">
+                        Profile
+                      </Dropdown.Item>
+                      <Dropdown.Item as={NavLink} to="/settings">
+                        Settings
+                      </Dropdown.Item>
                       <Dropdown.Item onClick={() => authActions.logout()}>
                         Log out
                       </Dropdown.Item>
