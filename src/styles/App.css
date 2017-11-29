@@ -1,5 +1,20 @@
-.App {
+.App-print-hidden {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
+
+.App-print {
+  display: none;
+}
+
+@media print {
+  .App-print-hidden {
+    display: none;
+  }
+
+  .App-print {
+    display: block;
+  }
+}
+

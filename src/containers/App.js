@@ -17,11 +17,16 @@ class App extends Component {
     const { auth, login, logout } = this.props;
     return (
       <div className="App">
-        <Header auth={auth} authActions={{ login, logout }} />
-        <Container text style={{ marginTop: '5em', flex: 1 }}>
+        <div className="App-print-hidden">
+          <Header auth={auth} authActions={{ login, logout }} />
+          <Container text style={{ marginTop: '5em', flex: 1 }}>
+            <Routes />
+          </Container>
+          <Footer />
+        </div>
+        <div className="App-print">
           <Routes />
-        </Container>
-        <Footer />
+        </div>
       </div>
     );
   }
