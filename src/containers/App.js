@@ -19,7 +19,7 @@ class App extends Component {
       <div className="App">
         <div className="App-print-hidden">
           <Header auth={auth} authActions={{ login, logout }} />
-          <Container text style={{ marginTop: '5em', flex: 1 }}>
+          <Container text style={{ marginTop: '7em', flex: 1 }}>
             <Routes />
           </Container>
           <Footer />
