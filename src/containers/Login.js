@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { mapStateToProps, mapDispatchToProps } from '../utils';
 import { Helmet } from 'react-helmet';
-import { Button, Card, Form, Grid } from 'semantic-ui-react';
+import { Button, Card, Form, Grid, Message } from 'semantic-ui-react';
 
 class Login extends Component {
   render() {
@@ -18,6 +18,12 @@ class Login extends Component {
           </Card.Content>
           <Card.Content extra>
             <Card.Description>
+              <Message
+                error
+                header={auth.login.error && auth.login.error.code}
+                content={auth.login.error && auth.login.error.message}
+                hidden={!auth.login.error}
+              />
               <Grid divided stackable columns="equal">
                 <Grid.Row>
                   <Grid.Column width={6} textAlign="center">
@@ -85,18 +91,19 @@ class Login extends Component {
                   </Grid.Column>
                   <Grid.Column>
                     <Form>
-                      <Form.Field>
-                        <label>E-mail</label>
-                        <input type="text" placeholder="E-mail" />
-                      </Form.Field>
-                      <Form.Field>
-                        <label>Password</label>
-                        <input type="password" placeholder="Password" />
-                      </Form.Field>
-                      <Button primary type="submit">
+                      <Form.Input label="Email" placeholder="Email" disabled />
+                      <Form.Input
+                        type="password"
+                        label="Password"
+                        placeholder="Password"
+                        disabled
+                      />
+                      <Button primary type="submit" disabled>
                         Submit
                       </Button>
-                      <Button secondary>Create an account</Button>
+                      <Button secondary disabled>
+                        Create an account
+                      </Button>
                     </Form>
                   </Grid.Column>
                 </Grid.Row>
