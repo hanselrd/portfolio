@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import '../styles/Header.css';
 import { Container, Dropdown, Icon, Menu, Responsive } from 'semantic-ui-react';
+import { NavLink } from 'react-router-dom';
 import Aux from 'react-aux';
 import PropTypes from 'prop-types';
 
@@ -14,12 +16,18 @@ class Header extends Component {
               <span>Hansel De La Cruz</span>
             </Menu.Item>
             <Responsive as={Menu.Menu} position="right" minWidth={501}>
-              <Menu.Item as="a" active>
+              <Menu.Item as={NavLink} to="/home">
                 Home
               </Menu.Item>
-              <Menu.Item as="a">Blog</Menu.Item>
-              <Menu.Item as="a">Projects</Menu.Item>
-              <Menu.Item as="a">CV</Menu.Item>
+              <Menu.Item as={NavLink} to="/blog">
+                Blog
+              </Menu.Item>
+              <Menu.Item as={NavLink} to="/projects">
+                Projects
+              </Menu.Item>
+              <Menu.Item as={NavLink} to="/cv">
+                CV
+              </Menu.Item>
               {!auth.user && (
                 <Menu.Item
                   as="a"
@@ -53,10 +61,18 @@ class Header extends Component {
               >
                 <Dropdown.Menu>
                   <Dropdown.Header>Navigation</Dropdown.Header>
-                  <Dropdown.Item active>Home</Dropdown.Item>
-                  <Dropdown.Item>Blog</Dropdown.Item>
-                  <Dropdown.Item>Projects</Dropdown.Item>
-                  <Dropdown.Item>CV</Dropdown.Item>
+                  <Dropdown.Item as={NavLink} to="/home">
+                    Home
+                  </Dropdown.Item>
+                  <Dropdown.Item as={NavLink} to="/blog">
+                    Blog
+                  </Dropdown.Item>
+                  <Dropdown.Item as={NavLink} to="/projects">
+                    Projects
+                  </Dropdown.Item>
+                  <Dropdown.Item as={NavLink} to="/cv">
+                    CV
+                  </Dropdown.Item>
                   {!auth.user && (
                     <Dropdown.Item
                       onClick={() =>

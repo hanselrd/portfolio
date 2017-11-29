@@ -1,0 +1,29 @@
+.CV h1 {
+  font-weight: bold;
+  font-size: 1.6em;
+}
+
+.CV h2 {
+  font-weight: bold;
+  font-size: 1.2em;
+  padding: 0;
+  margin: 0;
+}
+
+.CV hr {
+  padding: 0;
+  margin: 5px;
+}
+
+.CV li {
+  padding: 1px 0;
+}
+
+.CV p {
+  padding: 0;
+  margin: 0;
+}
+
+.CV ul {
+  margin: 0;
+}
