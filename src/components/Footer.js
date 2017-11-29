@@ -65,9 +65,10 @@ class Footer extends Component {
                   </Header>
                   <Button
                     circular
+                    compact
                     color="facebook"
                     icon="facebook"
-                    size="huge"
+                    size="massive"
                     style={{ margin: '0 0.3em' }}
                     as="a"
                     href="https://facebook.com/hansel.delacruz.14"
@@ -75,9 +76,10 @@ class Footer extends Component {
                   />
                   <Button
                     circular
+                    compact
                     color="linkedin"
                     icon="linkedin"
-                    size="huge"
+                    size="massive"
                     style={{ margin: '0 0.3em' }}
                     as="a"
                     href="https://linkedin.com/in/hansel-de-la-cruz-532199144"
@@ -85,9 +87,10 @@ class Footer extends Component {
                   />
                   <Button
                     circular
+                    compact
                     color="grey"
                     icon="github"
-                    size="huge"
+                    size="massive"
                     style={{ margin: '0 0.3em' }}
                     as="a"
                     href="https://github.com/hanselrd"
@@ -97,7 +100,7 @@ class Footer extends Component {
               </Grid.Row>
             </Grid>
             <Divider inverted section />
-            <Container style={{ marginBottom: 20 }}>
+            <Container style={{ marginBottom: '2em' }}>
               <span>
                 &copy; Copyright {this.state.date.getFullYear()}{' '}
                 <strong>Hansel De La Cruz</strong>

@@ -28,12 +28,7 @@ class Header extends Component {
                 CV
               </Menu.Item>
               {!auth.user && (
-                <Menu.Item
-                  as="a"
-                  onClick={() =>
-                    authActions.login({ provider: 'google', type: 'popup' })
-                  }
-                >
+                <Menu.Item as={NavLink} to="/login">
                   Login
                 </Menu.Item>
               )}
@@ -73,14 +68,7 @@ class Header extends Component {
                     CV
                   </Dropdown.Item>
                   {!auth.user && (
-                    <Dropdown.Item
-                      onClick={() =>
-                        authActions.login({
-                          provider: 'google',
-                          type: 'popup'
-                        })
-                      }
-                    >
+                    <Dropdown.Item as={NavLink} to="/login">
                       Login
                     </Dropdown.Item>
                   )}

@@ -12,11 +12,11 @@
 
 .CV hr {
   padding: 0;
-  margin: 5px;
+  margin: 0.2em;
 }
 
 .CV li {
-  padding: 1px 0;
+  padding: 0;
 }
 
 .CV p {
