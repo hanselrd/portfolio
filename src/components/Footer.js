@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../styles/Footer.css';
 import {
   Button,
   Container,
@@ -8,6 +9,7 @@ import {
   List,
   Segment
 } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
 class Footer extends Component {
   state = {
@@ -103,16 +105,16 @@ class Footer extends Component {
               </span>
             </Container>
             <List horizontal inverted divided link>
-              <List.Item as="a" href="#">
+              <List.Item as={Link} to="/site-map">
                 Site Map
               </List.Item>
-              <List.Item as="a" href="#">
+              <List.Item as={Link} to="/contact-us">
                 Contact Us
               </List.Item>
-              <List.Item as="a" href="#">
+              <List.Item as={Link} to="/terms">
                 Terms and Conditions
               </List.Item>
-              <List.Item as="a" href="#">
+              <List.Item as={Link} to="/privacy-policy">
                 Privacy Policy
               </List.Item>
             </List>

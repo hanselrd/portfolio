@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import '../styles/App.css';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { mapStateToProps, mapDispatchToProps } from '../utils';
-import { Helmet } from 'react-helmet';
 import { Container } from 'semantic-ui-react';
 import Header from '../components/Header';
 import Routes from './Routes';
@@ -14,23 +14,11 @@ class App extends Component {
   }
 
   render() {
-    const {
-      auth,
-      login,
-      logout,
-      counter1,
-      counter2,
-      increment,
-      decrement,
-      add
-    } = this.props;
+    const { auth, login, logout } = this.props;
     return (
       <div className="App">
-        <Helmet>
-          <title>App.js | Hansel De La Cruz</title>
-        </Helmet>
         <Header auth={auth} authActions={{ login, logout }} />
-        <Container text style={{ marginTop: '3em', flex: 1 }}>
+        <Container text style={{ marginTop: '5em', flex: 1 }}>
           <Routes />
         </Container>
         <Footer />
@@ -39,4 +27,4 @@ class App extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
