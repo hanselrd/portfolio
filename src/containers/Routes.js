@@ -9,6 +9,12 @@ import CV from '../components/CV';
 import PrivacyPolicy from '../components/PrivacyPolicy';
 
 class Routes extends Component {
+  componentDidUpdate(prevProps) {
+    if (this.props.location !== prevProps.location) {
+      window.scrollTo(0, 0);
+    }
+  }
+
   render() {
     return (
       <Switch>
