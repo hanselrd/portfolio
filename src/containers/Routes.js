@@ -6,6 +6,7 @@ import Home from '../components/Home';
 import Blog from '../components/Blog';
 import Projects from '../components/Projects';
 import CV from '../components/CV';
+import PrivacyPolicy from '../components/PrivacyPolicy';
 
 class Routes extends Component {
   render() {
@@ -19,11 +20,7 @@ class Routes extends Component {
         <Route exact path="/site-map" render={() => <p>Site Map</p>} />
         <Route exact path="/contact-us" render={() => <p>Contact Us</p>} />
         <Route exact path="/terms" render={() => <p>Terms</p>} />
-        <Route
-          exact
-          path="/privacy-policy"
-          render={() => <p>Privacy Policy</p>}
-        />
+        <Route exact path="/privacy-policy" component={PrivacyPolicy} />
         <Route render={() => <p>Error 404</p>} />
       </Switch>
     );
