@@ -9,6 +9,7 @@ import Projects from '../components/Projects';
 import CV from '../components/CV';
 import Login from '../containers/Login';
 import PrivacyPolicy from '../components/PrivacyPolicy';
+import NotFound from '../components/NotFound';
 
 class Routes extends Component {
   componentDidUpdate(prevProps) {
@@ -30,7 +31,7 @@ class Routes extends Component {
         <Route exact path="/contact-us" render={() => <p>Contact Us</p>} />
         <Route exact path="/terms" render={() => <p>Terms</p>} />
         <Route exact path="/privacy-policy" component={PrivacyPolicy} />
-        <Route render={() => <p>Error 404</p>} />
+        <Route component={NotFound} />
       </Switch>
     );
   }
