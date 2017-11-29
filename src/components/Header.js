@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../styles/Header.css';
 import { Container, Dropdown, Icon, Menu, Responsive } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
 import Aux from 'react-aux';
