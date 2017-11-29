@@ -12,6 +12,7 @@ class Header extends Component {
         <Menu fixed="top" inverted>
           <Container>
             <Menu.Item as="a" header>
+              <Icon name="bookmark outline" size="big" color="blue" />
               <span>Hansel De La Cruz</span>
             </Menu.Item>
             <Responsive as={Menu.Menu} position="right" minWidth={501}>
