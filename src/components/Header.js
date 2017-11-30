@@ -54,7 +54,7 @@ class Header extends Component {
                 item
                 icon={
                   <span>
-                    <Icon name="sidebar" /> Menu
+                    <Icon name="sidebar" size="large" /> Menu
                   </span>
                 }
               >
