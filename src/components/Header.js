@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Dropdown, Icon, Menu, Responsive } from 'semantic-ui-react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import Aux from 'react-aux';
 import PropTypes from 'prop-types';
 
@@ -11,7 +11,7 @@ class Header extends Component {
       <div className="Header">
         <Menu fixed="top" inverted>
           <Container>
-            <Menu.Item as="a" header>
+            <Menu.Item as={Link} to="/home" header>
               <Icon name="bookmark outline" size="big" color="blue" />
               <span>Hansel De La Cruz</span>
             </Menu.Item>
