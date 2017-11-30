@@ -11,11 +11,20 @@ class Header extends Component {
       <div className="Header">
         <Menu fixed="top" inverted>
           <Container>
+            <Responsive as={Aux} maxWidth={Responsive.onlyTablet.maxWidth}>
+              <Menu.Item as="a">
+                <Icon name="sidebar" size="large" />
+              </Menu.Item>
+            </Responsive>
             <Menu.Item as={Link} to="/home" header>
               <Icon name="bookmark outline" size="big" color="blue" />
               <span>Hansel De La Cruz</span>
             </Menu.Item>
-            <Responsive as={Menu.Menu} position="right" minWidth={501}>
+            <Responsive
+              as={Menu.Menu}
+              position="right"
+              minWidth={Responsive.onlyComputer.minWidth}
+            >
               <Menu.Item as={NavLink} to="/home">
                 Home
               </Menu.Item>
@@ -48,52 +57,6 @@ class Header extends Component {
                   </Dropdown.Menu>
                 </Dropdown>
               )}
-            </Responsive>
-            <Responsive as={Menu.Menu} position="right" maxWidth={500}>
-              <Dropdown
-                item
-                icon={
-                  <span>
-                    <Icon name="sidebar" size="large" /> Menu
-                  </span>
-                }
-              >
-                <Dropdown.Menu>
-                  <Dropdown.Header>Navigation</Dropdown.Header>
-                  <Dropdown.Item as={NavLink} to="/home">
-                    Home
-                  </Dropdown.Item>
-                  <Dropdown.Item as={NavLink} to="/blog">
-                    Blog
-                  </Dropdown.Item>
-                  <Dropdown.Item as={NavLink} to="/projects">
-                    Projects
-                  </Dropdown.Item>
-                  <Dropdown.Item as={NavLink} to="/cv">
-                    CV
-                  </Dropdown.Item>
-                  {!auth.user && (
-                    <Dropdown.Item as={NavLink} to="/login">
-                      Login
-                    </Dropdown.Item>
-                  )}
-                  {auth.user && (
-                    <Aux>
-                      <Dropdown.Divider />
-                      <Dropdown.Header>{auth.user.displayName}</Dropdown.Header>
-                      <Dropdown.Item as={NavLink} to="/profile">
-                        Profile
-                      </Dropdown.Item>
-                      <Dropdown.Item as={NavLink} to="/settings">
-                        Settings
-                      </Dropdown.Item>
-                      <Dropdown.Item onClick={() => authActions.logout()}>
-                        Log out
-                      </Dropdown.Item>
-                    </Aux>
-                  )}
-                </Dropdown.Menu>
-              </Dropdown>
             </Responsive>
           </Container>
         </Menu>
