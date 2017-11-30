@@ -18,7 +18,7 @@ class Header extends Component {
             </Responsive>
             <Menu.Item as={Link} to="/home" header>
               <Icon name="bookmark outline" size="big" color="blue" />
-              <span>Hansel De La Cruz</span>
+              Hansel De La Cruz
             </Menu.Item>
             <Responsive
               as={Menu.Menu}
