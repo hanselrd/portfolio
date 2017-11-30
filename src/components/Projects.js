@@ -21,6 +21,7 @@ class Projects extends Component {
           <title>Projects | Hansel De La Cruz</title>
         </Helmet>
         <h1>Projects</h1>
+        <br />
         <Card.Group itemsPerRow={2} stackable>
           <Card
             raised
