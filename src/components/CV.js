@@ -107,8 +107,7 @@ class CV extends Component {
               developing this website on my free time to serve as a way for
               employers and others to see my work and get in contact with me. At
               first I had the idea of creating my own blog but I wanted to do so
-              much more. I went from a simple blog to a website that showcases
-              my abilities and provides easy access to my CV!
+              much more.
             </p>
           </li>
           <li>
@@ -136,7 +135,7 @@ class CV extends Component {
               </a>
             </p>
             <p>
-              This project is also being developed on my free time alongside{' '}
+              This project is being developed on my free time alongside{' '}
               <em>Portfolio</em>. The goal is to create a web-based application
               using <em>Angular</em> and <em>Firebase</em>'s authentication API
               to allow users to traditionally sign up or log in using their
@@ -185,7 +184,7 @@ class CV extends Component {
               on their energy bills. We used Google Assist to provide a personal
               energy auditor that can safely be activated from your computer or
               mobile device. We won best beginner hack as it was our first{' '}
-              <em>America East Hackathon</em>!
+              <em>America East Hackathon</em>.
             </p>
           </li>
           <li>
@@ -205,10 +204,10 @@ class CV extends Component {
             <p>
               This project was developed by myself alongside two of my peers. I
               served as team leader and we used agile development to organize
-              meetings and plan sprints. We developed a game that dynamically
-              loads in maps using <em>Tiled</em>'s <em>.tmx</em> format and uses{' '}
-              <em>Python</em> as its scripting language to create a simple API
-              for creating NPCs.
+              meetings and plan sprints. We developed a game in <em>C++</em>{' '}
+              that dynamically loads in maps using <em>Tiled</em>'s{' '}
+              <em>.tmx</em> format and uses <em>Python</em> as its scripting
+              language to create a simple API for creating NPCs.
             </p>
           </li>
         </ul>
