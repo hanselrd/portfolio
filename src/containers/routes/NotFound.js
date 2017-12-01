@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { mapStateToProps, mapDispatchToProps } from '../../utils';
 import { Helmet } from 'react-helmet';
 import { Icon, Message } from 'semantic-ui-react';
 
@@ -23,4 +25,4 @@ class NotFound extends Component {
   }
 }
 
-export default NotFound;
+export default connect(mapStateToProps, mapDispatchToProps)(NotFound);

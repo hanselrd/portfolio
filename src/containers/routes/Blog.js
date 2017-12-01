@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { mapStateToProps, mapDispatchToProps } from '../../utils';
 import { Helmet } from 'react-helmet';
 
 class Blog extends Component {
@@ -14,4 +16,4 @@ class Blog extends Component {
   }
 }
 
-export default Blog;
+export default connect(mapStateToProps, mapDispatchToProps)(Blog);

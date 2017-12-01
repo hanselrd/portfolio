@@ -4,15 +4,15 @@ import { connect } from 'react-redux';
 import { mapStateToProps, mapDispatchToProps } from '../utils';
 import AuthRoute from './AuthRoute';
 import GuestRoute from './GuestRoute';
-import Home from '../components/Home';
-import Blog from '../components/Blog';
-import Projects from '../components/Projects';
-import CV from '../components/CV';
-import Login from '../containers/Login';
-import Profile from '../components/Profile';
-import Settings from '../components/Settings';
-import PrivacyPolicy from '../components/PrivacyPolicy';
-import NotFound from '../components/NotFound';
+import Home from './routes/Home';
+import Blog from './routes/Blog';
+import Projects from './routes/Projects';
+import CV from './routes/CV';
+import Login from './routes/Login';
+import Profile from './routes/Profile';
+import Settings from './routes/Settings';
+import PrivacyPolicy from './routes/PrivacyPolicy';
+import NotFound from './routes/NotFound';
 
 class Routes extends Component {
   componentDidUpdate(prevProps) {

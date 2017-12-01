@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { mapStateToProps, mapDispatchToProps } from '../../utils';
 import { Helmet } from 'react-helmet';
 import { Card, Image } from 'semantic-ui-react';
-import angularLogo from '../logos/angular-icon.svg';
-import reactLogo from '../logos/facebook_react-icon.svg';
-import firebaseLogo from '../logos/firebase-icon.svg';
-import microsoftLogo from '../logos/microsoft-icon.svg';
-import linuxLogo from '../logos/linux-icon.svg';
+import angularLogo from '../../logos/angular-icon.svg';
+import reactLogo from '../../logos/facebook_react-icon.svg';
+import firebaseLogo from '../../logos/firebase-icon.svg';
+import microsoftLogo from '../../logos/microsoft-icon.svg';
+import linuxLogo from '../../logos/linux-icon.svg';
 
 const reactImage = <Image floated="right" src={reactLogo} />;
 const angularImage = <Image floated="right" src={angularLogo} />;
@@ -116,4 +118,4 @@ class Projects extends Component {
   }
 }
 
-export default Projects;
+export default connect(mapStateToProps, mapDispatchToProps)(Projects);

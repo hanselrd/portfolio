@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { mapStateToProps, mapDispatchToProps } from '../../utils';
 import { Helmet } from 'react-helmet';
 
 class PrivacyPolicy extends Component {
@@ -45,4 +47,4 @@ class PrivacyPolicy extends Component {
   }
 }
 
-export default PrivacyPolicy;
+export default connect(mapStateToProps, mapDispatchToProps)(PrivacyPolicy);
