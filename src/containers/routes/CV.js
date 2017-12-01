@@ -3,6 +3,53 @@ import '../../styles/CV.css';
 import { connect } from 'react-redux';
 import { mapStateToProps, mapDispatchToProps } from '../../utils';
 import { Helmet } from 'react-helmet';
+import { Grid, Responsive } from 'semantic-ui-react';
+import Aux from 'react-aux';
+
+const email = (
+  <p>
+    Email:{' '}
+    <a href="mailto:hansel_delacruz@student.uml.edu">
+      hansel_delacruz@student.uml.edu
+    </a>
+  </p>
+);
+const website = (
+  <p>
+    Website:{' '}
+    <a
+      href="https://hanseldelacruz.com"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      hanseldelacruz.com
+    </a>
+  </p>
+);
+const linkedin = (
+  <p>
+    LinkedIn:{' '}
+    <a
+      href="https://linkedin.com/in/hansel-de-la-cruz-532199144"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      hansel-de-la-cruz-532199144
+    </a>
+  </p>
+);
+const github = (
+  <p>
+    GitHub:{' '}
+    <a
+      href="https://github.com/hanselrd"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      hanselrd
+    </a>
+  </p>
+);
 
 class CV extends Component {
   render() {
@@ -13,45 +60,28 @@ class CV extends Component {
         </Helmet>
         <div style={{ textAlign: 'center' }}>
           <h1>Hansel De La Cruz</h1>
-          <p>
-            Website:{' '}
-            <a
-              href="https://hanseldelacruz.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              hanseldelacruz.com
-            </a>
-          </p>
-          <p>
-            E-mail:{' '}
-            <a href="mailto:hansel_delacruz@student.uml.edu">
-              hansel_delacruz@student.uml.edu
-            </a>
-          </p>
-          <p>
-            GitHub:{' '}
-            <a
-              href="https://github.com/hanselrd"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              hanselrd
-            </a>
-          </p>
-          <p>
-            LinkedIn:{' '}
-            <a
-              href="https://linkedin.com/in/hansel-de-la-cruz-532199144"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              hansel-de-la-cruz-532199144
-            </a>
-          </p>
+          <Responsive as={Aux} {...Responsive.onlyMobile}>
+            {email}
+            {website}
+            {linkedin}
+            {github}
+          </Responsive>
+          <Responsive as={Aux} minWidth={Responsive.onlyTablet.minWidth}>
+            <Grid stackable columns="equal">
+              <Grid.Row>
+                <Grid.Column textAlign="right">
+                  {email}
+                  {website}
+                </Grid.Column>
+                <Grid.Column textAlign="left">
+                  {linkedin}
+                  {github}
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+          </Responsive>
         </div>
         <hr />
-
         <h2>EDUCATION</h2>
         <ul>
           <li>
