@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import '../styles/CV.css';
+import '../../styles/CV.css';
+import { connect } from 'react-redux';
+import { mapStateToProps, mapDispatchToProps } from '../../utils';
 import { Helmet } from 'react-helmet';
 
 class CV extends Component {
@@ -254,4 +256,4 @@ class CV extends Component {
   }
 }
 
-export default CV;
+export default connect(mapStateToProps, mapDispatchToProps)(CV);
