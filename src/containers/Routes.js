@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { mapStateToProps, mapDispatchToProps } from '../utils';
+import Scroll from 'react-scroll';
 import AuthRoute from './AuthRoute';
 import GuestRoute from './GuestRoute';
 import Home from './routes/Home';
@@ -17,7 +18,7 @@ import NotFound from './routes/NotFound';
 class Routes extends Component {
   componentDidUpdate(prevProps) {
     if (this.props.location !== prevProps.location) {
-      window.scrollTo(0, 0);
+      Scroll.animateScroll.scrollToTop();
     }
   }
 
