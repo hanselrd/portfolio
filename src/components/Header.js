@@ -9,7 +9,11 @@ class Header extends Component {
     const { auth, authActions } = this.props;
     return (
       <div className="Header">
-        <Menu fixed="top" inverted>
+        <Menu
+          fixed="top"
+          inverted
+          style={{ boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.4)' }}
+        >
           <Container>
             <Responsive as={Aux} maxWidth={Responsive.onlyTablet.maxWidth}>
               <Dropdown item icon={<Icon name="sidebar" size="large" />}>
