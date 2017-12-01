@@ -58,23 +58,28 @@ class Header extends Component {
               Hansel De La Cruz
             </Menu.Item>
             <Responsive as={Aux} minWidth={Responsive.onlyComputer.minWidth}>
+              <Menu.Item as={NavLink} to="/home">
+                Home
+              </Menu.Item>
+              <Menu.Item as={NavLink} to="/blog">
+                Blog
+              </Menu.Item>
+              <Menu.Item as={NavLink} to="/projects">
+                Projects
+              </Menu.Item>
+              <Menu.Item as={NavLink} to="/cv">
+                CV
+              </Menu.Item>
               <Menu.Menu position="right">
-                <Menu.Item as={NavLink} to="/home">
-                  Home
-                </Menu.Item>
-                <Menu.Item as={NavLink} to="/blog">
-                  Blog
-                </Menu.Item>
-                <Menu.Item as={NavLink} to="/projects">
-                  Projects
-                </Menu.Item>
-                <Menu.Item as={NavLink} to="/cv">
-                  CV
-                </Menu.Item>
                 {!auth.user && (
-                  <Menu.Item as={NavLink} to="/login">
-                    Login
-                  </Menu.Item>
+                  <Aux>
+                    <Menu.Item as={NavLink} to="/login">
+                      Log in
+                    </Menu.Item>
+                    <Menu.Item as={NavLink} to="/signup">
+                      Sign up
+                    </Menu.Item>
+                  </Aux>
                 )}
                 {auth.user && (
                   <Dropdown item simple text={auth.user.displayName}>
