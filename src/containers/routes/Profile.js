@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { mapStateToProps, mapDispatchToProps } from '../../utils';
-import { Helmet } from 'react-helmet';
+import Page from '../../components/Page';
 
 class Profile extends Component {
   render() {
     return (
       <div className="Profile">
-        <Helmet>
-          <title>Profile | Hansel De La Cruz</title>
-        </Helmet>
-        <p>Profile</p>
+        <Page title="Profile">
+          <p>Profile</p>
+        </Page>
       </div>
     );
   }

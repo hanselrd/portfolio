@@ -9,7 +9,8 @@ import Routes from './Routes';
 import Footer from '../components/Footer';
 
 class App extends Component {
-  componentDidMount() {
+  constructor(props) {
+    super(props);
     this.props.handleAuthStateChanged();
   }
 
