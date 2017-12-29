@@ -9,6 +9,7 @@ import Home from './routes/Home';
 import Blog from './routes/Blog';
 import Projects from './routes/Projects';
 import CV from './routes/CV';
+import Game from './routes/Game';
 import Login from './routes/Login';
 import Profile from './routes/Profile';
 import Settings from './routes/Settings';
@@ -30,6 +31,7 @@ class Routes extends Component {
         <Route exact path="/blog" component={Blog} />
         <Route exact path="/projects" component={Projects} />
         <Route exact path="/cv" component={CV} />
+        <AuthRoute exact path="/game" component={Game} />
         <GuestRoute exact path="/login" component={Login} />
         <AuthRoute exact path="/profile" component={Profile} />
         <AuthRoute exact path="/settings" component={Settings} />

@@ -31,6 +31,11 @@ class Header extends Component {
                   <Dropdown.Item as={NavLink} to="/cv">
                     CV
                   </Dropdown.Item>
+                  {auth.user && (
+                    <Dropdown.Item as={NavLink} to="/game">
+                      Game
+                    </Dropdown.Item>
+                  )}
                 </Dropdown.Menu>
               </Dropdown>
             </Responsive>
@@ -51,6 +56,11 @@ class Header extends Component {
               <Menu.Item as={NavLink} to="/cv">
                 CV
               </Menu.Item>
+              {auth.user && (
+                <Menu.Item as={NavLink} to="/game">
+                  Game
+                </Menu.Item>
+              )}
             </Responsive>
             <Menu.Menu position="right">
               <Responsive as={Aux} {...Responsive.onlyMobile}>
