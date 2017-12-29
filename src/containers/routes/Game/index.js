@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { mapStateToProps, mapDispatchToProps } from '../../utils';
-import Page from '../../components/Page';
-import sky from './game/assets/sky.png';
-import platform from './game/assets/platform.png';
-import star from './game/assets/star.png';
-import dude from './game/assets/dude.png';
-
-window.PIXI = require('phaser-ce/build/custom/pixi');
-window.p2 = require('phaser-ce/build/custom/p2');
-const Phaser = (window.Phaser = require('phaser-ce/build/custom/phaser-split'));
+import { mapStateToProps, mapDispatchToProps } from '../../../utils';
+import Page from '../../../components/Page';
+import Phaser from './phaser';
+import sky from './assets/sky.png';
+import platform from './assets/platform.png';
+import star from './assets/star.png';
+import dude from './assets/dude.png';
 
 class Game extends Component {
   game = null;
