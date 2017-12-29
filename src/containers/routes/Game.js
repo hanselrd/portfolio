@@ -7,9 +7,9 @@ import platform from './game/assets/platform.png';
 import star from './game/assets/star.png';
 import dude from './game/assets/dude.png';
 
-window.PIXI = require('phaser/build/custom/pixi');
-window.p2 = require('phaser/build/custom/p2');
-const Phaser = (window.Phaser = require('phaser/build/custom/phaser-split'));
+window.PIXI = require('phaser-ce/build/custom/pixi');
+window.p2 = require('phaser-ce/build/custom/p2');
+const Phaser = (window.Phaser = require('phaser-ce/build/custom/phaser-split'));
 
 class Game extends Component {
   game = null;
@@ -106,8 +106,9 @@ class Game extends Component {
     }
   }
 
-  componentWillMount() {
-    this.game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', {
+  componentDidMount() {
+    console.log(this.gameRef);
+    this.game = new Phaser.Game(800, 600, Phaser.AUTO, this.gameRef, {
       preload: this.preload,
       create: this.create,
       update: this.update
@@ -116,13 +117,18 @@ class Game extends Component {
 
   componentWillUnmount() {
     this.game.destroy();
+    this.game = null;
   }
 
   render() {
     return (
       <div className="Game">
         <Page title="Game" subtitle="Phaser game tutorial">
-          <div id="game" />
+          <div
+            ref={div => {
+              this.gameRef = div;
+            }}
+          />
         </Page>
       </div>
     );
