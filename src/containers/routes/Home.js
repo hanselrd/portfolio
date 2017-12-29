@@ -3,6 +3,19 @@ import { connect } from 'react-redux';
 import { mapStateToProps, mapDispatchToProps } from '../../utils';
 import Page from '../../components/Page';
 import Counter from '../../components/Counter';
+import { Transition } from 'react-transition-group';
+
+const duration = 600;
+
+const defaultStyle = {
+  transition: `opacity ${duration}ms ease-in-out`,
+  opacity: 0
+};
+
+const transitionStyles = {
+  entering: { opacity: 0 },
+  entered: { opacity: 1 }
+};
 
 class Home extends Component {
   render() {
@@ -10,14 +23,20 @@ class Home extends Component {
     return (
       <div className="Home">
         <Page title="Home" subtitle="Independent counters stored in redux">
-          <Counter
-            counter={counter1}
-            counterActions={{ increment, decrement, add }}
-          />
-          <Counter
-            counter={counter2}
-            counterActions={{ increment, decrement, add }}
-          />
+          <Transition appear in timeout={duration}>
+            {state => (
+              <div style={{ ...defaultStyle, ...transitionStyles[state] }}>
+                <Counter
+                  counter={counter1}
+                  counterActions={{ increment, decrement, add }}
+                />
+                <Counter
+                  counter={counter2}
+                  counterActions={{ increment, decrement, add }}
+                />
+              </div>
+            )}
+          </Transition>
         </Page>
       </div>
     );
