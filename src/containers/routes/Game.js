@@ -107,7 +107,6 @@ class Game extends Component {
   }
 
   componentDidMount() {
-    console.log(this.gameRef);
     this.game = new Phaser.Game(800, 600, Phaser.AUTO, this.gameRef, {
       preload: this.preload,
       create: this.create,
