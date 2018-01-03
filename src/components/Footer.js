@@ -9,6 +9,13 @@ import {
   Segment
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import LocalizedStrings from 'react-localization';
+
+let strings = new LocalizedStrings({
+  en: require('../locales/en/footer'),
+  es: require('../locales/es/footer'),
+  ja: require('../locales/ja/footer')
+});
 
 class Footer extends Component {
   state = {
@@ -28,40 +35,64 @@ class Footer extends Component {
               <Grid.Row>
                 <Grid.Column width={3}>
                   <Header inverted as="h4">
-                    Group 1
+                    {strings.group} 1
                   </Header>
                   <List link inverted>
-                    <List.Item as="a">Link One</List.Item>
-                    <List.Item as="a">Link Two</List.Item>
-                    <List.Item as="a">Link Three</List.Item>
-                    <List.Item as="a">Link Four</List.Item>
+                    <List.Item as="a">
+                      {strings.formatString(strings.link, strings.one)}
+                    </List.Item>
+                    <List.Item as="a">
+                      {strings.formatString(strings.link, strings.two)}
+                    </List.Item>
+                    <List.Item as="a">
+                      {strings.formatString(strings.link, strings.three)}
+                    </List.Item>
+                    <List.Item as="a">
+                      {strings.formatString(strings.link, strings.four)}
+                    </List.Item>
                   </List>
                 </Grid.Column>
                 <Grid.Column width={3}>
                   <Header inverted as="h4">
-                    Group 2
+                    {strings.group} 2
                   </Header>
                   <List link inverted>
-                    <List.Item as="a">Link One</List.Item>
-                    <List.Item as="a">Link Two</List.Item>
-                    <List.Item as="a">Link Three</List.Item>
-                    <List.Item as="a">Link Four</List.Item>
+                    <List.Item as="a">
+                      {strings.formatString(strings.link, strings.one)}
+                    </List.Item>
+                    <List.Item as="a">
+                      {strings.formatString(strings.link, strings.two)}
+                    </List.Item>
+                    <List.Item as="a">
+                      {strings.formatString(strings.link, strings.three)}
+                    </List.Item>
+                    <List.Item as="a">
+                      {strings.formatString(strings.link, strings.four)}
+                    </List.Item>
                   </List>
                 </Grid.Column>
                 <Grid.Column width={3}>
                   <Header inverted as="h4">
-                    Group 3
+                    {strings.group} 3
                   </Header>
                   <List link inverted>
-                    <List.Item as="a">Link One</List.Item>
-                    <List.Item as="a">Link Two</List.Item>
-                    <List.Item as="a">Link Three</List.Item>
-                    <List.Item as="a">Link Four</List.Item>
+                    <List.Item as="a">
+                      {strings.formatString(strings.link, strings.one)}
+                    </List.Item>
+                    <List.Item as="a">
+                      {strings.formatString(strings.link, strings.two)}
+                    </List.Item>
+                    <List.Item as="a">
+                      {strings.formatString(strings.link, strings.three)}
+                    </List.Item>
+                    <List.Item as="a">
+                      {strings.formatString(strings.link, strings.four)}
+                    </List.Item>
                   </List>
                 </Grid.Column>
                 <Grid.Column width={7}>
                   <Header inverted as="h4">
-                    Connect With Me
+                    {strings.connectWithMe}
                   </Header>
                   <Button
                     circular
@@ -108,16 +139,16 @@ class Footer extends Component {
             </Container>
             <List horizontal inverted divided link>
               <List.Item as={Link} to="/site-map">
-                Site Map
+                {strings.siteMap}
               </List.Item>
               <List.Item as={Link} to="/contact-us">
-                Contact Us
+                {strings.contactUs}
               </List.Item>
               <List.Item as={Link} to="/terms">
-                Terms and Conditions
+                {strings.termsAndConditions}
               </List.Item>
               <List.Item as={Link} to="/privacy-policy">
-                Privacy Policy
+                {strings.privacyPolicy}
               </List.Item>
             </List>
           </Container>
