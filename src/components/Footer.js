@@ -9,13 +9,7 @@ import {
   Segment
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import LocalizedStrings from 'react-localization';
-
-let strings = new LocalizedStrings({
-  en: require('../locales/en/footer'),
-  es: require('../locales/es/footer'),
-  ja: require('../locales/ja/footer')
-});
+import locales from '../locales';
 
 class Footer extends Component {
   state = {
@@ -35,64 +29,100 @@ class Footer extends Component {
               <Grid.Row>
                 <Grid.Column width={3}>
                   <Header inverted as="h4">
-                    {strings.group} 1
+                    {locales.footer.group} 1
                   </Header>
                   <List link inverted>
                     <List.Item as="a">
-                      {strings.formatString(strings.link, strings.one)}
+                      {locales.formatString(
+                        locales.footer.link,
+                        locales.footer.one
+                      )}
                     </List.Item>
                     <List.Item as="a">
-                      {strings.formatString(strings.link, strings.two)}
+                      {locales.formatString(
+                        locales.footer.link,
+                        locales.footer.two
+                      )}
                     </List.Item>
                     <List.Item as="a">
-                      {strings.formatString(strings.link, strings.three)}
+                      {locales.formatString(
+                        locales.footer.link,
+                        locales.footer.three
+                      )}
                     </List.Item>
                     <List.Item as="a">
-                      {strings.formatString(strings.link, strings.four)}
+                      {locales.formatString(
+                        locales.footer.link,
+                        locales.footer.four
+                      )}
                     </List.Item>
                   </List>
                 </Grid.Column>
                 <Grid.Column width={3}>
                   <Header inverted as="h4">
-                    {strings.group} 2
+                    {locales.footer.group} 2
                   </Header>
                   <List link inverted>
                     <List.Item as="a">
-                      {strings.formatString(strings.link, strings.one)}
+                      {locales.formatString(
+                        locales.footer.link,
+                        locales.footer.one
+                      )}
                     </List.Item>
                     <List.Item as="a">
-                      {strings.formatString(strings.link, strings.two)}
+                      {locales.formatString(
+                        locales.footer.link,
+                        locales.footer.two
+                      )}
                     </List.Item>
                     <List.Item as="a">
-                      {strings.formatString(strings.link, strings.three)}
+                      {locales.formatString(
+                        locales.footer.link,
+                        locales.footer.three
+                      )}
                     </List.Item>
                     <List.Item as="a">
-                      {strings.formatString(strings.link, strings.four)}
+                      {locales.formatString(
+                        locales.footer.link,
+                        locales.footer.four
+                      )}
                     </List.Item>
                   </List>
                 </Grid.Column>
                 <Grid.Column width={3}>
                   <Header inverted as="h4">
-                    {strings.group} 3
+                    {locales.footer.group} 3
                   </Header>
                   <List link inverted>
                     <List.Item as="a">
-                      {strings.formatString(strings.link, strings.one)}
+                      {locales.formatString(
+                        locales.footer.link,
+                        locales.footer.one
+                      )}
                     </List.Item>
                     <List.Item as="a">
-                      {strings.formatString(strings.link, strings.two)}
+                      {locales.formatString(
+                        locales.footer.link,
+                        locales.footer.two
+                      )}
                     </List.Item>
                     <List.Item as="a">
-                      {strings.formatString(strings.link, strings.three)}
+                      {locales.formatString(
+                        locales.footer.link,
+                        locales.footer.three
+                      )}
                     </List.Item>
                     <List.Item as="a">
-                      {strings.formatString(strings.link, strings.four)}
+                      {locales.formatString(
+                        locales.footer.link,
+                        locales.footer.four
+                      )}
                     </List.Item>
                   </List>
                 </Grid.Column>
                 <Grid.Column width={7}>
                   <Header inverted as="h4">
-                    {strings.connectWithMe}
+                    {locales.footer.connectWithMe}
                   </Header>
                   <Button
                     circular
@@ -139,16 +169,16 @@ class Footer extends Component {
             </Container>
             <List horizontal inverted divided link>
               <List.Item as={Link} to="/site-map">
-                {strings.siteMap}
+                {locales.footer.siteMap}
               </List.Item>
               <List.Item as={Link} to="/contact-us">
-                {strings.contactUs}
+                {locales.footer.contactUs}
               </List.Item>
               <List.Item as={Link} to="/terms">
-                {strings.termsAndConditions}
+                {locales.footer.termsAndConditions}
               </List.Item>
               <List.Item as={Link} to="/privacy-policy">
-                {strings.privacyPolicy}
+                {locales.footer.privacyPolicy}
               </List.Item>
             </List>
           </Container>

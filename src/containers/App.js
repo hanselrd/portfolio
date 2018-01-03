@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import detectPrint from 'react-detect-print';
 import { mapStateToProps, mapDispatchToProps } from '../utils';
 import { Container } from 'semantic-ui-react';
+import locales from '../locales';
 import Header from '../components/Header';
 import Routes from './Routes';
 import Footer from '../components/Footer';
@@ -13,6 +14,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.props.handleAuthStateChanged();
+    locales.setLanguage('ja');
   }
 
   render() {
