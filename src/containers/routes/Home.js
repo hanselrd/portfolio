@@ -4,6 +4,7 @@ import { mapStateToProps, mapDispatchToProps } from '../../utils';
 import Page from '../../components/Page';
 import Counter from '../../components/Counter';
 import { Transition } from 'react-transition-group';
+import locales from '../../locales';
 
 const duration = 600;
 
@@ -22,7 +23,7 @@ class Home extends Component {
     const { counter1, counter2, increment, decrement, add } = this.props;
     return (
       <div className="Home">
-        <Page title="Home" subtitle="Independent counters stored in redux">
+        <Page title={locales.home.title} subtitle={locales.home.subtitle}>
           <Transition appear in timeout={duration}>
             {state => (
               <div style={{ ...defaultStyle, ...transitionStyles[state] }}>
