@@ -16,7 +16,8 @@ const requireLocale = locale => {
 const strings = new LocalizedStrings({
   en: requireLocale('en'),
   es: requireLocale('es'),
-  ja: requireLocale('ja')
+  ja: requireLocale('ja'),
+  zh: requireLocale('zh')
 });
 
 export default strings;
