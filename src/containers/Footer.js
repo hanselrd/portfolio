@@ -5,6 +5,7 @@ import {
   Button,
   Container,
   Divider,
+  Flag,
   Grid,
   Header,
   List,
@@ -170,14 +171,14 @@ class Footer extends Component {
                       disabled={locales.getLanguage() === 'en'}
                       onClick={() => localeChange('en')}
                     >
-                      English (US)
+                      English <Flag name="us" />
                     </List.Item>
                     <List.Item
                       as="a"
                       disabled={locales.getLanguage() === 'es'}
                       onClick={() => localeChange('es')}
                     >
-                      Español
+                      Español <Flag name="do" />
                     </List.Item>
                     {/* <List.Item
                       as="a"
@@ -233,14 +234,14 @@ class Footer extends Component {
                       disabled={locales.getLanguage() === 'zh'}
                       onClick={() => localeChange('zh')}
                     >
-                      中文(简体)
+                      中文(简体) <Flag name="cn" />
                     </List.Item>
                     <List.Item
                       as="a"
                       disabled={locales.getLanguage() === 'ja'}
                       onClick={() => localeChange('ja')}
                     >
-                      日本語
+                      日本語 <Flag name="jp" />
                     </List.Item>
                   </List>
                 </Grid.Column>
