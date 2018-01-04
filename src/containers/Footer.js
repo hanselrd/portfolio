@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { mapStateToProps, mapDispatchToProps } from '../utils';
 import {
   Button,
   Container,
@@ -17,6 +19,7 @@ class Footer extends Component {
   };
 
   render() {
+    const { localeChange } = this.props;
     return (
       <div className="Footer">
         <Segment
@@ -165,77 +168,77 @@ class Footer extends Component {
                     <List.Item
                       as="a"
                       disabled={locales.getLanguage() === 'en'}
-                      onClick={() => locales.setLanguage('en')}
+                      onClick={() => localeChange('en')}
                     >
                       English (US)
                     </List.Item>
                     <List.Item
                       as="a"
                       disabled={locales.getLanguage() === 'es'}
-                      onClick={() => locales.setLanguage('es')}
+                      onClick={() => localeChange('es')}
                     >
                       Español
                     </List.Item>
                     {/* <List.Item
                       as="a"
                       disabled={locales.getLanguage() === 'fr'}
-                      onClick={() => locales.setLanguage('fr')}
+                      onClick={() => localeChange('fr')}
                     >
                       Français (France)
                     </List.Item>
                     <List.Item
                       as="a"
                       disabled={locales.getLanguage() === 'it'}
-                      onClick={() => locales.setLanguage('it')}
+                      onClick={() => localeChange('it')}
                     >
                       Italiano
                     </List.Item>
                     <List.Item
                       as="a"
                       disabled={locales.getLanguage() === 'de'}
-                      onClick={() => locales.setLanguage('de')}
+                      onClick={() => localeChange('de')}
                     >
                       Deutsch
                     </List.Item>
                     <List.Item
                       as="a"
                       disabled={locales.getLanguage() === 'pt'}
-                      onClick={() => locales.setLanguage('pt')}
+                      onClick={() => localeChange('pt')}
                     >
                       Português (Brasil)
                     </List.Item>
                     <List.Item
                       as="a"
                       disabled={locales.getLanguage() === 'ru'}
-                      onClick={() => locales.setLanguage('ru')}
+                      onClick={() => localeChange('ru')}
                     >
                       Русский
                     </List.Item>
                     <List.Item
                       as="a"
                       disabled={locales.getLanguage() === 'ar'}
-                      onClick={() => locales.setLanguage('ar')}
+                      onClick={() => localeChange('ar')}
                     >
                       العربية
                     </List.Item>
                     <List.Item
                       as="a"
                       disabled={locales.getLanguage() === 'hi'}
-                      onClick={() => locales.setLanguage('hi')}
+                      onClick={() => localeChange('hi')}
                     >
                       हिन्दी
                     </List.Item> */}
                     <List.Item
                       as="a"
                       disabled={locales.getLanguage() === 'zh'}
-                      onClick={() => locales.setLanguage('zh')}
+                      onClick={() => localeChange('zh')}
                     >
                       中文(简体)
                     </List.Item>
                     <List.Item
                       as="a"
                       disabled={locales.getLanguage() === 'ja'}
-                      onClick={() => locales.setLanguage('ja')}
+                      onClick={() => localeChange('ja')}
                     >
                       日本語
                     </List.Item>
@@ -271,4 +274,4 @@ class Footer extends Component {
   }
 }
 
-export default Footer;
+export default connect(mapStateToProps, mapDispatchToProps)(Footer);
