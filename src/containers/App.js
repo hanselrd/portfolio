@@ -7,7 +7,7 @@ import { mapStateToProps, mapDispatchToProps } from '../utils';
 import { Container } from 'semantic-ui-react';
 import Header from '../components/Header';
 import Routes from './Routes';
-import Footer from '../containers/Footer';
+import Footer from './Footer';
 
 class App extends Component {
   constructor(props) {
