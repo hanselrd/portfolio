@@ -159,6 +159,89 @@ class Footer extends Component {
                   />
                 </Grid.Column>
               </Grid.Row>
+              <Grid.Row>
+                <Grid.Column>
+                  <List horizontal inverted divided link>
+                    <List.Item
+                      as="a"
+                      disabled={locales.getLanguage() === 'en'}
+                      onClick={() => locales.setLanguage('en')}
+                    >
+                      English (US)
+                    </List.Item>
+                    <List.Item
+                      as="a"
+                      disabled={locales.getLanguage() === 'es'}
+                      onClick={() => locales.setLanguage('es')}
+                    >
+                      Español
+                    </List.Item>
+                    {/* <List.Item
+                      as="a"
+                      disabled={locales.getLanguage() === 'fr'}
+                      onClick={() => locales.setLanguage('fr')}
+                    >
+                      Français (France)
+                    </List.Item>
+                    <List.Item
+                      as="a"
+                      disabled={locales.getLanguage() === 'it'}
+                      onClick={() => locales.setLanguage('it')}
+                    >
+                      Italiano
+                    </List.Item>
+                    <List.Item
+                      as="a"
+                      disabled={locales.getLanguage() === 'de'}
+                      onClick={() => locales.setLanguage('de')}
+                    >
+                      Deutsch
+                    </List.Item>
+                    <List.Item
+                      as="a"
+                      disabled={locales.getLanguage() === 'pt'}
+                      onClick={() => locales.setLanguage('pt')}
+                    >
+                      Português (Brasil)
+                    </List.Item>
+                    <List.Item
+                      as="a"
+                      disabled={locales.getLanguage() === 'ru'}
+                      onClick={() => locales.setLanguage('ru')}
+                    >
+                      Русский
+                    </List.Item>
+                    <List.Item
+                      as="a"
+                      disabled={locales.getLanguage() === 'ar'}
+                      onClick={() => locales.setLanguage('ar')}
+                    >
+                      العربية
+                    </List.Item>
+                    <List.Item
+                      as="a"
+                      disabled={locales.getLanguage() === 'hi'}
+                      onClick={() => locales.setLanguage('hi')}
+                    >
+                      हिन्दी
+                    </List.Item> */}
+                    <List.Item
+                      as="a"
+                      disabled={locales.getLanguage() === 'zh'}
+                      onClick={() => locales.setLanguage('zh')}
+                    >
+                      中文(简体)
+                    </List.Item>
+                    <List.Item
+                      as="a"
+                      disabled={locales.getLanguage() === 'ja'}
+                      onClick={() => locales.setLanguage('ja')}
+                    >
+                      日本語
+                    </List.Item>
+                  </List>
+                </Grid.Column>
+              </Grid.Row>
             </Grid>
             <Divider inverted section />
             <Container style={{ marginBottom: '2em' }}>
