@@ -3,6 +3,7 @@ import { Container, Dropdown, Icon, Menu, Responsive } from 'semantic-ui-react';
 import { Link, NavLink } from 'react-router-dom';
 import Aux from 'react-aux';
 import PropTypes from 'prop-types';
+import locales from '../locales';
 
 class Header extends Component {
   render() {
@@ -18,22 +19,22 @@ class Header extends Component {
             <Responsive as={Aux} maxWidth={Responsive.onlyTablet.maxWidth}>
               <Dropdown item icon={<Icon name="sidebar" size="large" />}>
                 <Dropdown.Menu>
-                  <Dropdown.Header>Navigation</Dropdown.Header>
+                  <Dropdown.Header>{locales.header.navigation}</Dropdown.Header>
                   <Dropdown.Item as={NavLink} to="/home">
-                    Home
+                    {locales.header.home}
                   </Dropdown.Item>
                   <Dropdown.Item as={NavLink} to="/blog">
-                    Blog
+                    {locales.header.blog}
                   </Dropdown.Item>
                   <Dropdown.Item as={NavLink} to="/projects">
-                    Projects
+                    {locales.header.projects}
                   </Dropdown.Item>
                   <Dropdown.Item as={NavLink} to="/cv">
-                    CV
+                    {locales.header.cv}
                   </Dropdown.Item>
                   {auth.user && (
                     <Dropdown.Item as={NavLink} to="/game">
-                      Game
+                      {locales.header.game}
                     </Dropdown.Item>
                   )}
                 </Dropdown.Menu>
@@ -45,20 +46,20 @@ class Header extends Component {
             </Menu.Item>
             <Responsive as={Aux} minWidth={Responsive.onlyComputer.minWidth}>
               <Menu.Item as={NavLink} to="/home">
-                Home
+                {locales.header.home}
               </Menu.Item>
               <Menu.Item as={NavLink} to="/blog">
-                Blog
+                {locales.header.blog}
               </Menu.Item>
               <Menu.Item as={NavLink} to="/projects">
-                Projects
+                {locales.header.projects}
               </Menu.Item>
               <Menu.Item as={NavLink} to="/cv">
-                CV
+                {locales.header.cv}
               </Menu.Item>
               {auth.user && (
                 <Menu.Item as={NavLink} to="/game">
-                  Game
+                  {locales.header.game}
                 </Menu.Item>
               )}
             </Responsive>
@@ -66,7 +67,7 @@ class Header extends Component {
               <Responsive as={Aux} {...Responsive.onlyMobile}>
                 {!auth.user && (
                   <Menu.Item as={NavLink} to="/login">
-                    Log in
+                    {locales.header.logIn}
                   </Menu.Item>
                 )}
                 {auth.user && (
@@ -77,13 +78,13 @@ class Header extends Component {
                     <Dropdown.Menu>
                       <Dropdown.Header>{auth.user.displayName}</Dropdown.Header>
                       <Dropdown.Item as={NavLink} to="/profile">
-                        Profile
+                        {locales.header.profile}
                       </Dropdown.Item>
                       <Dropdown.Item as={NavLink} to="/settings">
-                        Settings
+                        {locales.header.settings}
                       </Dropdown.Item>
                       <Dropdown.Item onClick={() => authActions.logout()}>
-                        Log out
+                        {locales.header.logOut}
                       </Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
@@ -93,10 +94,10 @@ class Header extends Component {
                 {!auth.user && (
                   <Aux>
                     <Menu.Item as={NavLink} to="/login">
-                      Log in
+                      {locales.header.logIn}
                     </Menu.Item>
                     <Menu.Item as={NavLink} to="/signup">
-                      Sign up
+                      {locales.header.signUp}
                     </Menu.Item>
                   </Aux>
                 )}
@@ -104,13 +105,13 @@ class Header extends Component {
                   <Dropdown item text={auth.user.displayName}>
                     <Dropdown.Menu>
                       <Dropdown.Item as={NavLink} to="/profile">
-                        Profile
+                        {locales.header.profile}
                       </Dropdown.Item>
                       <Dropdown.Item as={NavLink} to="/settings">
-                        Settings
+                        {locales.header.settings}
                       </Dropdown.Item>
                       <Dropdown.Item onClick={() => authActions.logout()}>
-                        Log out
+                        {locales.header.logOut}
                       </Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>

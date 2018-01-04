@@ -6,8 +6,10 @@ const requireFile = (locale, file) => {
 
 const requireLocale = locale => {
   return {
-    footer: requireFile(locale, 'footer'),
-    home: requireFile(locale, 'home')
+    header: requireFile(locale, 'components/header'),
+    footer: requireFile(locale, 'containers/footer'),
+    home: requireFile(locale, 'containers/routes/home'),
+    counter: requireFile(locale, 'components/counter')
   };
 };
 
