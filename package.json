@@ -9,6 +9,7 @@
     "install": "run-s install:*",
     "build:server": "cd server && npm run build",
     "build": "run-s build:*",
+    "watch": "cd server && npm run watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
