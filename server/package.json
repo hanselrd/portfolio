@@ -26,6 +26,7 @@
   "devDependencies": {
     "@types/express": "^4.11.1",
     "@types/node": "^9.6.6",
+    "@types/ws": "^4.0.2",
     "dotenv": "^5.0.1",
     "nodemon": "^1.17.3",
     "npm-run-all": "^4.1.2",
