@@ -1,14 +1,16 @@
-import { Arg, ID, Query, Resolver } from 'type-graphql';
-import { User } from '../../entities';
+import { Query, Resolver } from 'type-graphql';
+import { firebase } from '../../core';
+import { UserRecord } from '../types';
 
-@Resolver(User)
+@Resolver(UserRecord)
 export default class UserResolver {
-  @Query(returns => User, { nullable: true })
-  user(
-    @Arg('id', type => ID)
-    id: number
-  ) {
-    // return User.findOne(id);
-    throw new Error('Not implemented');
+  @Query(returns => [UserRecord])
+  users(id: number) {
+    return firebase
+      .auth()
+      .listUsers()
+      .then(result => {
+        return result.users;
+      });
   }
 }
