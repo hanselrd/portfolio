@@ -14,8 +14,7 @@ export default class UserInfo {
   @Field({ nullable: true })
   photoURL?: string;
 
-  @Field()
-  providerId: string;
+  @Field() providerId: string;
 
   @Field({ nullable: true })
   phoneNumber?: string;
