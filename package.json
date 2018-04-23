@@ -8,6 +8,7 @@
     "start:dev": "cd client && npm run start:dev",
     "build:prod": "cd client && npm run build:prod",
     "build:dev": "cd client && npm run build:dev",
+    "build:functions": "cd functions && run-s lint build",
     "deploy:prod": "firebase use prod && npm run build:prod && firebase deploy",
     "deploy:dev": "firebase use dev && npm run build:dev && firebase deploy",
     "install:client": "cd client && npm install",
@@ -27,5 +28,6 @@
   "homepage": "https://github.com/hanselrd/portfolio#readme",
   "devDependencies": {
     "npm-run-all": "^4.1.2"
-  }
+  },
+  "private": true
 }

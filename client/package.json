@@ -9,12 +9,12 @@
     "react-scripts-ts": "2.15.1"
   },
   "scripts": {
-    "start:prod": "cross-env REACT_APP_STAGE=production react-scripts-ts start",
-    "start:dev": "cross-env REACT_APP_STAGE=development react-scripts-ts start",
     "start": "react-scripts-ts start",
-    "build:prod": "cross-env REACT_APP_STAGE=production react-scripts-ts build",
-    "build:dev": "cross-env REACT_APP_STAGE=development react-scripts-ts build",
+    "start:prod": "cross-env REACT_APP_STAGE=production npm start",
+    "start:dev": "cross-env REACT_APP_STAGE=development npm start",
     "build": "react-scripts-ts build",
+    "build:prod": " cross-env REACT_APP_STAGE=production npm run build",
+    "build:dev": "cross-env REACT_APP_STAGE=development npm run build",
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject"
   },

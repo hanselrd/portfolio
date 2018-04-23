@@ -2,8 +2,8 @@ language: node_js
 node_js:
   - "9"
 install:
-  - cd client
   - npm install
 script:
-  - cd client
-  - npm run build
+  - npm run build:prod
+  - npm run build:dev
+  - npm run build:functions
