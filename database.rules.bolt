@@ -1,0 +1,73 @@
+type UserID extends String {
+  validate() { prior(root).users[this].val() != null }
+}
+
+type Provider {
+  uid: String;
+  name: String;
+}
+
+type User {
+  name: String;
+  email: String;
+  providers: Provider[];
+  role: Number | Null;
+}
+
+type W_Message {
+  text: String;
+  to: UserID;
+}
+
+type RW_Settings {
+  showEmail: Boolean;
+}
+
+path /users/{uid} is User {
+  index() { ['name'] }
+  read() { isCurrentUser(uid) || isAdmin() }
+  write() { isSuperAdmin() }
+}
+
+path /readonly {
+  path /{object}/{uid} {
+    read() { isCurrentUser(uid) || isAdmin() }
+    write() { isAdmin() }
+  }
+}
+
+path /writeonly {
+  path /{object}/{uid} {
+    read() { isAdmin() }
+    write() { isCurrentUser(uid) || isAdmin() }
+  }
+
+  path /messages/{uid}/{mid} is W_Message {
+    read() { isAdmin() }
+    write() { isCurrentUser(uid) || isAdmin() }
+  }
+}
+
+path /readwrite {
+  path /{object}/{uid} {
+    read() { isCurrentUser(uid) || isAdmin() }
+    write() { isCurrentUser(uid) || isAdmin() }
+  }
+
+  path /settings/{uid} is RW_Settings {
+    read() { isCurrentUser(uid) || isAdmin() }
+    write() { isCurrentUser(uid) || isAdmin() }
+  }
+}
+
+function isSignedIn() { auth != null }
+
+function isCurrentUser(uid) { isSignedIn() && auth.uid == uid }
+
+function isRole(role) { isSignedIn() && prior(root).users[auth.uid].role >= role }
+
+function isSuperAdmin() { isRole(30) }
+
+function isAdmin() { isRole(20) }
+
+function isMod() { isRole(10) }
