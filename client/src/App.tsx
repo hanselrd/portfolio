@@ -13,7 +13,7 @@ class App extends React.Component {
           .ref('/users')
           .child(auth.uid)
           .update({
-            displayName: 'test1',
+            // displayName: 'test1',
             online: false
           });
       } else {
@@ -27,7 +27,8 @@ class App extends React.Component {
   };
 
   public login = (e: React.MouseEvent<HTMLButtonElement>) => {
-    firebase.auth().signInWithEmailAndPassword('test1@gmail.com', '123456');
+    // firebase.auth().signInWithEmailAndPassword('test1@gmail.com', '123456');
+    firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider());
   };
 
   public logout = (e: React.MouseEvent<HTMLButtonElement>) => {

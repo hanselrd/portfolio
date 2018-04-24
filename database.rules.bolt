@@ -15,10 +15,14 @@ type InitialTimestamp extends Number {
 }
 
 type User {
+  email: Readonly<String> | Null;
   displayName: String;
   online: Boolean;
-  createdAt: InitialTimestamp;
   role: Readonly<Number> | Null;
+  provider: Readonly<String>;
+  createdAt: InitialTimestamp;
+
+  validate() { this.displayName.length <= 25 }
 }
 
 type W_Message {
@@ -35,7 +39,7 @@ type RW_Settings {
 
 path /users/{uid} is User {
   index() { ['displayName'] }
-  read() { true }
+  read() { isSignedIn() }
   write() { isCurrentUser(uid) || isAdmin() }
 }
 
