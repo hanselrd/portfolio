@@ -8,11 +8,23 @@ class App extends React.Component {
     firebase.auth().onAuthStateChanged(auth => {
       if (auth) {
         console.log(auth.toJSON());
+        firebase
+          .database()
+          .ref('/users')
+          .child(auth.uid)
+          .update({
+            displayName: 'test1',
+            online: false
+          });
       } else {
         console.log(null);
       }
     });
   }
+
+  public signup = (e: React.MouseEvent<HTMLButtonElement>) => {
+    firebase.auth().createUserWithEmailAndPassword('test1@gmail.com', '123456');
+  };
 
   public login = (e: React.MouseEvent<HTMLButtonElement>) => {
     firebase.auth().signInWithEmailAndPassword('test1@gmail.com', '123456');
@@ -26,8 +38,9 @@ class App extends React.Component {
     return (
       <div>
         <p>Hello</p>
-        <button onClick={this.login}>Sign in with Email</button>
-        <button onClick={this.logout}>Sign out</button>
+        <button onClick={this.signup}>Sign up with Email</button>
+        <button onClick={this.login}>Log in with Email</button>
+        <button onClick={this.logout}>Log out</button>
       </div>
     );
   }

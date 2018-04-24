@@ -1,22 +1,32 @@
-type UserID extends String {
-  validate() { prior(root).users[this].val() != null }
+type Readonly<T> extends T {
+  validate() { this == prior(this) }
 }
 
-type Provider {
-  uid: String;
-  name: String;
+type UserID extends String {
+  validate() { prior(root).users[this] != null }
+}
+
+type CurrentTimestamp extends Number {
+  validate() { this == now }
+}
+
+type InitialTimestamp extends Number {
+  validate() { initial(this, now) }
 }
 
 type User {
-  name: String;
-  email: String;
-  providers: Provider[];
-  role: Number | Null;
+  displayName: String;
+  online: Boolean;
+  createdAt: InitialTimestamp;
+  role: Readonly<Number> | Null;
 }
 
 type W_Message {
   text: String;
   to: UserID;
+  createdAt: InitialTimestamp;
+
+  validate() { this.text.length <= 200 }
 }
 
 type RW_Settings {
@@ -24,40 +34,28 @@ type RW_Settings {
 }
 
 path /users/{uid} is User {
-  index() { ['name'] }
+  index() { ['displayName'] }
+  read() { true }
+  write() { isCurrentUser(uid) || isAdmin() }
+}
+
+path /readonly/{uid} {
   read() { isCurrentUser(uid) || isAdmin() }
-  write() { isSuperAdmin() }
+  write() { isAdmin() }
 }
 
-path /readonly {
-  path /{object}/{uid} {
-    read() { isCurrentUser(uid) || isAdmin() }
-    write() { isAdmin() }
-  }
+path /writeonly/{uid} {
+  read() { isAdmin() }
+  write() { isCurrentUser(uid) || isAdmin() }
+
+  path /messages/{id} is W_Message;
 }
 
-path /writeonly {
-  path /{object}/{uid} {
-    read() { isAdmin() }
-    write() { isCurrentUser(uid) || isAdmin() }
-  }
+path /readwrite/{uid} {
+  read() { isCurrentUser(uid) || isAdmin() }
+  write() { isCurrentUser(uid) || isAdmin() }
 
-  path /messages/{uid}/{mid} is W_Message {
-    read() { isAdmin() }
-    write() { isCurrentUser(uid) || isAdmin() }
-  }
-}
-
-path /readwrite {
-  path /{object}/{uid} {
-    read() { isCurrentUser(uid) || isAdmin() }
-    write() { isCurrentUser(uid) || isAdmin() }
-  }
-
-  path /settings/{uid} is RW_Settings {
-    read() { isCurrentUser(uid) || isAdmin() }
-    write() { isCurrentUser(uid) || isAdmin() }
-  }
+  path /settings is RW_Settings;
 }
 
 function isSignedIn() { auth != null }
@@ -66,8 +64,10 @@ function isCurrentUser(uid) { isSignedIn() && auth.uid == uid }
 
 function isRole(role) { isSignedIn() && prior(root).users[auth.uid].role >= role }
 
-function isSuperAdmin() { isRole(30) }
-
 function isAdmin() { isRole(20) }
 
 function isMod() { isRole(10) }
+
+// Returns true if the value is intialized to init, or if it retains it's prior
+// value, otherwise.
+function initial(value, init) { value == (prior(value) == null ? init : prior(value)) }
