@@ -1,58 +1,90 @@
-type Readonly<T> extends T {
-  validate() { this == prior(this) }
-}
+/*****************************************
+ *
+ *                types
+ *
+******************************************/
 
 type UserID extends String {
   validate() { prior(root).users[this] != null }
 }
 
-type CurrentTimestamp extends Number {
-  validate() { this == now }
+type UserDisplayName extends String {
+  validate() { this.length >= 3 && this.length <= 25 }
 }
 
-type InitialTimestamp extends Number {
-  validate() { initial(this, now) }
+type ChatText extends String {
+  validate() { this.length > 0 && this.length <= 200 }
 }
 
-type User {
-  email: Readonly<String> | Null;
-  displayName: String;
-  online: Boolean;
-  role: Readonly<Number> | Null;
-  provider: Readonly<String>;
-  createdAt: InitialTimestamp;
+/*****************************************
+ *
+ *              public
+ *
+******************************************/
 
-  validate() { this.displayName.length <= 25 }
+type User extends W_User {
+  email: String;
+  role: Number | Null;
+  provider: String;
+  createdAt: Number;
 }
 
-type W_Message {
-  text: String;
-  to: UserID;
-  createdAt: InitialTimestamp;
-
-  validate() { this.text.length <= 200 }
-}
-
-type RW_Settings {
-  showEmail: Boolean;
+type ChatMessage extends W_ChatMessage {
+  author: UserID;
+  createdAt: Number;
 }
 
 path /users/{uid} is User {
   index() { ['displayName'] }
   read() { isSignedIn() }
-  write() { isCurrentUser(uid) || isAdmin() }
 }
+
+path /chat/{id} is ChatMessage {
+  index() { ['createdAt'] }
+  read() { isSignedIn() }
+  write() { isMod() }
+}
+
+/*****************************************
+ *
+ *              readonly
+ *
+******************************************/
 
 path /readonly/{uid} {
   read() { isCurrentUser(uid) || isAdmin() }
-  write() { isAdmin() }
+}
+
+/*****************************************
+ *
+ *              writeonly
+ *
+******************************************/
+
+type W_User {
+  displayName: UserDisplayName | Null;
+  online: Boolean | Null;
+}
+
+type W_ChatMessage {
+  text: ChatText;
 }
 
 path /writeonly/{uid} {
-  read() { isAdmin() }
   write() { isCurrentUser(uid) || isAdmin() }
 
-  path /messages/{id} is W_Message;
+  path /user is W_User;
+  path /chat is W_ChatMessage;
+}
+
+/*****************************************
+ *
+ *              readwrite
+ *
+******************************************/
+
+type RW_Settings {
+  showEmail: Boolean;
 }
 
 path /readwrite/{uid} {
@@ -61,6 +93,12 @@ path /readwrite/{uid} {
 
   path /settings is RW_Settings;
 }
+
+/*****************************************
+ *
+ *              functions
+ *
+******************************************/
 
 function isSignedIn() { auth != null }
 
@@ -71,7 +109,3 @@ function isRole(role) { isSignedIn() && prior(root).users[auth.uid].role >= role
 function isAdmin() { isRole(20) }
 
 function isMod() { isRole(10) }
-
-// Returns true if the value is intialized to init, or if it retains it's prior
-// value, otherwise.
-function initial(value, init) { value == (prior(value) == null ? init : prior(value)) }
