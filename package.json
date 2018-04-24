@@ -4,13 +4,18 @@
   "description": "Personal portfolio",
   "main": "index.js",
   "scripts": {
-    "start:prod": "cd client && npm run start:prod",
-    "start:dev": "cd client && npm run start:dev",
-    "build:prod": "cd client && npm run build:prod",
-    "build:dev": "cd client && npm run build:dev",
+    "start:client:prod": "cd client && npm run start:prod",
+    "start:client:dev": "cd client && npm run start:dev",
+    "build:client:prod": "cd client && npm run build:prod",
+    "build:client:dev": "cd client && npm run build:dev",
+    "build:database": "firebase-bolt database.rules.bolt",
     "build:functions": "cd functions && run-s lint build",
-    "deploy:prod": "firebase use prod && npm run build:prod && firebase deploy",
-    "deploy:dev": "firebase use dev && npm run build:dev && firebase deploy",
+    "deploy:client:prod": "npm run build:client:prod && firebase deploy --only hosting",
+    "deploy:client:dev": "npm run build:client:dev && firebase deploy --only hosting",
+    "deploy:database": "firebase deploy --only database",
+    "deploy:functions": "firebase deploy --only functions",
+    "deploy:prod": "firebase use prod && run-s deploy:client:prod deploy:database deploy:functions && firebase use --clear",
+    "deploy:dev": "firebase use dev && run-s deploy:client:dev deploy:database deploy:functions && firebase use --clear",
     "install:client": "cd client && npm install",
     "install:functions": "cd functions && npm install",
     "install": "run-s install:*",
@@ -27,6 +32,7 @@
   },
   "homepage": "https://github.com/hanselrd/portfolio#readme",
   "devDependencies": {
+    "firebase-bolt": "^0.8.3",
     "npm-run-all": "^4.1.2"
   },
   "private": true
