@@ -28,7 +28,7 @@ export const userCreated = functions.auth.user().onCreate(async user => {
 });
 
 export const newChatMessage = functions.database
-  .ref('/userspace/{uid}/writeable/chat/message')
+  .ref('/private/{uid}/writeable/chat/message')
   .onWrite(async (change, context) => {
     const uid = context.params.uid;
     const data = change.after.val();

@@ -19,7 +19,7 @@ class App extends React.Component {
 
         this.writeableChatMessageRef = firebase
           .database()
-          .ref('/userspace')
+          .ref('/private')
           .child(auth.uid)
           .child('writeable/chat/message');
 
