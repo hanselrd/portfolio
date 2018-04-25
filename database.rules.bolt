@@ -1,100 +1,130 @@
-type UserID extends String {
-  validate() { prior(root).users[this] != null }
-}
+/***********************************************************
+  Users
 
-type UserDisplayName extends String {
-  validate() { this.length >= 3 && this.length <= 20 }
-}
+************************************************************/
+path /users {
+  read() { isSignedIn() }
 
-type ChatMessageText extends String {
-  validate() { this.length > 0 && this.length <= 256 }
+  path /{userid} is User {
+    update() { isCurrentUser(userid) || isAdmin() }
+  }
 }
 
 type User {
-  displayName: UserDisplayName; // on first write, permission error
+  name: NameString;
   photoURL: String | Null;
+  age: Number | Null;
   online: Boolean | Null;
 }
 
-type Permission {
-  level: Number;
+/***********************************************************
+  Chat
+
+************************************************************/
+path /chat {
+  read() { isSignedIn() }
+  write() { isAdmin() }
+
+  path /status is ChatStatus;
+
+  path /announcement is ChatAnnouncement;
+
+  path /messages/{messageid} is ChatMessage {
+    create() { isSignedIn() && prior(root).chat.status.enabled }
+    delete() { isMod() }
+  }
+}
+
+type ChatStatus {
+  enabled: Boolean;
+}
+
+type ChatAnnouncement {
+  user: UserID;
+  text: ChatAnnouncementString;
+  created: InitialTimestamp;
+}
+
+type ChatAnnouncementString extends String {
+  validate() { this.length > 0 && this.length <= 512 }
 }
 
 type ChatMessage {
   user: UserID;
-  text: ChatMessageText;
-  createdAt: Number;
+  text: ChatMessageString;
+  created: InitialTimestamp;
 }
 
-type Chat {
-  announcement: String | Null;
-  messages: ChatMessage[];
+type ChatMessageString extends String {
+  validate() { this.length > 0 && this.length <= 256 }
+}
+
+/***********************************************************
+  Settings
+
+************************************************************/
+path /settings/{userid} is Settings {
+  read() { isCurrentUser(userid) || isAdmin() }
+  update() { isCurrentUser(userid) || isOwner() }
 }
 
 type Settings {
-  showEmail: Boolean;
+  showEmail: Boolean | Null;
 }
 
-path /users/{uid} is User {
-  read() { isSignedIn() }
-  write() { isCurrentUser(uid) || isAdmin() }
-}
+/***********************************************************
+  Metadata
 
-path /permissions/{uid} is Permission {
-  read() { isSignedIn() }
-}
+************************************************************/
+path /metadata {
+  write() { isOwner() }
 
-path /chat is Chat {
-  read() { isSignedIn() }
-  write() { isMod() }
-}
-
-// Public can see it IFF user allows it, but user cannot write
-path /protected/{uid} {
-  read() { isCurrentUser(uid) || isAdmin() }
-
-  path /email is String {
-    read() { isSignedIn() && prior(root).private[uid].owned.settings.showEmail == true }
-  }
-
-  path /provider is String {
-    read() { isSignedIn() }
-  }
-
-  path /createdAt is String {
+  path /users/{userid} is MetadataUser {
     read() { isSignedIn() }
   }
 }
 
-// User only / personal data not for public
-path /private/{uid} {
-  read() { isAdmin() }
-  write() { isAdmin() }
-
-  path /readable {
-    read() { isCurrentUser(uid) }
-  }
-
-  path /writeable {
-    write() { isCurrentUser(uid) }
-
-    path /chat/message is ChatMessageText;
-  }
-
-  path /owned {
-    read() { isCurrentUser(uid) }
-    write() { isCurrentUser(uid) }
-
-    path /settings is Settings;
-  }
+type MetadataUser {
+  email: String;
+  provider: String;
+  role: Number | Null;
+  created: InitialTimestamp;
 }
 
+function hasRole(role) { isSignedIn() && prior(root).metadata.users[auth.uid].role >= role }
+function isOwner() { hasRole(30) }
+function isAdmin() { hasRole(20) }
+function isMod() { hasRole(10) }
+
+/***********************************************************
+  Helper Types
+
+************************************************************/
+type UserID extends String {
+  validate() { prior(root).users[this] != null }
+}
+
+type NameString extends String {
+  validate() { this.length >= 3 && this.length <= 20 }
+}
+
+type CurrentTimestamp extends Number {
+  validate() { this == now }
+}
+
+type InitialTimestamp extends Number {
+  validate() { initial(this, now) }
+}
+
+type Pair<T, U> {
+  first: T;
+  second: U;
+}
+
+/***********************************************************
+  Helper Functions
+
+************************************************************/
 function isSignedIn() { auth != null }
-
 function isCurrentUser(uid) { isSignedIn() && auth.uid == uid }
-
-function isRole(role) { isSignedIn() && prior(root).permissions[auth.uid].level >= role }
-
-function isAdmin() { isRole(20) }
-
-function isMod() { isRole(10) }
+function initial(value, init) { value == (prior(value) == null ? init : prior(value)) }
