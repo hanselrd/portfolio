@@ -54,7 +54,7 @@ path /protected/{uid} {
   read() { isCurrentUser(uid) || isAdmin() }
 
   path /email is String {
-    read() { isSignedIn() && prior(root).userspace[uid].owned.settings.showEmail == true }
+    read() { isSignedIn() && prior(root).private[uid].owned.settings.showEmail == true }
   }
 
   path /provider is String {
@@ -67,7 +67,7 @@ path /protected/{uid} {
 }
 
 // User only / personal data not for public
-path /userspace/{uid} {
+path /private/{uid} {
   read() { isAdmin() }
   write() { isAdmin() }
 
