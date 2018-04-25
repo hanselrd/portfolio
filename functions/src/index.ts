@@ -18,7 +18,6 @@ export const userCreated = functions.auth.user().onCreate(async user => {
     .ref('/metadata/users')
     .child(user.uid)
     .set({
-      email: user.email,
       provider:
         user.providerData.length > 0 ? user.providerData[0].providerId : null,
       created: admin.database.ServerValue.TIMESTAMP
@@ -29,7 +28,7 @@ export const userCreated = functions.auth.user().onCreate(async user => {
     .ref('/settings')
     .child(user.uid)
     .set({
-      showEmail: true
+      showEmail: false
     });
 
   return;
