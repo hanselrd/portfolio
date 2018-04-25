@@ -2,8 +2,8 @@ import firebase from '@app/core/firebase';
 import * as React from 'react';
 
 class App extends React.Component {
-  private writeonlyUserRef?: firebase.database.Reference;
-  private writeonlyChatRef?: firebase.database.Reference;
+  private userRef?: firebase.database.Reference;
+  private writeableChatMessageRef?: firebase.database.Reference;
 
   public componentWillMount() {
     console.log(process.env.REACT_APP_STAGE);
@@ -12,27 +12,29 @@ class App extends React.Component {
       if (auth) {
         console.log(auth.toJSON());
 
-        const writeonlyRef = firebase
+        this.userRef = firebase
           .database()
-          .ref('/writeonly')
+          .ref('/users')
           .child(auth.uid);
 
-        this.writeonlyUserRef = writeonlyRef.child('user');
-
-        this.writeonlyChatRef = writeonlyRef.child('chat');
+        this.writeableChatMessageRef = firebase
+          .database()
+          .ref('/userspace')
+          .child(auth.uid)
+          .child('writeable/chat/message');
 
         firebase
           .database()
           .ref('.info/connected')
           .on('value', snapshot => {
             if (snapshot && snapshot.val()) {
-              if (this.writeonlyUserRef) {
-                this.writeonlyUserRef
+              if (this.userRef) {
+                this.userRef
                   .onDisconnect()
-                  .set({ online: false })
+                  .update({ online: false })
                   .then(() => {
-                    if (this.writeonlyUserRef) {
-                      this.writeonlyUserRef.set({ online: true });
+                    if (this.userRef) {
+                      this.userRef.update({ online: true });
                     }
                   });
               }
@@ -54,15 +56,15 @@ class App extends React.Component {
   };
 
   public logout = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (this.writeonlyUserRef) {
-      this.writeonlyUserRef.update({ online: false });
+    if (this.userRef) {
+      this.userRef.update({ online: false });
     }
     firebase.auth().signOut();
   };
 
   public sendChat = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (this.writeonlyChatRef) {
-      this.writeonlyChatRef.set({ text: 'hello from react' });
+    if (this.writeableChatMessageRef) {
+      this.writeableChatMessageRef.set(new Date().toString());
     }
   };
 
