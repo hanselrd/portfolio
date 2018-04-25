@@ -1,110 +1,99 @@
-/*****************************************
- *
- *                types
- *
-******************************************/
-
 type UserID extends String {
   validate() { prior(root).users[this] != null }
 }
 
 type UserDisplayName extends String {
-  validate() { this.length >= 3 && this.length <= 25 }
+  validate() { this.length >= 3 && this.length <= 20 }
 }
 
-type ChatText extends String {
-  validate() { this.length > 0 && this.length <= 200 }
+type ChatMessageText extends String {
+  validate() { this.length > 0 && this.length <= 256 }
 }
 
-/*****************************************
- *
- *              public
- *
-******************************************/
+type User {
+  displayName: UserDisplayName; // on first write, permission error
+  photoURL: String | Null;
+  online: Boolean | Null;
+}
 
-type User extends W_User {
-  email: String;
-  role: Number | Null;
-  provider: String;
+type Permission {
+  level: Number;
+}
+
+type ChatMessage {
+  user: UserID;
+  text: ChatMessageText;
   createdAt: Number;
 }
 
-type ChatMessage extends W_ChatMessage {
-  author: UserID;
-  createdAt: Number;
+type Chat {
+  announcement: String | Null;
+  messages: ChatMessage[];
+}
+
+type Settings {
+  showEmail: Boolean;
 }
 
 path /users/{uid} is User {
-  index() { ['displayName'] }
+  read() { isSignedIn() }
+  write() { isCurrentUser(uid) || isAdmin() }
+}
+
+path /permissions/{uid} is Permission {
   read() { isSignedIn() }
 }
 
-path /chat/{id} is ChatMessage {
-  index() { ['createdAt'] }
+path /chat is Chat {
   read() { isSignedIn() }
   write() { isMod() }
 }
 
-/*****************************************
- *
- *              readonly
- *
-******************************************/
-
-path /readonly/{uid} {
+// Public can see it IFF user allows it, but user cannot write
+path /protected/{uid} {
   read() { isCurrentUser(uid) || isAdmin() }
+
+  path /email is String {
+    read() { isSignedIn() && prior(root).userspace[uid].owned.settings.showEmail == true }
+  }
+
+  path /provider is String {
+    read() { isSignedIn() }
+  }
+
+  path /createdAt is String {
+    read() { isSignedIn() }
+  }
 }
 
-/*****************************************
- *
- *              writeonly
- *
-******************************************/
+// User only / personal data not for public
+path /userspace/{uid} {
+  read() { isAdmin() }
+  write() { isAdmin() }
 
-type W_User {
-  displayName: UserDisplayName | Null;
-  online: Boolean | Null;
+  path /readable {
+    read() { isCurrentUser(uid) }
+  }
+
+  path /writeable {
+    write() { isCurrentUser(uid) }
+
+    path /chat/message is ChatMessageText;
+  }
+
+  path /owned {
+    read() { isCurrentUser(uid) }
+    write() { isCurrentUser(uid) }
+
+    path /settings is Settings;
+  }
 }
-
-type W_ChatMessage {
-  text: ChatText;
-}
-
-path /writeonly/{uid} {
-  write() { isCurrentUser(uid) || isAdmin() }
-
-  path /user is W_User;
-  path /chat is W_ChatMessage;
-}
-
-/*****************************************
- *
- *              readwrite
- *
-******************************************/
-
-type RW_Settings {
-  showEmail: Boolean;
-}
-
-path /readwrite/{uid} {
-  read() { isCurrentUser(uid) || isAdmin() }
-  write() { isCurrentUser(uid) || isAdmin() }
-
-  path /settings is RW_Settings;
-}
-
-/*****************************************
- *
- *              functions
- *
-******************************************/
 
 function isSignedIn() { auth != null }
 
 function isCurrentUser(uid) { isSignedIn() && auth.uid == uid }
 
-function isRole(role) { isSignedIn() && prior(root).users[auth.uid].role >= role }
+function isRole(role) { isSignedIn() && prior(root).permissions[auth.uid].level >= role }
 
 function isAdmin() { isRole(20) }
 
