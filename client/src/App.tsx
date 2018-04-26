@@ -18,13 +18,6 @@ class App extends React.Component<AppProps> {
     //   if (auth) {
     //     console.log(auth.toJSON());
 
-    //     this.auth = auth;
-
-    //     this.userRef = firebase
-    //       .database()
-    //       .ref('/users')
-    //       .child(auth.uid);
-
     //     // this.userMetadataRef = firebase
     //     //   .database()
     //     //   .ref('/metadata/users')
