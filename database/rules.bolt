@@ -133,10 +133,10 @@ type Color extends String {
   validate() { this.test(/^red|orange|yellow|olive|green|teal|blue|violet|purple|pink|brown|grey|black$/) }
 }
 
-type Pair<T, U> {
-  first: T;
-  second: U;
-}
+// type Pair<T, U> {
+//   first: T;
+//   second: U;
+// }
 
 /***********************************************************
   Helper Functions

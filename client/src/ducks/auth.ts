@@ -50,16 +50,12 @@ export const authChannels = {
             .ref('.info/connected')
             .on('value', snapshot => {
               if (snapshot && snapshot.val()) {
-                if (userRef) {
-                  userRef
-                    .onDisconnect()
-                    .update({ online: false })
-                    .then(() => {
-                      if (userRef) {
-                        userRef.update({ online: true });
-                      }
-                    });
-                }
+                userRef
+                  .onDisconnect()
+                  .update({ online: false })
+                  .then(() => {
+                    userRef.update({ online: true });
+                  });
               }
             });
         }
