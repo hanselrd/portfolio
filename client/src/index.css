@@ -1,5 +1,8 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+@import '~semantic-ui-css/semantic.min.css';
+@import url('https://fonts.googleapis.com/css?family=Kanit');
+
+/* body { margin: 0; padding: 0; font-family: sans-serif; } */
+
+* {
+  font-family: 'Kanit', sans-serif;
 }

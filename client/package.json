@@ -4,9 +4,21 @@
   "private": true,
   "dependencies": {
     "firebase": "^4.13.1",
+    "formik": "^0.11.11",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
-    "react-scripts-ts": "2.15.1"
+    "react-redux": "^5.0.7",
+    "react-router-dom": "^4.2.2",
+    "react-scripts-ts": "2.15.1",
+    "react-scroll": "^1.7.9",
+    "redux": "^3.7.2",
+    "redux-act": "^1.7.4",
+    "redux-devtools-extension": "^2.13.2",
+    "redux-logger": "^3.0.6",
+    "redux-saga": "^0.16.0",
+    "semantic-ui-css": "^2.3.1",
+    "semantic-ui-react": "^0.79.1",
+    "yup": "^0.24.1"
   },
   "scripts": {
     "start": "react-scripts-ts start",
@@ -23,6 +35,10 @@
     "@types/node": "^9.6.6",
     "@types/react": "^16.3.12",
     "@types/react-dom": "^16.0.5",
+    "@types/react-redux": "^5.0.18",
+    "@types/react-router-dom": "^4.2.6",
+    "@types/react-scroll": "^1.5.3",
+    "@types/redux-logger": "^3.0.6",
     "cross-env": "^5.1.4",
     "typescript": "^2.8.3"
   }
