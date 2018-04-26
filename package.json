@@ -17,6 +17,7 @@
     "deploy:prod": "firebase use prod && run-s deploy:client:prod deploy:database deploy:functions && firebase use --clear",
     "deploy:dev": "firebase use dev && run-s deploy:client:dev deploy:database deploy:functions && firebase use --clear",
     "install:client": "cd client && npm install",
+    "install:database": "cd database && npm install",
     "install:functions": "cd functions && npm install",
     "install": "run-s install:*",
     "test": "echo \"Error: no test specified\" && exit 1"
