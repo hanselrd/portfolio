@@ -129,6 +129,10 @@ type InitialTimestamp extends Number {
   validate() { initial(this, now) }
 }
 
+type Color extends String {
+  validate() { this.test(/^red|orange|yellow|olive|green|teal|blue|violet|purple|pink|brown|grey|black$/) }
+}
+
 type Pair<T, U> {
   first: T;
   second: U;
