@@ -34,6 +34,34 @@ export const userCreated = functions.auth.user().onCreate(async user => {
   return;
 });
 
+export const userDeleted = functions.auth.user().onDelete(async user => {
+  await admin
+    .database()
+    .ref('/users')
+    .child(user.uid)
+    .remove();
+
+  await admin
+    .database()
+    .ref('/metadata/users')
+    .child(user.uid)
+    .remove();
+
+  await admin
+    .database()
+    .ref('/chat/banned')
+    .child(user.uid)
+    .remove();
+
+  await admin
+    .database()
+    .ref('/settings')
+    .child(user.uid)
+    .remove();
+
+  return;
+});
+
 export const settingsEditted = functions.database
   .ref('/settings/{userid}')
   .onWrite(async (change, context) => {
