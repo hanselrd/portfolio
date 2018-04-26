@@ -8,7 +8,7 @@
     "start:client:dev": "cd client && npm run start:dev",
     "build:client:prod": "cd client && npm run build:prod",
     "build:client:dev": "cd client && npm run build:dev",
-    "build:database": "firebase-bolt database.rules.bolt",
+    "build:database": "cd database && npm run build",
     "build:functions": "cd functions && run-s lint build",
     "deploy:client:prod": "npm run build:client:prod && firebase deploy --only hosting",
     "deploy:client:dev": "npm run build:client:dev && firebase deploy --only hosting",
@@ -32,7 +32,6 @@
   },
   "homepage": "https://github.com/hanselrd/portfolio#readme",
   "devDependencies": {
-    "firebase-bolt": "^0.8.3",
     "npm-run-all": "^4.1.2"
   },
   "private": true

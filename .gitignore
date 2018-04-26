@@ -62,4 +62,3 @@ typings/
 
 # firebase
 .firebaserc
-database.rules.json
