@@ -30,8 +30,13 @@ path /chat {
   path /announcement is ChatAnnouncement;
 
   path /messages/{messageid} is ChatMessage {
-    create() { isSignedIn() && prior(root).chat.status.enabled }
+    create() { isSignedIn() && isChatEnabled() && !isBannedFromChat() }
     delete() { isMod() }
+  }
+
+  path /banned/{userid} is ChatBanned {
+    // cannot ban yourself, nice try
+    write() { !isCurrentUser(userid) && isMod() }
   }
 }
 
@@ -58,6 +63,14 @@ type ChatMessage {
 type ChatMessageString extends String {
   validate() { this.length > 0 && this.length <= 256 }
 }
+
+type ChatBanned {
+  staff: UserID;
+  reason: String;
+}
+
+function isChatEnabled() { prior(root).chat.status.enabled }
+function isBannedFromChat() { prior(root).chat.banned[auth.uid] != null }
 
 /***********************************************************
   Settings
