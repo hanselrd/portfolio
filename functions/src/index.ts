@@ -6,7 +6,7 @@ admin.initializeApp(functions.config().firebase);
 export const userCreated = functions.auth.user().onCreate(async user => {
   await admin
     .database()
-    .ref('/users')
+    .ref('users')
     .child(user.uid)
     .set({
       name: user.displayName ? user.displayName : 'Anonymous',
@@ -15,7 +15,7 @@ export const userCreated = functions.auth.user().onCreate(async user => {
 
   await admin
     .database()
-    .ref('/metadata/users')
+    .ref('metadata/users')
     .child(user.uid)
     .set({
       provider:
@@ -25,7 +25,7 @@ export const userCreated = functions.auth.user().onCreate(async user => {
 
   await admin
     .database()
-    .ref('/settings')
+    .ref('settings')
     .child(user.uid)
     .set({
       showEmail: false
@@ -37,25 +37,25 @@ export const userCreated = functions.auth.user().onCreate(async user => {
 export const userDeleted = functions.auth.user().onDelete(async user => {
   await admin
     .database()
-    .ref('/users')
+    .ref('users')
     .child(user.uid)
     .remove();
 
   await admin
     .database()
-    .ref('/metadata/users')
+    .ref('metadata/users')
     .child(user.uid)
     .remove();
 
   await admin
     .database()
-    .ref('/chat/banned')
+    .ref('chat/banned')
     .child(user.uid)
     .remove();
 
   await admin
     .database()
-    .ref('/settings')
+    .ref('settings')
     .child(user.uid)
     .remove();
 
@@ -63,7 +63,7 @@ export const userDeleted = functions.auth.user().onDelete(async user => {
 });
 
 export const settingsEditted = functions.database
-  .ref('/settings/{userid}')
+  .ref('settings/{userid}')
   .onWrite(async (change, context) => {
     const userid = context.params.userid;
     const settings = change.after.val();
@@ -71,7 +71,7 @@ export const settingsEditted = functions.database
 
     await admin
       .database()
-      .ref('/metadata/users')
+      .ref('metadata/users')
       .child(userid)
       .update({
         email: settings.showEmail ? user.email : null
