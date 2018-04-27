@@ -22,11 +22,7 @@
   },
   "scripts": {
     "start": "react-scripts-ts start",
-    "start:prod": "cross-env REACT_APP_STAGE=production npm start",
-    "start:dev": "cross-env REACT_APP_STAGE=development npm start",
     "build": "react-scripts-ts build",
-    "build:prod": " cross-env REACT_APP_STAGE=production npm run build",
-    "build:dev": "cross-env REACT_APP_STAGE=development npm run build",
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject"
   },
@@ -39,7 +35,6 @@
     "@types/react-router-dom": "^4.2.6",
     "@types/react-scroll": "^1.5.3",
     "@types/redux-logger": "^3.0.6",
-    "cross-env": "^5.1.4",
     "typescript": "^2.8.3"
   }
 }
