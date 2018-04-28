@@ -59,7 +59,7 @@ const startEpic: AuthEpic = (action$, store) =>
     action$
       .ofType(authActions.internal.userFound.getType())
       .switchMap(() =>
-        Observable.fromEvent<firebase.database.DataSnapshot>(
+        Observable.fromEvent<firebase.database.DataSnapshot | null>(
           firebase.database().ref('.info/connected') as any,
           'value'
         )
