@@ -1,6 +1,7 @@
 import { RootState } from '@app/ducks';
 import { authActions } from '@app/ducks/auth';
 import { chatActions } from '@app/ducks/chat';
+import { metadataActions } from '@app/ducks/metadata';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -44,7 +45,8 @@ class App extends React.Component<AppProps> {
   public render() {
     const {
       auth,
-      chat: { messages, status }
+      chat: { messages, status },
+      metadata
     } = this.props;
 
     return (
@@ -66,6 +68,7 @@ class App extends React.Component<AppProps> {
             </button>
             <hr />
             <p>{auth.user.uid}</p>
+            <p>{JSON.stringify(metadata.users[auth.user.uid])}</p>
           </React.Fragment>
         )}
         <hr />
@@ -91,7 +94,8 @@ const mapDispatchToProps = {
   authSignUpWithEmailAndPassword: authActions.signUpWithEmailAndPassword,
   authSignOut: authActions.signOut,
   chatSendMessage: chatActions.sendMessage,
-  chatDeleteMessage: chatActions.deleteMessage
+  chatDeleteMessage: chatActions.deleteMessage,
+  metadataLoadUser: metadataActions.loadUser
 };
 
 export default compose(
