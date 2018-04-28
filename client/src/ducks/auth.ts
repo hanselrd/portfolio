@@ -64,7 +64,7 @@ const startHandlePresenceEpic: AuthEpic = (action$, store) =>
         firebase.database().ref('.info/connected') as any,
         'value'
       )
-        .filter(snapshot => snapshot !== null)
+        .filter(snapshot => snapshot != null)
         .switchMap(() => {
           const userRef = getUserRef(store.getState().auth.user!);
           return Observable.from(
@@ -83,9 +83,10 @@ const startEpic = combineEpics<AuthEpic>(
   startHandlePresenceEpic
 );
 
-const signInWithEmailAndPasswordEpic: AuthEpic = action$ =>
+const signInWithEmailAndPasswordEpic: AuthEpic = (action$, store) =>
   action$
     .ofType(authActions.signInWithEmailAndPassword.getType())
+    .filter(() => store.getState().auth.user == null)
     .switchMap(action => {
       const { email, password } = action.payload as {
         email: string;
@@ -98,9 +99,10 @@ const signInWithEmailAndPasswordEpic: AuthEpic = action$ =>
     .switchMap(() => Observable.empty<never>())
     .retry();
 
-const signInWithProviderEpic: AuthEpic = action$ =>
+const signInWithProviderEpic: AuthEpic = (action$, store) =>
   action$
     .ofType(authActions.signInWithProvider.getType())
+    .filter(() => store.getState().auth.user == null)
     .switchMap(action => {
       const { provider, type } = action.payload as {
         provider: 'google' | 'facebook' | 'twitter' | 'github';
@@ -135,9 +137,10 @@ const signInWithProviderEpic: AuthEpic = action$ =>
     .switchMap(() => Observable.empty<never>())
     .retry();
 
-const signUpWithEmailAndPasswordEpic: AuthEpic = action$ =>
+const signUpWithEmailAndPasswordEpic: AuthEpic = (action$, store) =>
   action$
     .ofType(authActions.signUpWithEmailAndPassword.getType())
+    .filter(() => store.getState().auth.user == null)
     .switchMap(action => {
       const { email, password } = action.payload as {
         email: string;
@@ -153,7 +156,7 @@ const signUpWithEmailAndPasswordEpic: AuthEpic = action$ =>
 const signOutEpic: AuthEpic = (action$, store) =>
   action$
     .ofType(authActions.signOut.getType())
-    .filter(() => store.getState().auth.user !== null)
+    .filter(() => store.getState().auth.user != null)
     .switchMap(() => {
       const userRef = getUserRef(store.getState().auth.user!);
       return Observable.from(
