@@ -3,6 +3,7 @@ import { RootState } from '@app/ducks';
 import { createAction, createReducer } from 'redux-act';
 import { Epic, combineEpics } from 'redux-observable';
 import { Observable } from 'rxjs';
+import { authActions } from './auth';
 
 interface IMessage {
   user: string;
@@ -28,8 +29,6 @@ export const chatActions = {
     ),
     statusUpdated: createAction<IStatus>('@@chat/STATUS UPDATED')
   },
-  start: createAction('@@chat/START'),
-  clear: createAction('@@chat/CLEAR'),
   sendMessage: createAction<string>('@@chat/SEND MESSAGE'),
   deleteMessage: createAction<string>('@@chat/DELETE MESSAGE')
 };
@@ -38,8 +37,6 @@ export type ChatEpic = Epic<
   | ReturnType<typeof chatActions.internal.messageAdded>
   | ReturnType<typeof chatActions.internal.messageRemoved>
   | ReturnType<typeof chatActions.internal.statusUpdated>
-  | ReturnType<typeof chatActions.start>
-  | ReturnType<typeof chatActions.clear>
   | ReturnType<typeof chatActions.sendMessage>
   | ReturnType<typeof chatActions.deleteMessage>,
   RootState
@@ -49,8 +46,24 @@ const chatRef = firebase.database().ref('chat');
 const messagesRef = chatRef.child('messages');
 const statusRef = chatRef.child('status');
 
-const startMessageAddedListenerEpic: ChatEpic = action$ =>
-  action$.ofType(chatActions.start.getType()).switchMap(() =>
+// var onAuthStateChanged$ = Rx.Observable.create(obs => {
+//   return firebase.auth().onAuthStateChanged(
+//     user => obs.next(user),
+//     err => obs.error(err),
+//     () => obs.complete());
+// })
+
+// const startHandleAuthStateChangedEpic: ChatEpic = action$ =>
+//   action$.ofType(chatActions.start.getType()).switchMap(() =>
+//     new Observable<firebase.User | null>(observer =>
+//       firebase.auth().onAuthStateChanged(observer)
+//     ).switchMap(user => {
+//       return Observable.empty<never>();
+//     })
+//   );
+
+const startMessageAddedEpic: ChatEpic = action$ =>
+  action$.ofType(authActions.internal.userFound.getType()).switchMap(() =>
     Observable.fromEvent<firebase.database.DataSnapshot>(
       messagesRef as any,
       'child_added'
@@ -64,8 +77,8 @@ const startMessageAddedListenerEpic: ChatEpic = action$ =>
       )
   );
 
-const startMessageRemovedListenerEpic: ChatEpic = action$ =>
-  action$.ofType(chatActions.start.getType()).switchMap(() =>
+const startMessageRemovedEpic: ChatEpic = action$ =>
+  action$.ofType(authActions.internal.userFound.getType()).switchMap(() =>
     Observable.fromEvent<firebase.database.DataSnapshot>(
       messagesRef as any,
       'child_removed'
@@ -79,8 +92,8 @@ const startMessageRemovedListenerEpic: ChatEpic = action$ =>
       )
   );
 
-const startStatusUpdatedListenerEpic: ChatEpic = action$ =>
-  action$.ofType(chatActions.start.getType()).switchMap(() =>
+const startStatusUpdatedEpic: ChatEpic = action$ =>
+  action$.ofType(authActions.internal.userFound.getType()).switchMap(() =>
     Observable.fromEvent<firebase.database.DataSnapshot>(
       statusRef as any,
       'value'
@@ -88,6 +101,12 @@ const startStatusUpdatedListenerEpic: ChatEpic = action$ =>
       .filter(snapshot => snapshot !== null)
       .map(snapshot => chatActions.internal.statusUpdated(snapshot.val()))
   );
+
+const startEpic = combineEpics<ChatEpic>(
+  startMessageAddedEpic,
+  startMessageRemovedEpic,
+  startStatusUpdatedEpic
+);
 
 const sendMessageEpic: ChatEpic = (action$, store) =>
   action$
@@ -118,9 +137,7 @@ const deleteMessageEpic: ChatEpic = (action$, store) =>
     .retry();
 
 export const chatEpic = combineEpics<ChatEpic>(
-  startMessageAddedListenerEpic,
-  startMessageRemovedListenerEpic,
-  startStatusUpdatedListenerEpic,
+  startEpic,
   sendMessageEpic,
   deleteMessageEpic
 );
@@ -150,7 +167,7 @@ reducer.on(chatActions.internal.statusUpdated, (state, payload) => ({
   status: payload
 }));
 
-reducer.on(chatActions.clear, (state, payload) => ({
+reducer.on(authActions.internal.userMissing, (state, payload) => ({
   ...state,
   messages: {}
 }));

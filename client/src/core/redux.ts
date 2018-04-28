@@ -1,27 +1,20 @@
-import rootReducer, { RootState, rootEpic, rootSaga } from '@app/ducks';
+import rootReducer, { RootState, rootEpic } from '@app/ducks';
 import { Store, applyMiddleware, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import logger from 'redux-logger';
 import { createEpicMiddleware } from 'redux-observable';
-import createSagaMiddleware from 'redux-saga';
 
 let store: Store<RootState>;
 
-const sagaMiddleware = createSagaMiddleware();
-const epicMiddleware = createEpicMiddleware(rootEpic);
+const epicMiddleware = createEpicMiddleware(rootEpic as any);
 
 if (process.env.NODE_ENV !== 'production') {
   store = createStore(
     rootReducer,
-    composeWithDevTools(applyMiddleware(logger, sagaMiddleware, epicMiddleware))
+    composeWithDevTools(applyMiddleware(logger, epicMiddleware))
   );
 } else {
-  store = createStore(
-    rootReducer,
-    applyMiddleware(sagaMiddleware, epicMiddleware)
-  );
+  store = createStore(rootReducer, applyMiddleware(epicMiddleware));
 }
-
-sagaMiddleware.run(rootSaga);
 
 export default store;
