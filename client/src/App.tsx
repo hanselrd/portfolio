@@ -2,13 +2,21 @@ import { RootState } from '@app/ducks';
 import { authActions } from '@app/ducks/auth';
 import { chatActions } from '@app/ducks/chat';
 import { metadataActions } from '@app/ducks/metadata';
+import { FormikProps, withFormik } from 'formik';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
+import { Button, Form } from 'semantic-ui-react';
+import * as yup from 'yup';
+
+interface IFormValues {
+  text: string;
+}
 
 export type AppProps = ReturnType<typeof mapStateToProps> &
-  typeof mapDispatchToProps;
+  typeof mapDispatchToProps &
+  FormikProps<IFormValues>;
 
 class App extends React.Component<AppProps> {
   public componentWillMount() {
@@ -34,8 +42,8 @@ class App extends React.Component<AppProps> {
     this.props.authSignOut();
   }
 
-  public sendMessage() {
-    this.props.chatSendMessage(new Date().toString());
+  public sendMessage(text: string) {
+    this.props.chatSendMessage(text);
   }
 
   public deleteMessage(id: string) {
@@ -46,7 +54,11 @@ class App extends React.Component<AppProps> {
     const {
       auth,
       chat: { messages, status },
-      metadata
+      metadata,
+      values,
+      handleChange,
+      handleBlur,
+      handleSubmit
     } = this.props;
 
     return (
@@ -54,18 +66,27 @@ class App extends React.Component<AppProps> {
         <p>Hello</p>
         {!auth.user && (
           <React.Fragment>
-            <button onClick={() => this.signUpWithEmailAndPassword()}>
+            <Button onClick={() => this.signUpWithEmailAndPassword()}>
               Sign up with Email
-            </button>
-            <button onClick={() => this.login()}>Log in with Email</button>
+            </Button>
+            <Button onClick={() => this.login()}>Log in with Email</Button>
           </React.Fragment>
         )}
         {auth.user && (
           <React.Fragment>
-            <button onClick={() => this.logout()}>Log out</button>
-            <button onClick={() => this.sendMessage()}>
+            <Button onClick={() => this.logout()}>Log out</Button>
+            {/* <Button onClick={() => this.sendMessage()}>
               Send chat message
-            </button>
+            </Button> */}
+
+            <Form onSubmit={handleSubmit}>
+              <Form.Input
+                name="text"
+                value={values.text}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+            </Form>
             <hr />
             <p>{auth.user.uid}</p>
             <p>{JSON.stringify(metadata.users[auth.user.uid])}</p>
@@ -74,11 +95,21 @@ class App extends React.Component<AppProps> {
         <hr />
         <p>{JSON.stringify(status)}</p>
         {Object.keys(messages).map(key => (
-          <p key={key}>
-            <button onClick={() => this.deleteMessage(key)}> X</button>{' '}
-            <span style={{ color: 'maroon' }}>[{key}]</span>{' '}
+          <div key={key}>
+            {metadata.users[messages[key].user] != null &&
+              metadata.users[messages[key].user].role &&
+              metadata.users[messages[key].user].role! >= 10 && (
+                <Button
+                  color="red"
+                  size="tiny"
+                  onClick={() => this.deleteMessage(key)}
+                >
+                  X
+                </Button>
+              )}
+            <span style={{ color: 'maroon' }}>[{messages[key].user}]</span>{' '}
             {messages[key].text}
-          </p>
+          </div>
         ))}
       </div>
     );
@@ -100,5 +131,18 @@ const mapDispatchToProps = {
 
 export default compose(
   withRouter,
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(mapStateToProps, mapDispatchToProps),
+  withFormik<AppProps, IFormValues>({
+    mapPropsToValues: props => ({ text: '' }),
+    validationSchema: yup.object().shape({
+      text: yup
+        .string()
+        .required()
+        .max(256)
+    }),
+    handleSubmit: ({ text }, { props, resetForm }) => {
+      props.chatSendMessage(text);
+      resetForm({ text: '' });
+    }
+  })
 )(App);

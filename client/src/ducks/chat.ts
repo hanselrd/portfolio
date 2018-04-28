@@ -48,51 +48,39 @@ const chatRef = firebase.database().ref('chat');
 const messagesRef = chatRef.child('messages');
 const statusRef = chatRef.child('status');
 
-const startMessageAddedEpic: ChatEpic = action$ =>
+const startEpic: ChatEpic = action$ =>
   action$.ofType(authActions.internal.userFound.getType()).switchMap(() =>
-    Observable.fromEvent<firebase.database.DataSnapshot>(
-      messagesRef as any,
-      'child_added'
-    )
-      .filter(snapshot => snapshot && snapshot.key != null)
-      .map(snapshot =>
-        chatActions.internal.messageAdded({
-          id: snapshot.key!,
-          message: snapshot.val()
-        })
+    Observable.merge(
+      Observable.fromEvent<firebase.database.DataSnapshot | null>(
+        messagesRef as any,
+        'child_added'
       )
-  );
-
-const startMessageRemovedEpic: ChatEpic = action$ =>
-  action$.ofType(authActions.internal.userFound.getType()).switchMap(() =>
-    Observable.fromEvent<firebase.database.DataSnapshot>(
-      messagesRef as any,
-      'child_removed'
-    )
-      .filter(snapshot => snapshot && snapshot.key != null)
-      .map(snapshot =>
-        chatActions.internal.messageRemoved({
-          id: snapshot.key!,
-          message: snapshot.val()
-        })
+        .filter(snapshot => snapshot != null && snapshot.key != null)
+        .map(snapshot =>
+          chatActions.internal.messageAdded({
+            id: snapshot!.key!,
+            message: snapshot!.val()
+          })
+        ),
+      Observable.fromEvent<firebase.database.DataSnapshot | null>(
+        messagesRef as any,
+        'child_removed'
       )
-  );
-
-const startStatusUpdatedEpic: ChatEpic = action$ =>
-  action$.ofType(authActions.internal.userFound.getType()).switchMap(() =>
-    Observable.fromEvent<firebase.database.DataSnapshot>(
-      statusRef as any,
-      'value'
+        .filter(snapshot => snapshot != null && snapshot.key != null)
+        .map(snapshot =>
+          chatActions.internal.messageRemoved({
+            id: snapshot!.key!,
+            message: snapshot!.val()
+          })
+        ),
+      Observable.fromEvent<firebase.database.DataSnapshot | null>(
+        statusRef as any,
+        'value'
+      )
+        .filter(snapshot => snapshot != null)
+        .map(snapshot => chatActions.internal.statusUpdated(snapshot!.val()))
     )
-      .filter(snapshot => snapshot != null)
-      .map(snapshot => chatActions.internal.statusUpdated(snapshot.val()))
   );
-
-const startEpic = combineEpics<ChatEpic>(
-  startMessageAddedEpic,
-  startMessageRemovedEpic,
-  startStatusUpdatedEpic
-);
 
 const sendMessageEpic: ChatEpic = (action$, store) =>
   action$
