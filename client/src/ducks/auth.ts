@@ -1,185 +1,175 @@
 import firebase from '@app/core/firebase';
 import { RootState } from '@app/ducks';
 import { createAction, createReducer } from 'redux-act';
-import { eventChannel } from 'redux-saga';
-import { all, call, put, select, take, takeLatest } from 'redux-saga/effects';
-import { chatActions } from './chat';
-
-const actions = {
-  userFound: createAction<firebase.User>('@@auth/USER FOUND [internal]'),
-  userMissing: createAction('@@auth/USER MISSING [internal]')
-};
+import { Epic, combineEpics } from 'redux-observable';
+import { Observable } from 'rxjs';
 
 export const authActions = {
+  internal: {
+    userFound: createAction<firebase.User>('@@auth/USER FOUND'),
+    userMissing: createAction('@@auth/USER MISSING')
+  },
   start: createAction('@@auth/START'),
-
   signInWithEmailAndPassword: createAction<{
     email: string;
     password: string;
   }>('@@auth/SIGN IN WITH EMAIL AND PASSWORD'),
-
   signInWithProvider: createAction<{
     provider: 'google' | 'facebook' | 'twitter' | 'github';
     type: 'popup' | 'redirect';
   }>('@@auth/SIGN IN WITH PROVIDER'),
-
   signUpWithEmailAndPassword: createAction<{
     email: string;
     password: string;
   }>('@@auth/SIGN UP WITH EMAIL AND PASSWORD'),
-
   signOut: createAction('@@auth/SIGN OUT')
 };
 
-export const authServices = {
-  getUserRef: (user: firebase.User) =>
-    firebase
-      .database()
-      .ref('users')
-      .child(user.uid)
-};
+export type AuthEpic = Epic<
+  | ReturnType<typeof authActions.internal.userFound>
+  | ReturnType<typeof authActions.internal.userMissing>
+  | ReturnType<typeof authActions.start>
+  | ReturnType<typeof authActions.signInWithEmailAndPassword>
+  | ReturnType<typeof authActions.signInWithProvider>
+  | ReturnType<typeof authActions.signUpWithEmailAndPassword>
+  | ReturnType<typeof authActions.signOut>,
+  RootState
+>;
 
-export const authChannels = {
-  onAuthStateChanged: () =>
-    eventChannel<{ user: firebase.User | null }>(emitter =>
-      firebase.auth().onAuthStateChanged(user => {
-        emitter({ user });
-        if (user) {
-          const userRef = authServices.getUserRef(user);
-          firebase
-            .database()
-            .ref('.info/connected')
-            .on('value', snapshot => {
-              if (snapshot && snapshot.val()) {
-                userRef
-                  .onDisconnect()
-                  .update({ online: false })
-                  .then(() => {
-                    userRef.update({ online: true });
-                  });
-              }
-            });
-        }
-      })
+const getUserRef = (user: firebase.User) =>
+  firebase
+    .database()
+    .ref('users')
+    .child(user.uid);
+
+const startAuthStateChangedEpic: AuthEpic = action$ =>
+  action$
+    .ofType(authActions.start.getType())
+    .switchMap(() =>
+      new Observable<firebase.User | null>(observer =>
+        firebase.auth().onAuthStateChanged(observer)
+      ).map(
+        user =>
+          user
+            ? authActions.internal.userFound(user)
+            : authActions.internal.userMissing()
+      )
+    );
+
+const startHandlePresenceEpic: AuthEpic = (action$, store) =>
+  action$
+    .ofType(authActions.internal.userFound.getType())
+    .switchMap(() =>
+      Observable.fromEvent<firebase.database.DataSnapshot>(
+        firebase.database().ref('.info/connected') as any,
+        'value'
+      )
+        .filter(snapshot => snapshot !== null)
+        .switchMap(() => {
+          const userRef = getUserRef(store.getState().auth.user!);
+          return Observable.from(
+            userRef
+              .onDisconnect()
+              .update({ online: false })
+              .then(() => userRef.update({ online: true }))
+          );
+        })
     )
-};
+    .switchMap(() => Observable.empty<never>())
+    .retry();
 
-export const authSagas = {
-  *start(action: ReturnType<typeof authActions.start>) {
-    const authStateChannel = yield call(authChannels.onAuthStateChanged);
-    while (true) {
-      const authState: { user: firebase.User | null } = yield take(
-        authStateChannel
+const startEpic = combineEpics<AuthEpic>(
+  startAuthStateChangedEpic,
+  startHandlePresenceEpic
+);
+
+const signInWithEmailAndPasswordEpic: AuthEpic = action$ =>
+  action$
+    .ofType(authActions.signInWithEmailAndPassword.getType())
+    .switchMap(action => {
+      const { email, password } = action.payload as {
+        email: string;
+        password: string;
+      };
+      return Observable.from(
+        firebase.auth().signInWithEmailAndPassword(email, password)
       );
-      if (authState.user) {
-        yield put(actions.userFound(authState.user));
-        yield put(chatActions.start());
-      } else {
-        yield put(actions.userMissing());
-        yield put(chatActions.clear());
+    })
+    .switchMap(() => Observable.empty<never>())
+    .retry();
+
+const signInWithProviderEpic: AuthEpic = action$ =>
+  action$
+    .ofType(authActions.signInWithProvider.getType())
+    .switchMap(action => {
+      const { provider, type } = action.payload as {
+        provider: 'google' | 'facebook' | 'twitter' | 'github';
+        type: 'popup' | 'redirect';
+      };
+      let authProvider: firebase.auth.AuthProvider = new firebase.auth.EmailAuthProvider();
+
+      switch (provider) {
+        case 'google':
+          authProvider = new firebase.auth.GoogleAuthProvider();
+          break;
+        case 'facebook':
+          authProvider = new firebase.auth.FacebookAuthProvider();
+          break;
+        case 'twitter':
+          authProvider = new firebase.auth.TwitterAuthProvider();
+          break;
+        case 'github':
+          authProvider = new firebase.auth.GithubAuthProvider();
+          break;
       }
-    }
-  },
 
-  *signInWithEmailAndPassword(
-    action: ReturnType<typeof authActions.signInWithEmailAndPassword>
-  ) {
-    const { email, password } = action.payload;
-    try {
-      yield call(
-        [firebase.auth(), firebase.auth().signInWithEmailAndPassword],
-        email,
-        password
-      );
-    } catch (error) {
-      console.error(error);
-    }
-  },
-
-  *signInWithProvider(
-    action: ReturnType<typeof authActions.signInWithProvider>
-  ) {
-    const { provider, type } = action.payload;
-    let authProvider: firebase.auth.AuthProvider = new firebase.auth.EmailAuthProvider();
-
-    switch (provider) {
-      case 'google':
-        authProvider = new firebase.auth.GoogleAuthProvider();
-        break;
-      case 'facebook':
-        authProvider = new firebase.auth.FacebookAuthProvider();
-        break;
-      case 'twitter':
-        authProvider = new firebase.auth.TwitterAuthProvider();
-        break;
-      case 'github':
-        authProvider = new firebase.auth.GithubAuthProvider();
-        break;
-    }
-
-    try {
       switch (type) {
         case 'popup':
-          yield call(
-            [firebase.auth(), firebase.auth().signInWithPopup],
-            authProvider
-          );
-          break;
+          return Observable.from(firebase.auth().signInWithPopup(authProvider));
         case 'redirect':
-          yield call(
-            [firebase.auth(), firebase.auth().signInWithRedirect],
-            authProvider
+          return Observable.from(
+            firebase.auth().signInWithRedirect(authProvider)
           );
-          break;
       }
-    } catch (error) {
-      console.error(error);
-    }
-  },
+    })
+    .switchMap(() => Observable.empty<never>())
+    .retry();
 
-  *signUpWithEmailAndPassword(
-    action: ReturnType<typeof authActions.signUpWithEmailAndPassword>
-  ) {
-    const { email, password } = action.payload;
-    try {
-      yield call(
-        [firebase.auth(), firebase.auth().createUserWithEmailAndPassword],
-        email,
-        password
+const signUpWithEmailAndPasswordEpic: AuthEpic = action$ =>
+  action$
+    .ofType(authActions.signUpWithEmailAndPassword.getType())
+    .switchMap(action => {
+      const { email, password } = action.payload as {
+        email: string;
+        password: string;
+      };
+      return Observable.from(
+        firebase.auth().createUserWithEmailAndPassword(email, password)
       );
-    } catch (error) {
-      console.error(error);
-    }
-  },
+    })
+    .switchMap(() => Observable.empty<never>())
+    .retry();
 
-  *signOut(action: ReturnType<typeof authActions.signOut>) {
-    const state: RootState = yield select();
-    if (state.auth.user) {
-      const userRef = yield call(authServices.getUserRef, state.auth.user);
-      yield call([userRef, userRef.update], { online: false });
-    }
-    yield call([firebase.auth(), firebase.auth().signOut]);
-  }
-};
+const signOutEpic: AuthEpic = (action$, store) =>
+  action$
+    .ofType(authActions.signOut.getType())
+    .filter(() => store.getState().auth.user !== null)
+    .switchMap(() => {
+      const userRef = getUserRef(store.getState().auth.user!);
+      return Observable.from(
+        userRef.update({ online: false }).then(() => firebase.auth().signOut())
+      );
+    })
+    .switchMap(() => Observable.empty<never>())
+    .retry();
 
-export const authSaga = function*() {
-  yield all([
-    takeLatest(authActions.start.getType(), authSagas.start),
-    takeLatest(
-      authActions.signInWithEmailAndPassword.getType(),
-      authSagas.signInWithEmailAndPassword
-    ),
-    takeLatest(
-      authActions.signInWithProvider.getType(),
-      authSagas.signInWithProvider
-    ),
-    takeLatest(
-      authActions.signUpWithEmailAndPassword.getType(),
-      authSagas.signUpWithEmailAndPassword
-    ),
-    takeLatest(authActions.signOut.getType(), authSagas.signOut)
-  ]);
-};
+export const authEpic = combineEpics<AuthEpic>(
+  startEpic,
+  signInWithEmailAndPasswordEpic,
+  signInWithProviderEpic,
+  signUpWithEmailAndPasswordEpic,
+  signOutEpic
+);
 
 export type AuthState = Readonly<{
   user?: firebase.User;
@@ -187,12 +177,12 @@ export type AuthState = Readonly<{
 
 const reducer = createReducer<AuthState>({}, {});
 
-reducer.on(actions.userFound, (state, payload) => ({
+reducer.on(authActions.internal.userFound, (state, payload) => ({
   ...state,
   user: payload
 }));
 
-reducer.on(actions.userMissing, state => ({
+reducer.on(authActions.internal.userMissing, state => ({
   ...state,
   user: undefined
 }));

@@ -1,16 +1,11 @@
 import { combineReducers } from 'redux';
 import { combineEpics } from 'redux-observable';
-import { all, fork } from 'redux-saga/effects';
-import authReducer, { AuthState, authSaga } from './auth';
-import chatReducer, { ChatState, chatEpic, ChatEpic } from './chat';
+import authReducer, { AuthEpic, AuthState, authEpic } from './auth';
+import chatReducer, { ChatEpic, ChatState, chatEpic } from './chat';
 
-export const rootSaga = function*() {
-  yield all([fork(authSaga)]);
-};
+export type RootEpic = AuthEpic | ChatEpic;
 
-export type RootEpic = ChatEpic;
-
-export const rootEpic = combineEpics<RootEpic>(chatEpic);
+export const rootEpic = combineEpics<RootEpic>(authEpic, chatEpic);
 
 export type RootState = Readonly<{
   auth: AuthState;

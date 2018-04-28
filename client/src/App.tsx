@@ -72,7 +72,8 @@ class App extends React.Component<AppProps> {
         <p>{JSON.stringify(status)}</p>
         {Object.keys(messages).map(key => (
           <p key={key}>
-            <button onClick={() => this.deleteMessage(key)}> X</button> [{key}]{' '}
+            <button onClick={() => this.deleteMessage(key)}> X</button>{' '}
+            <span style={{ color: 'maroon' }}>[{key}]</span>{' '}
             {messages[key].text}
           </p>
         ))}
