@@ -3,6 +3,7 @@ import { RootState } from '@app/ducks';
 import { createAction, createReducer } from 'redux-act';
 import { eventChannel } from 'redux-saga';
 import { all, call, put, select, take, takeLatest } from 'redux-saga/effects';
+import { chatActions } from './chat';
 
 const actions = {
   userFound: createAction<firebase.User>('@@auth/USER FOUND [internal]'),
@@ -72,8 +73,10 @@ export const authSagas = {
       );
       if (authState.user) {
         yield put(actions.userFound(authState.user));
+        yield put(chatActions.start());
       } else {
         yield put(actions.userMissing());
+        yield put(chatActions.clear());
       }
     }
   },
