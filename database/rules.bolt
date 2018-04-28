@@ -98,7 +98,7 @@ path /metadata {
 }
 
 type MetadataUser {
-  email: String;
+  email: String | Null;
   provider: String;
   role: Number | Null;
   created: InitialTimestamp;

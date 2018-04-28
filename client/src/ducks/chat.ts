@@ -8,7 +8,7 @@ import { authActions } from './auth';
 interface IMessage {
   user: string;
   text: string;
-  created: string;
+  created: number;
 }
 
 interface IMessages {
@@ -34,6 +34,8 @@ export const chatActions = {
 };
 
 export type ChatEpic = Epic<
+  | ReturnType<typeof authActions.internal.userFound>
+  | ReturnType<typeof authActions.internal.userMissing>
   | ReturnType<typeof chatActions.internal.messageAdded>
   | ReturnType<typeof chatActions.internal.messageRemoved>
   | ReturnType<typeof chatActions.internal.statusUpdated>
@@ -45,22 +47,6 @@ export type ChatEpic = Epic<
 const chatRef = firebase.database().ref('chat');
 const messagesRef = chatRef.child('messages');
 const statusRef = chatRef.child('status');
-
-// var onAuthStateChanged$ = Rx.Observable.create(obs => {
-//   return firebase.auth().onAuthStateChanged(
-//     user => obs.next(user),
-//     err => obs.error(err),
-//     () => obs.complete());
-// })
-
-// const startHandleAuthStateChangedEpic: ChatEpic = action$ =>
-//   action$.ofType(chatActions.start.getType()).switchMap(() =>
-//     new Observable<firebase.User | null>(observer =>
-//       firebase.auth().onAuthStateChanged(observer)
-//     ).switchMap(user => {
-//       return Observable.empty<never>();
-//     })
-//   );
 
 const startMessageAddedEpic: ChatEpic = action$ =>
   action$.ofType(authActions.internal.userFound.getType()).switchMap(() =>
@@ -111,15 +97,16 @@ const startEpic = combineEpics<ChatEpic>(
 const sendMessageEpic: ChatEpic = (action$, store) =>
   action$
     .ofType(chatActions.sendMessage.getType())
-    .debounceTime(500)
+    .throttleTime(1000)
     .filter(() => store.getState().auth.user !== null)
     .filter(() => store.getState().chat.status.enabled)
+    // filter if banned
     .switchMap(action =>
       Observable.from(
         messagesRef.push().set({
-          created: firebase.database.ServerValue.TIMESTAMP,
+          user: store.getState().auth.user!.uid,
           text: action.payload,
-          user: store.getState().auth.user!.uid
+          created: firebase.database.ServerValue.TIMESTAMP
         })
       )
     )
@@ -129,7 +116,17 @@ const sendMessageEpic: ChatEpic = (action$, store) =>
 const deleteMessageEpic: ChatEpic = (action$, store) =>
   action$
     .ofType(chatActions.deleteMessage.getType())
-    .filter(() => store.getState().auth.user !== null) // needs filter to check for mod permissions
+    .filter(() => store.getState().auth.user !== null)
+    .filter(
+      () =>
+        store.getState().metadata.users[store.getState().auth.user!.uid]
+          .role !== null
+    )
+    .filter(
+      () =>
+        store.getState().metadata.users[store.getState().auth.user!.uid]
+          .role! >= 10
+    )
     .switchMap(action =>
       Observable.from(messagesRef.child(action.payload as string).remove())
     )
