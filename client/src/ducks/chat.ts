@@ -54,7 +54,7 @@ const startMessageAddedEpic: ChatEpic = action$ =>
       messagesRef as any,
       'child_added'
     )
-      .filter(snapshot => snapshot && snapshot.key !== null)
+      .filter(snapshot => snapshot && snapshot.key != null)
       .map(snapshot =>
         chatActions.internal.messageAdded({
           id: snapshot.key!,
@@ -69,7 +69,7 @@ const startMessageRemovedEpic: ChatEpic = action$ =>
       messagesRef as any,
       'child_removed'
     )
-      .filter(snapshot => snapshot && snapshot.key !== null)
+      .filter(snapshot => snapshot && snapshot.key != null)
       .map(snapshot =>
         chatActions.internal.messageRemoved({
           id: snapshot.key!,
@@ -84,7 +84,7 @@ const startStatusUpdatedEpic: ChatEpic = action$ =>
       statusRef as any,
       'value'
     )
-      .filter(snapshot => snapshot !== null)
+      .filter(snapshot => snapshot != null)
       .map(snapshot => chatActions.internal.statusUpdated(snapshot.val()))
   );
 
@@ -98,7 +98,7 @@ const sendMessageEpic: ChatEpic = (action$, store) =>
   action$
     .ofType(chatActions.sendMessage.getType())
     .throttleTime(1000)
-    .filter(() => store.getState().auth.user !== null)
+    .filter(() => store.getState().auth.user != null)
     .filter(() => store.getState().chat.status.enabled)
     // filter if banned
     .switchMap(action =>
@@ -116,11 +116,11 @@ const sendMessageEpic: ChatEpic = (action$, store) =>
 const deleteMessageEpic: ChatEpic = (action$, store) =>
   action$
     .ofType(chatActions.deleteMessage.getType())
-    .filter(() => store.getState().auth.user !== null)
+    .filter(() => store.getState().auth.user != null)
     .filter(
       () =>
-        store.getState().metadata.users[store.getState().auth.user!.uid]
-          .role !== null
+        store.getState().metadata.users[store.getState().auth.user!.uid].role !=
+        null
     )
     .filter(
       () =>

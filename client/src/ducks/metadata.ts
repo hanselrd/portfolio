@@ -46,13 +46,13 @@ const startEpic: MetadataEpic = (action$, store) =>
 const loadUserEpic: MetadataEpic = (action$, store) =>
   action$
     .ofType(metadataActions.loadUser.getType())
-    .filter(() => store.getState().auth.user !== null)
+    .filter(() => store.getState().auth.user != null)
     .switchMap(action =>
       Observable.fromEvent<firebase.database.DataSnapshot>(
         getUserRef(action.payload as string) as any,
         'value'
       )
-        .filter(snapshot => snapshot && snapshot.key !== null)
+        .filter(snapshot => snapshot && snapshot.key != null)
         .map(snapshot =>
           metadataActions.internal.userUpdated({
             id: snapshot.key!,
