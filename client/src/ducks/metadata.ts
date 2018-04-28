@@ -43,6 +43,9 @@ const startEpic: MetadataEpic = (action$, store) =>
       metadataActions.loadUser((action.payload as firebase.User).uid)
     );
 
+// currently loads one user at a time
+// because itll be used to lazily load user data
+// from those using the chat
 const loadUserEpic: MetadataEpic = (action$, store) =>
   action$
     .ofType(metadataActions.loadUser.getType())
