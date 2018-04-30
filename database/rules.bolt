@@ -3,140 +3,126 @@
 
 ************************************************************/
 path /users {
-  read() { isSignedIn() }
-
-  path /{userid} is User {
-    update() { isCurrentUser(userid) || isAdmin() }
-  }
+  index() { ['displayName', 'email'] }
 }
 
+path /users/{uid} is User {
+  read() { isSignedIn() }
+}
 type User {
-  name: NameString;
-  photoURL: String | Null;
-  age: Number | Null;
-  online: Boolean | Null;
-}
-
-/***********************************************************
-  Chat
-
-************************************************************/
-path /chat {
-  read() { isSignedIn() }
-  write() { isAdmin() }
-
-  path /status is ChatStatus;
-
-  path /announcement is ChatAnnouncement;
-
-  path /messages/{messageid} is ChatMessage {
-    create() { isSignedIn() && isChatEnabled() && !isBannedFromChat() }
-    delete() { isMod() }
-  }
-
-  path /banned/{userid} is ChatBanned {
-    // cannot ban yourself, nice try
-    write() { !isCurrentUser(userid) && isMod() }
-  }
-}
-
-type ChatStatus {
-  enabled: Boolean;
-}
-
-type ChatAnnouncement {
-  user: UserID;
-  text: ChatAnnouncementString;
-  created: InitialTimestamp;
-}
-
-type ChatAnnouncementString extends String {
-  validate() { this.length > 0 && this.length <= 512 }
-}
-
-type ChatMessage {
-  user: UserID;
-  text: ChatMessageString;
-  created: InitialTimestamp;
-}
-
-type ChatMessageString extends String {
-  validate() { this.length > 0 && this.length <= 256 }
-}
-
-type ChatBanned {
-  staff: UserID;
-  reason: String;
-}
-
-function isChatEnabled() { prior(root).chat.status.enabled }
-function isBannedFromChat() { prior(root).chat.banned[auth.uid] != null }
-
-/***********************************************************
-  Settings
-
-************************************************************/
-path /settings/{userid} is Settings {
-  read() { isCurrentUser(userid) || isAdmin() }
-  update() { isCurrentUser(userid) || isOwner() }
-}
-
-type Settings {
-  showEmail: Boolean | Null;
-}
-
-/***********************************************************
-  Metadata
-
-************************************************************/
-path /metadata {
-  write() { isOwner() }
-
-  path /users/{userid} is MetadataUser {
-    read() { isSignedIn() }
-  }
-}
-
-type MetadataUser {
+  displayName: String;
+  photoUrl: String | Null;
   email: String | Null;
-  provider: String;
-  role: Number | Null;
-  created: InitialTimestamp;
+  provider: String | Null;
+  role: Number;
+  created: Number;
+  online: Boolean;
 }
 
-function hasRole(role) { isSignedIn() && prior(root).metadata.users[auth.uid].role >= role }
+function hasRole(role) { isSignedIn() && prior(root).users[auth.uid].role >= role }
 function isOwner() { hasRole(30) }
 function isAdmin() { hasRole(20) }
 function isMod() { hasRole(10) }
 
 /***********************************************************
-  Helper Types
+  Chat
 
 ************************************************************/
-type UserID extends String {
-  validate() { prior(root).users[this] != null }
+path /chat is Chat {
+  read() { isSignedIn() }
+  write() { isMod() }
+}
+type Chat {
+  announcement: ChatMessage | Null;
+  messages: ChatMessage[];
+  enabled: Boolean;
+}
+type ChatMessage {
+  uid: String;
+  text: String;
+  created: Number;
 }
 
-type NameString extends String {
-  validate() { this.length >= 3 && this.length <= 20 }
+path /queue/chat/messages/{uid} is String[] {
+  read() { isCurrentUser(uid) }
+  create() { isCurrentUser(uid) && isChatEnabled() }
 }
 
-type CurrentTimestamp extends Number {
-  validate() { this == now }
-}
+function isChatEnabled() { prior(root).chat.enabled }
 
-type InitialTimestamp extends Number {
-  validate() { initial(this, now) }
-}
+/***********************************************************
+  User Readable
 
-type Color extends String {
-  validate() { this.test(/^red|orange|yellow|olive|green|teal|blue|violet|purple|pink|brown|grey|black$/) }
-}
-
-// type Pair<T, U> {
-//   first: T;
-//   second: U;
+************************************************************/
+// path /userReadable/{objectType}/{uid} {
+//   read() { isCurrentUser(uid) || isAdmin() }
 // }
+
+/***********************************************************
+  User Createable
+
+************************************************************/
+// path /userCreateable/{objectType}/{uid} {
+//   create() { isCurrentUser(uid) || isAdmin() }
+// }
+
+/***********************************************************
+  User Updateable
+
+************************************************************/
+// path /userUpdateable/{objectType}/{uid} {
+//   update() { isCurrentUser(uid) || isAdmin() }
+// }
+
+/***********************************************************
+  User Deleteable
+
+************************************************************/
+// path /userDeleteable/{objectType}/{uid} {
+//   delete() { isCurrentUser(uid) || isAdmin() }
+// }
+
+/***********************************************************
+  User Writeable
+
+************************************************************/
+// path /userWriteable/{objectType}/{uid} {
+//   write() { isCurrentUser(uid) || isAdmin() }
+// }
+
+path /userWriteable/updateUser/{uid} is UpdateUser {
+  write() { isCurrentUser(uid) || isAdmin() }
+}
+type UpdateUser {
+  displayName: DisplayNameString | Null;
+  photoUrl: String | Null;
+  online: Boolean | Null;
+}
+type DisplayNameString extends String {
+  validate() { this.length >= 3 && this.length <=25 }
+}
+
+path /userWriteable/messageQueue/{uid} is MessageQueueString[];
+type MessageQueueString extends String {
+  validate() { this.length > 0 && this.length <= 256 }
+}
+
+/***********************************************************
+  User Owned
+
+************************************************************/
+// path /userOwned/{objectType}/{uid} {
+//   read() { isCurrentUser(uid) || isAdmin() }
+//   write() { isCurrentUser(uid) || isAdmin() }
+// }
+
+path /userOwned/settings/{uid} is Settings {
+  read() { isCurrentUser(uid) || isAdmin() }
+  write() { isCurrentUser(uid) || isAdmin() }
+}
+type Settings {
+  showEmail: Boolean;
+}
 
 /***********************************************************
   Helper Functions
@@ -144,4 +130,3 @@ type Color extends String {
 ************************************************************/
 function isSignedIn() { auth != null }
 function isCurrentUser(uid) { isSignedIn() && auth.uid == uid }
-function initial(value, init) { value == (prior(value) == null ? init : prior(value)) }

@@ -2,28 +2,20 @@ import { combineReducers } from 'redux';
 import { combineEpics } from 'redux-observable';
 import authReducer, { AuthEpic, AuthState, authEpic } from './auth';
 import chatReducer, { ChatEpic, ChatState, chatEpic } from './chat';
-import metadataReducer, {
-  MetadataEpic,
-  MetadataState,
-  metadataEpic
-} from './metadata';
+import usersReducer, { UsersEpic, UsersState, usersEpic } from './users';
 
-export type RootEpic = AuthEpic | ChatEpic | MetadataEpic;
+export type RootEpic = AuthEpic | ChatEpic | UsersEpic;
 
-export const rootEpic = combineEpics<RootEpic>(
-  authEpic,
-  chatEpic,
-  metadataEpic
-);
+export const rootEpic = combineEpics<RootEpic>(authEpic, chatEpic, usersEpic);
 
 export type RootState = Readonly<{
   auth: AuthState;
   chat: ChatState;
-  metadata: MetadataState;
+  users: UsersState;
 }>;
 
 export default combineReducers<RootState>({
   auth: authReducer,
   chat: chatReducer,
-  metadata: metadataReducer
+  users: usersReducer
 });

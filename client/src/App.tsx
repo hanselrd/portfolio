@@ -1,7 +1,7 @@
 import { RootState } from '@app/ducks';
 import { authActions } from '@app/ducks/auth';
 import { chatActions } from '@app/ducks/chat';
-import { metadataActions } from '@app/ducks/metadata';
+import { usersActions } from '@app/ducks/users';
 import { FormikProps, withFormik } from 'formik';
 import * as React from 'react';
 import { connect } from 'react-redux';
@@ -53,8 +53,8 @@ class App extends React.Component<AppProps> {
   public render() {
     const {
       auth,
-      chat: { messages, status },
-      metadata,
+      chat: { messages, enabled },
+      users,
       values,
       handleChange,
       handleBlur,
@@ -89,16 +89,16 @@ class App extends React.Component<AppProps> {
             </Form>
             <hr />
             <p>{auth.user.uid}</p>
-            <p>{JSON.stringify(metadata.users[auth.user.uid])}</p>
           </React.Fragment>
         )}
         <hr />
-        <p>{JSON.stringify(status)}</p>
+        <p>Enabled: {enabled ? 'yes' : 'no'}</p>
+        <p>{JSON.stringify(users)}</p>
         {Object.keys(messages).map(key => (
           <div key={key}>
-            {metadata.users[messages[key].user] != null &&
-              metadata.users[messages[key].user].role &&
-              metadata.users[messages[key].user].role! >= 10 && (
+            {auth.user &&
+              users[auth.user.uid] != null &&
+              users[auth.user.uid].role >= 10 && (
                 <Button
                   color="red"
                   size="tiny"
@@ -107,7 +107,10 @@ class App extends React.Component<AppProps> {
                   X
                 </Button>
               )}
-            <span style={{ color: 'maroon' }}>[{messages[key].user}]</span>{' '}
+            <span style={{ color: 'maroon' }}>
+              [{users[messages[key].uid] != null &&
+                users[messages[key].uid].displayName}]
+            </span>{' '}
             {messages[key].text}
           </div>
         ))}
@@ -126,7 +129,7 @@ const mapDispatchToProps = {
   authSignOut: authActions.signOut,
   chatSendMessage: chatActions.sendMessage,
   chatDeleteMessage: chatActions.deleteMessage,
-  metadataLoadUser: metadataActions.loadUser
+  usersLoadUser: usersActions.loadUser
 };
 
 export default compose(
