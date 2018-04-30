@@ -53,7 +53,7 @@ class App extends React.Component<AppProps> {
   public render() {
     const {
       auth,
-      chat: { messages, enabled },
+      chat: { messages, enabled, bans },
       users,
       values,
       handleChange,
@@ -93,7 +93,8 @@ class App extends React.Component<AppProps> {
         )}
         <hr />
         <p>Enabled: {enabled ? 'yes' : 'no'}</p>
-        <p>{JSON.stringify(users)}</p>
+        <p>Users: {JSON.stringify(users)}</p>
+        <p>Bans: {JSON.stringify(bans)}</p>
         {Object.keys(messages).map(key => (
           <div key={key}>
             {auth.user &&
@@ -129,6 +130,7 @@ const mapDispatchToProps = {
   authSignOut: authActions.signOut,
   chatSendMessage: chatActions.sendMessage,
   chatDeleteMessage: chatActions.deleteMessage,
+  chatLoadBan: chatActions.loadBan,
   usersLoadUser: usersActions.loadUser
 };
 
