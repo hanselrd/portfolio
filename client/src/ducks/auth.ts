@@ -36,10 +36,10 @@ export type AuthEpic = Epic<
   RootState
 >;
 
-const getUserRef = (user: firebase.User) =>
+const getUpdateUserRef = (user: firebase.User) =>
   firebase
     .database()
-    .ref('users')
+    .ref('userWriteable/updateUser')
     .child(user.uid);
 
 const startEpic: AuthEpic = (action$, store) =>
@@ -65,12 +65,12 @@ const startEpic: AuthEpic = (action$, store) =>
         )
           .filter(snapshot => snapshot != null)
           .switchMap(() => {
-            const userRef = getUserRef(store.getState().auth.user!);
+            const updateUserRef = getUpdateUserRef(store.getState().auth.user!);
             return Observable.from(
-              userRef
+              updateUserRef
                 .onDisconnect()
-                .update({ online: false })
-                .then(() => userRef.update({ online: true }))
+                .set({ online: false })
+                .then(() => updateUserRef.set({ online: true }))
             );
           })
       )
@@ -153,9 +153,11 @@ const signOutEpic: AuthEpic = (action$, store) =>
     .ofType(authActions.signOut.getType())
     .filter(() => store.getState().auth.user != null)
     .switchMap(() => {
-      const userRef = getUserRef(store.getState().auth.user!);
+      const updateUserRef = getUpdateUserRef(store.getState().auth.user!);
       return Observable.from(
-        userRef.update({ online: false }).then(() => firebase.auth().signOut())
+        updateUserRef
+          .set({ online: false })
+          .then(() => firebase.auth().signOut())
       );
     })
     .switchMap(() => Observable.empty<never>())

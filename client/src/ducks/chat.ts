@@ -6,17 +6,13 @@ import { Observable } from 'rxjs';
 import { authActions } from './auth';
 
 interface IMessage {
-  user: string;
+  uid: string;
   text: string;
   created: number;
 }
 
 interface IMessages {
-  [messageId: string]: IMessage;
-}
-
-interface IStatus {
-  enabled: boolean;
+  [pushid: string]: IMessage;
 }
 
 export const chatActions = {
@@ -27,7 +23,7 @@ export const chatActions = {
     messageRemoved: createAction<{ id: string; message: IMessage }>(
       '@@chat/MESSAGE REMOVED'
     ),
-    statusUpdated: createAction<IStatus>('@@chat/STATUS UPDATED')
+    enabledUpdated: createAction<boolean>('@@chat/ENABLED UPDATED')
   },
   sendMessage: createAction<string>('@@chat/SEND MESSAGE'),
   deleteMessage: createAction<string>('@@chat/DELETE MESSAGE')
@@ -38,7 +34,7 @@ export type ChatEpic = Epic<
   | ReturnType<typeof authActions.internal.userMissing>
   | ReturnType<typeof chatActions.internal.messageAdded>
   | ReturnType<typeof chatActions.internal.messageRemoved>
-  | ReturnType<typeof chatActions.internal.statusUpdated>
+  | ReturnType<typeof chatActions.internal.enabledUpdated>
   | ReturnType<typeof chatActions.sendMessage>
   | ReturnType<typeof chatActions.deleteMessage>,
   RootState
@@ -46,7 +42,12 @@ export type ChatEpic = Epic<
 
 const chatRef = firebase.database().ref('chat');
 const messagesRef = chatRef.child('messages');
-const statusRef = chatRef.child('status');
+const enabledRef = chatRef.child('enabled');
+const getQueueMessagesRef = (user: firebase.User) =>
+  firebase
+    .database()
+    .ref('queue/chat/messages')
+    .child(user.uid);
 
 const startEpic: ChatEpic = action$ =>
   action$.ofType(authActions.internal.userFound.getType()).switchMap(() =>
@@ -74,11 +75,11 @@ const startEpic: ChatEpic = action$ =>
           })
         ),
       Observable.fromEvent<firebase.database.DataSnapshot | null>(
-        statusRef as any,
+        enabledRef as any,
         'value'
       )
         .filter(snapshot => snapshot != null)
-        .map(snapshot => chatActions.internal.statusUpdated(snapshot!.val()))
+        .map(snapshot => chatActions.internal.enabledUpdated(snapshot!.val()))
     )
   );
 
@@ -87,33 +88,25 @@ const sendMessageEpic: ChatEpic = (action$, store) =>
     .ofType(chatActions.sendMessage.getType())
     .throttleTime(1000)
     .filter(() => store.getState().auth.user != null)
-    .filter(() => store.getState().chat.status.enabled)
+    .filter(() => store.getState().chat.enabled)
     // filter if banned
     .switchMap(action =>
       Observable.from(
-        messagesRef.push().set({
-          user: store.getState().auth.user!.uid,
-          text: action.payload,
-          created: firebase.database.ServerValue.TIMESTAMP
-        })
+        getQueueMessagesRef(store.getState().auth.user!)
+          .push()
+          .set(action.payload)
       )
     )
     .switchMap(() => Observable.empty<never>())
     .retry();
 
+// broken @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 const deleteMessageEpic: ChatEpic = (action$, store) =>
   action$
     .ofType(chatActions.deleteMessage.getType())
     .filter(() => store.getState().auth.user != null)
     .filter(
-      () =>
-        store.getState().metadata.users[store.getState().auth.user!.uid].role !=
-        null
-    )
-    .filter(
-      () =>
-        store.getState().metadata.users[store.getState().auth.user!.uid]
-          .role! >= 10
+      () => store.getState().users[store.getState().auth.user!.uid].role >= 10
     )
     .switchMap(action =>
       Observable.from(messagesRef.child(action.payload as string).remove())
@@ -129,13 +122,10 @@ export const chatEpic = combineEpics<ChatEpic>(
 
 export type ChatState = Readonly<{
   messages: IMessages;
-  status: IStatus;
+  enabled: boolean;
 }>;
 
-const reducer = createReducer<ChatState>(
-  {},
-  { messages: {}, status: { enabled: false } }
-);
+const reducer = createReducer<ChatState>({}, { messages: {}, enabled: false });
 
 reducer.on(chatActions.internal.messageAdded, (state, payload) => ({
   ...state,
@@ -147,9 +137,9 @@ reducer.on(chatActions.internal.messageRemoved, (state, payload) => {
   return { ...state, messages };
 });
 
-reducer.on(chatActions.internal.statusUpdated, (state, payload) => ({
+reducer.on(chatActions.internal.enabledUpdated, (state, payload) => ({
   ...state,
-  status: payload
+  enabled: payload
 }));
 
 reducer.on(authActions.internal.userMissing, (state, payload) => ({
