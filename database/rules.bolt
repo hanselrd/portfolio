@@ -36,19 +36,25 @@ type Chat {
   announcement: ChatMessage | Null;
   messages: ChatMessage[];
   enabled: Boolean;
+  bans: Map<UserID, ChatBan>;
 }
 type ChatMessage {
   uid: String;
   text: String;
   created: Number;
 }
+type ChatBan {
+  uid: String;
+  text: String;
+}
 
 path /queue/chat/messages/{uid} is String[] {
   read() { isCurrentUser(uid) }
-  create() { isCurrentUser(uid) && isChatEnabled() }
+  create() { isCurrentUser(uid) && isChatEnabled() && !isChatBanned() }
 }
 
 function isChatEnabled() { prior(root).chat.enabled }
+function isChatBanned() { prior(root).chat.bans[auth.uid] != null }
 
 /***********************************************************
   User Readable
@@ -122,6 +128,14 @@ path /userOwned/settings/{uid} is Settings {
 }
 type Settings {
   showEmail: Boolean;
+}
+
+/***********************************************************
+  Helper Types
+
+************************************************************/
+type UserID extends String {
+  validate() { prior(root).users[this] != null }
 }
 
 /***********************************************************
