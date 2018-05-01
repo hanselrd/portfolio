@@ -43,40 +43,42 @@ const getUpdateUserRef = (user: firebase.User) =>
     .child(user.uid);
 
 const startEpic: AuthEpic = (action$, store) =>
-  Observable.merge(
-    action$
-      .ofType(authActions.start.getType())
-      .switchMap(() =>
-        new Observable<firebase.User | null>(observer =>
-          firebase.auth().onAuthStateChanged(observer)
-        ).map(
-          user =>
-            user
-              ? authActions.internal.userFound(user)
-              : authActions.internal.userMissing()
-        )
-      ),
-    action$
-      .ofType(authActions.internal.userFound.getType())
-      .switchMap(() =>
-        Observable.fromEvent<firebase.database.DataSnapshot | null>(
-          firebase.database().ref('.info/connected') as any,
-          'value'
-        )
-          .filter(snapshot => snapshot != null)
-          .switchMap(() => {
-            const updateUserRef = getUpdateUserRef(store.getState().auth.user!);
-            return Observable.from(
-              updateUserRef
-                .onDisconnect()
-                .set({ online: false })
-                .then(() => updateUserRef.set({ online: true }))
-            );
-          })
+  action$
+    .ofType(authActions.start.getType())
+    .switchMap(() =>
+      new Observable<firebase.User | null>(observer =>
+        firebase.auth().onAuthStateChanged(observer)
+      ).map(
+        user =>
+          user
+            ? authActions.internal.userFound(user)
+            : authActions.internal.userMissing()
       )
-      .ignoreElements()
-      .retry()
-  );
+    )
+    .merge(
+      action$
+        .ofType(authActions.internal.userFound.getType())
+        .switchMap(() =>
+          Observable.fromEvent<firebase.database.DataSnapshot | null>(
+            firebase.database().ref('.info/connected') as any,
+            'value'
+          )
+            .filter(snapshot => snapshot != null)
+            .switchMap(() => {
+              const updateUserRef = getUpdateUserRef(
+                store.getState().auth.user!
+              );
+              return Observable.from(
+                updateUserRef
+                  .onDisconnect()
+                  .set({ online: false })
+                  .then(() => updateUserRef.set({ online: true }))
+              );
+            })
+        )
+        .ignoreElements()
+        .retry()
+    );
 
 const signInWithEmailAndPasswordEpic: AuthEpic = (action$, store) =>
   action$
