@@ -7,7 +7,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
-import { Button, Form } from 'semantic-ui-react';
+import { Button, Form, Icon } from 'semantic-ui-react';
 import * as yup from 'yup';
 
 interface IFormValues {
@@ -109,8 +109,15 @@ class App extends React.Component<AppProps> {
                 </Button>
               )}
             <span style={{ color: 'maroon' }}>
-              [{users[messages[key].uid] != null &&
-                users[messages[key].uid].displayName}]
+              {users[messages[key].uid] != null && (
+                <span>
+                  [{users[messages[key].uid].displayName}
+                  <Icon
+                    name="circle"
+                    color={users[messages[key].uid].online ? 'green' : 'grey'}
+                  />]
+                </span>
+              )}
             </span>{' '}
             {messages[key].text}
           </div>

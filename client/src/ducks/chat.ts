@@ -111,14 +111,12 @@ const sendMessageEpic: ChatEpic = (action$, store) =>
     .filter(
       () => store.getState().chat.bans[store.getState().auth.user!.uid] == null
     )
-    .switchMap(action =>
-      Observable.from(
-        getQueueMessagesRef(store.getState().auth.user!)
-          .push()
-          .set(action.payload)
-      )
+    .do(action =>
+      getQueueMessagesRef(store.getState().auth.user!)
+        .push()
+        .set(action.payload)
     )
-    .switchMap(() => Observable.empty<never>())
+    .ignoreElements()
     .retry();
 
 const deleteMessageEpic: ChatEpic = (action$, store) =>
@@ -128,10 +126,8 @@ const deleteMessageEpic: ChatEpic = (action$, store) =>
     .filter(
       () => store.getState().users[store.getState().auth.user!.uid].role >= 10
     )
-    .switchMap(action =>
-      Observable.from(messagesRef.child(action.payload as string).remove())
-    )
-    .switchMap(() => Observable.empty<never>())
+    .do(action => messagesRef.child(action.payload as string).remove())
+    .ignoreElements()
     .retry();
 
 const loadBanEpic: ChatEpic = (action$, store) =>
