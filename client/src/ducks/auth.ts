@@ -74,7 +74,7 @@ const startEpic: AuthEpic = (action$, store) =>
             );
           })
       )
-      .switchMap(() => Observable.empty<never>())
+      .ignoreElements()
       .retry()
   );
 
@@ -82,23 +82,21 @@ const signInWithEmailAndPasswordEpic: AuthEpic = (action$, store) =>
   action$
     .ofType(authActions.signInWithEmailAndPassword.getType())
     .filter(() => store.getState().auth.user == null)
-    .switchMap(action => {
+    .do(action => {
       const { email, password } = action.payload as {
         email: string;
         password: string;
       };
-      return Observable.from(
-        firebase.auth().signInWithEmailAndPassword(email, password)
-      );
+      return firebase.auth().signInWithEmailAndPassword(email, password);
     })
-    .switchMap(() => Observable.empty<never>())
+    .ignoreElements()
     .retry();
 
 const signInWithProviderEpic: AuthEpic = (action$, store) =>
   action$
     .ofType(authActions.signInWithProvider.getType())
     .filter(() => store.getState().auth.user == null)
-    .switchMap(action => {
+    .do(action => {
       const { provider, type } = action.payload as {
         provider: 'google' | 'facebook' | 'twitter' | 'github';
         type: 'popup' | 'redirect';
@@ -122,45 +120,39 @@ const signInWithProviderEpic: AuthEpic = (action$, store) =>
 
       switch (type) {
         case 'popup':
-          return Observable.from(firebase.auth().signInWithPopup(authProvider));
+          return firebase.auth().signInWithPopup(authProvider);
         case 'redirect':
-          return Observable.from(
-            firebase.auth().signInWithRedirect(authProvider)
-          );
+          return firebase.auth().signInWithRedirect(authProvider);
       }
     })
-    .switchMap(() => Observable.empty<never>())
+    .ignoreElements()
     .retry();
 
 const signUpWithEmailAndPasswordEpic: AuthEpic = (action$, store) =>
   action$
     .ofType(authActions.signUpWithEmailAndPassword.getType())
     .filter(() => store.getState().auth.user == null)
-    .switchMap(action => {
+    .do(action => {
       const { email, password } = action.payload as {
         email: string;
         password: string;
       };
-      return Observable.from(
-        firebase.auth().createUserWithEmailAndPassword(email, password)
-      );
+      return firebase.auth().createUserWithEmailAndPassword(email, password);
     })
-    .switchMap(() => Observable.empty<never>())
+    .ignoreElements()
     .retry();
 
 const signOutEpic: AuthEpic = (action$, store) =>
   action$
     .ofType(authActions.signOut.getType())
     .filter(() => store.getState().auth.user != null)
-    .switchMap(() => {
+    .do(() => {
       const updateUserRef = getUpdateUserRef(store.getState().auth.user!);
-      return Observable.from(
-        updateUserRef
-          .set({ online: false })
-          .then(() => firebase.auth().signOut())
-      );
+      return updateUserRef
+        .set({ online: false })
+        .then(() => firebase.auth().signOut());
     })
-    .switchMap(() => Observable.empty<never>())
+    .ignoreElements()
     .retry();
 
 export const authEpic = combineEpics<AuthEpic>(
