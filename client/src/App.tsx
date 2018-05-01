@@ -1,6 +1,7 @@
 import { RootState } from '@app/ducks';
 import { authActions } from '@app/ducks/auth';
 import { chatActions } from '@app/ducks/chat';
+import { routerActions } from '@app/ducks/router';
 import { usersActions } from '@app/ducks/users';
 import { FormikProps, withFormik } from 'formik';
 import * as React from 'react';
@@ -21,6 +22,7 @@ export type AppProps = ReturnType<typeof mapStateToProps> &
 class App extends React.Component<AppProps> {
   public componentWillMount() {
     this.props.authStart();
+    this.props.routerStart();
   }
 
   public signUpWithEmailAndPassword() {
@@ -54,6 +56,7 @@ class App extends React.Component<AppProps> {
     const {
       auth,
       chat: { messages, enabled, bans },
+      router,
       users,
       values,
       handleChange,
@@ -63,7 +66,7 @@ class App extends React.Component<AppProps> {
 
     return (
       <div>
-        <p>Hello</p>
+        <p>Hello {router.location && router.location.pathname}</p>
         {!auth.user && (
           <React.Fragment>
             <Button onClick={() => this.signUpWithEmailAndPassword()}>
@@ -138,6 +141,8 @@ const mapDispatchToProps = {
   chatSendMessage: chatActions.sendMessage,
   chatDeleteMessage: chatActions.deleteMessage,
   chatLoadBan: chatActions.loadBan,
+  routerStart: routerActions.start,
+  routerPush: routerActions.push,
   usersLoadUser: usersActions.loadUser
 };
 
