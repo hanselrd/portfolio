@@ -1,9 +1,19 @@
 language: node_js
+
 node_js:
   - "9"
+
 install:
   - npm install
+
 script:
   - npm run build:client
   - npm run build:database
   - npm run build:functions
+
+deploy:
+  provider: firebase
+  token: $FIREBASE_TOKEN
+  project: "hd-portfolio"
+  on:
+    branch: master
