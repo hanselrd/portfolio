@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import * as Scroll from 'react-scroll';
 
-export type RoutesProps = ReturnType<typeof mapStateToProps>;
+type RoutesProps = ReturnType<typeof mapStateToProps>;
 
 class Routes extends React.Component<RoutesProps> {
   public componentWillReceiveProps(nextProps: RoutesProps) {
