@@ -1,3 +1,4 @@
+import SetLanguageModal from '@app/components/SetLanguageModal';
 import locale from '@app/core/locale';
 import { RootState } from '@app/ducks';
 import { authActions } from '@app/ducks/auth';
@@ -19,6 +20,12 @@ const Header: React.SFC<HeaderProps> = ({ auth, authSignOut, users }) => (
       <Responsive as={React.Fragment} maxWidth={Responsive.onlyTablet.maxWidth}>
         <Dropdown item={true} icon={<Icon name="sidebar" size="large" />}>
           <Dropdown.Menu>
+            <Dropdown.Header>{locale.language}</Dropdown.Header>
+            <SetLanguageModal>
+              <Dropdown.Item>
+                {locale.getLanguage().toUpperCase()}
+              </Dropdown.Item>
+            </SetLanguageModal>
             <Dropdown.Header>{locale.navigation}</Dropdown.Header>
             <Dropdown.Item as={NavLink} to="/home">
               {locale.home}
@@ -34,6 +41,14 @@ const Header: React.SFC<HeaderProps> = ({ auth, authSignOut, users }) => (
             </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
+      </Responsive>
+      <Responsive
+        as={React.Fragment}
+        minWidth={Responsive.onlyComputer.minWidth}
+      >
+        <SetLanguageModal>
+          <Menu.Item>{locale.getLanguage().toUpperCase()}</Menu.Item>
+        </SetLanguageModal>
       </Responsive>
       <Menu.Item as={Link} to="/" header={true}>
         <Icon name="bookmark outline" size="big" color="blue" />

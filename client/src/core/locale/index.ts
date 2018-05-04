@@ -3,6 +3,7 @@ import en from './en';
 import es from './es';
 
 export interface IStrings extends LocalizedStringsMethods {
+  language: string;
   navigation: string;
   home: string;
   blog: string;

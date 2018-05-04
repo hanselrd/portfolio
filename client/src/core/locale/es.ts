@@ -1,4 +1,5 @@
 export default {
+  language: 'Idioma',
   navigation: 'Navegación',
   home: 'Inicio',
   blog: 'Blog',
