@@ -24,7 +24,7 @@ const FooterSocialLinkButton = styled(Button).attrs({
   margin: 0 0.3em;
 ` as StyledComponentClass<ButtonProps, {}>;
 
-export type FooterProps = ReturnType<typeof mapStateToProps>;
+type FooterProps = ReturnType<typeof mapStateToProps>;
 
 const Footer: React.SFC<FooterProps> = ({ auth, users }) => (
   <Segment

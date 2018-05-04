@@ -15,8 +15,7 @@ const AppDiv = styled.div`
   min-height: 100vh;
 `;
 
-export type AppProps = ReturnType<typeof mapStateToProps> &
-  typeof mapDispatchToProps;
+type AppProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 
 class App extends React.Component<AppProps> {
   public componentWillMount() {
