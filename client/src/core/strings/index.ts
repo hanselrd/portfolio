@@ -14,10 +14,16 @@ export interface IStrings extends LocalizedStringsMethods {
   profile: string;
   settings: string;
   logOut: string;
+  chooseYourPreferredLanguage: string;
+  group: string;
+  link: string;
+  connectWithMe: string;
+  sitemap: string;
+  contactUs: string;
+  termsAndConditions: string;
+  privacyPolicy: string;
 }
 
 const strings: IStrings = new LocalizedStrings({ en, es });
-
-strings.setLanguage('es');
 
 export default strings;

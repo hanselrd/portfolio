@@ -1,7 +1,8 @@
-import SetLanguageModal from '@app/components/SetLanguageModal';
-import locale from '@app/core/locale';
+import LanguageModal from '@app/containers/LanguageModal';
+import strings from '@app/core/strings';
 import { RootState } from '@app/ducks';
 import { authActions } from '@app/ducks/auth';
+import { localeActions } from '@app/ducks/locale';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
@@ -10,34 +11,40 @@ import { Container, Dropdown, Icon, Menu, Responsive } from 'semantic-ui-react';
 type HeaderProps = ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps;
 
-const Header: React.SFC<HeaderProps> = ({ auth, authSignOut, users }) => (
+const Header: React.SFC<HeaderProps> = ({
+  auth,
+  authSignOut,
+  locale,
+  localeShowModal,
+  users
+}) => (
   <Menu
     fixed="top"
     inverted={true}
-    style={{ boxShadow: '0 3px 5px rgba(0, 0, 0, 0.4)', height: '4.5em' }}
+    style={{ boxShadow: '0 3px 5px rgba(0, 0, 0, 0.4)', height: '5.5em' }}
   >
     <Container>
       <Responsive as={React.Fragment} maxWidth={Responsive.onlyTablet.maxWidth}>
         <Dropdown item={true} icon={<Icon name="sidebar" size="large" />}>
           <Dropdown.Menu>
-            <Dropdown.Header>{locale.language}</Dropdown.Header>
-            <SetLanguageModal>
-              <Dropdown.Item>
-                {locale.getLanguage().toUpperCase()}
+            <Dropdown.Header>{strings.language}</Dropdown.Header>
+            <LanguageModal>
+              <Dropdown.Item onClick={() => localeShowModal()}>
+                {locale.language && locale.language.toUpperCase()}
               </Dropdown.Item>
-            </SetLanguageModal>
-            <Dropdown.Header>{locale.navigation}</Dropdown.Header>
+            </LanguageModal>
+            <Dropdown.Header>{strings.navigation}</Dropdown.Header>
             <Dropdown.Item as={NavLink} to="/home">
-              {locale.home}
+              {strings.home}
             </Dropdown.Item>
             <Dropdown.Item as={NavLink} to="/blog">
-              {locale.blog}
+              {strings.blog}
             </Dropdown.Item>
             <Dropdown.Item as={NavLink} to="/projects">
-              {locale.projects}
+              {strings.projects}
             </Dropdown.Item>
             <Dropdown.Item as={NavLink} to="/cv">
-              {locale.cv}
+              {strings.cv}
             </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
@@ -46,36 +53,38 @@ const Header: React.SFC<HeaderProps> = ({ auth, authSignOut, users }) => (
         as={React.Fragment}
         minWidth={Responsive.onlyComputer.minWidth}
       >
-        <SetLanguageModal>
-          <Menu.Item>{locale.getLanguage().toUpperCase()}</Menu.Item>
-        </SetLanguageModal>
+        <LanguageModal>
+          <Menu.Item onClick={() => localeShowModal()}>
+            {locale.language && locale.language.toUpperCase()}
+          </Menu.Item>
+        </LanguageModal>
       </Responsive>
       <Menu.Item as={Link} to="/" header={true}>
         <Icon name="bookmark outline" size="big" color="blue" />
-        Hansel De La Cruz
+        <span style={{ fontSize: '1.1em' }}>Hansel De La Cruz</span>
       </Menu.Item>
       <Responsive
         as={React.Fragment}
         minWidth={Responsive.onlyComputer.minWidth}
       >
         <Menu.Item as={NavLink} to="/home">
-          {locale.home}
+          {strings.home}
         </Menu.Item>
         <Menu.Item as={NavLink} to="/blog">
-          {locale.blog}
+          {strings.blog}
         </Menu.Item>
         <Menu.Item as={NavLink} to="/projects">
-          {locale.projects}
+          {strings.projects}
         </Menu.Item>
         <Menu.Item as={NavLink} to="/cv">
-          {locale.cv}
+          {strings.cv}
         </Menu.Item>
       </Responsive>
       <Menu.Menu position="right">
         <Responsive as={React.Fragment} {...Responsive.onlyMobile}>
           {!auth.user && (
             <Menu.Item as={NavLink} to="/login">
-              {locale.logIn}
+              {strings.logIn}
             </Menu.Item>
           )}
           {auth.user && (
@@ -86,13 +95,13 @@ const Header: React.SFC<HeaderProps> = ({ auth, authSignOut, users }) => (
               <Dropdown.Menu>
                 <Dropdown.Header>{auth.user.displayName}</Dropdown.Header>
                 <Dropdown.Item as={NavLink} to="/profile">
-                  {locale.profile}
+                  {strings.profile}
                 </Dropdown.Item>
                 <Dropdown.Item as={NavLink} to="/settings">
-                  {locale.settings}
+                  {strings.settings}
                 </Dropdown.Item>
                 <Dropdown.Item onClick={() => authSignOut()}>
-                  {locale.logOut}
+                  {strings.logOut}
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
@@ -105,10 +114,10 @@ const Header: React.SFC<HeaderProps> = ({ auth, authSignOut, users }) => (
           {!auth.user && (
             <React.Fragment>
               <Menu.Item as={NavLink} to="/login">
-                {locale.logIn}
+                {strings.logIn}
               </Menu.Item>
               <Menu.Item as={NavLink} to="/signup">
-                {locale.signUp}
+                {strings.signUp}
               </Menu.Item>
             </React.Fragment>
           )}
@@ -117,13 +126,13 @@ const Header: React.SFC<HeaderProps> = ({ auth, authSignOut, users }) => (
               <Dropdown item={true} text={users[auth.user.uid].displayName}>
                 <Dropdown.Menu>
                   <Dropdown.Item as={NavLink} to="/profile">
-                    {locale.profile}
+                    {strings.profile}
                   </Dropdown.Item>
                   <Dropdown.Item as={NavLink} to="/settings">
-                    {locale.settings}
+                    {strings.settings}
                   </Dropdown.Item>
                   <Dropdown.Item onClick={() => authSignOut()}>
-                    {locale.logOut}
+                    {strings.logOut}
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
@@ -137,7 +146,8 @@ const Header: React.SFC<HeaderProps> = ({ auth, authSignOut, users }) => (
 const mapStateToProps = (state: RootState) => state;
 
 const mapDispatchToProps = {
-  authSignOut: authActions.signOut
+  authSignOut: authActions.signOut,
+  localeShowModal: localeActions.showModal
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
