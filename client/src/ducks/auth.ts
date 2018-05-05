@@ -109,7 +109,7 @@ const signInWithProviderEpic: AuthEpic = (action$, store) =>
   action$
     .ofType(authActions.signInWithProvider.getType())
     .filter(() => store.getState().auth.user == null)
-    .do(action => {
+    .switchMap(action => {
       const { provider, type } = action.payload as {
         provider: 'google' | 'facebook' | 'twitter' | 'github';
         type: 'popup' | 'redirect';
@@ -133,13 +133,23 @@ const signInWithProviderEpic: AuthEpic = (action$, store) =>
 
       switch (type) {
         case 'popup':
-          return firebase.auth().signInWithPopup(authProvider);
+          return Observable.from(firebase.auth().signInWithPopup(authProvider))
+            .map(() => authActions.internal.signInFulfilled())
+            .catch(error =>
+              Observable.of(authActions.internal.signInErrored(error))
+            )
+            .startWith(authActions.internal.signInPending());
         case 'redirect':
-          return firebase.auth().signInWithRedirect(authProvider);
+          return Observable.from(
+            firebase.auth().signInWithRedirect(authProvider)
+          )
+            .map(() => authActions.internal.signInFulfilled())
+            .catch(error =>
+              Observable.of(authActions.internal.signInErrored(error))
+            )
+            .startWith(authActions.internal.signInPending());
       }
-    })
-    .ignoreElements()
-    .retry();
+    });
 
 const signUpWithEmailAndPasswordEpic: AuthEpic = (action$, store) =>
   action$
