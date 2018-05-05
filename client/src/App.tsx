@@ -42,7 +42,6 @@ const mapStateToProps = (state: RootState) => state;
 
 const mapDispatchToProps = {
   authStart: authActions.start,
-  authSignOut: authActions.signOut,
   localeStart: localeActions.start,
   routerStart: routerActions.start
 };

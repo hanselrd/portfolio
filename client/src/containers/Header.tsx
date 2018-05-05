@@ -90,7 +90,7 @@ const Header: React.SFC<HeaderProps> = ({
           {auth.user && (
             <Dropdown
               item={true}
-              icon={<Icon name="user circle outline" size="large" />}
+              icon={<Icon name="user circle" size="large" />}
             >
               <Dropdown.Menu>
                 <Dropdown.Header>{auth.user.displayName}</Dropdown.Header>
