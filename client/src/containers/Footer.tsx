@@ -1,3 +1,4 @@
+import strings from '@app/core/strings';
 import { RootState } from '@app/ducks';
 import * as React from 'react';
 import { connect } from 'react-redux';
@@ -37,40 +38,40 @@ const Footer: React.SFC<FooterProps> = ({ auth, users }) => (
         <Grid.Row>
           <Grid.Column width={3}>
             <Header inverted={true} as="h4">
-              Group 1
+              {strings.group} 1
             </Header>
             <List link={true} inverted={true}>
-              <List.Item as="a">Link One</List.Item>
-              <List.Item as="a">Link Two</List.Item>
-              <List.Item as="a">Link Three</List.Item>
-              <List.Item as="a">Link Four</List.Item>
+              <List.Item as="a">{strings.link} 1</List.Item>
+              <List.Item as="a">{strings.link} 2</List.Item>
+              <List.Item as="a">{strings.link} 3</List.Item>
+              <List.Item as="a">{strings.link} 4</List.Item>
             </List>
           </Grid.Column>
           <Grid.Column width={3}>
             <Header inverted={true} as="h4">
-              Group 2
+              {strings.group} 2
             </Header>
             <List link={true} inverted={true}>
-              <List.Item as="a">Link One</List.Item>
-              <List.Item as="a">Link Two</List.Item>
-              <List.Item as="a">Link Three</List.Item>
-              <List.Item as="a">Link Four</List.Item>
+              <List.Item as="a">{strings.link} 1</List.Item>
+              <List.Item as="a">{strings.link} 2</List.Item>
+              <List.Item as="a">{strings.link} 3</List.Item>
+              <List.Item as="a">{strings.link} 4</List.Item>
             </List>
           </Grid.Column>
           <Grid.Column width={3}>
             <Header inverted={true} as="h4">
-              Group 3
+              {strings.group} 3
             </Header>
             <List link={true} inverted={true}>
-              <List.Item as="a">Link One</List.Item>
-              <List.Item as="a">Link Two</List.Item>
-              <List.Item as="a">Link Three</List.Item>
-              <List.Item as="a">Link Four</List.Item>
+              <List.Item as="a">{strings.link} 1</List.Item>
+              <List.Item as="a">{strings.link} 2</List.Item>
+              <List.Item as="a">{strings.link} 3</List.Item>
+              <List.Item as="a">{strings.link} 4</List.Item>
             </List>
           </Grid.Column>
           <Grid.Column width={7}>
             <Header inverted={true} as="h4">
-              Connect With Me
+              {strings.connectWithMe}
             </Header>
             <FooterSocialLinkButton
               color="facebook"
@@ -96,17 +97,17 @@ const Footer: React.SFC<FooterProps> = ({ auth, users }) => (
         <strong>Hansel De La Cruz</strong>
       </Container>
       <List horizontal={true} inverted={true} divided={true} link={true}>
-        <List.Item as={Link} to="/site-map">
-          Site Map
+        <List.Item as={Link} to="/sitemap">
+          {strings.sitemap}
         </List.Item>
         <List.Item as={Link} to="/contact-us">
-          Contact Us
+          {strings.contactUs}
         </List.Item>
         <List.Item as={Link} to="/terms">
-          Terms and Conditions
+          {strings.termsAndConditions}
         </List.Item>
         <List.Item as={Link} to="/privacy-policy">
-          Privacy Policy
+          {strings.privacyPolicy}
         </List.Item>
       </List>
       {auth.user &&

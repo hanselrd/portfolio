@@ -19,6 +19,7 @@ export const routerActions = {
 
 export type RouterEpic = Epic<
   | ReturnType<typeof routerActions.internal.locationChanged>
+  | ReturnType<typeof routerActions.start>
   | ReturnType<typeof routerActions.push>
   | ReturnType<typeof routerActions.replace>
   | ReturnType<typeof routerActions.go>

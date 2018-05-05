@@ -35,6 +35,7 @@ export const chatActions = {
     enabledUpdated: createAction<boolean>('@@chat/ENABLED UPDATED'),
     banUpdated: createAction<{ id: string; ban: IBan }>('@@chat/BAN UPDATED')
   },
+  start: createAction('@@chat/START'),
   sendMessage: createAction<string>('@@chat/SEND MESSAGE'),
   deleteMessage: createAction<string>('@@chat/DELETE MESSAGE'),
   loadBan: createAction<string>('@@chat/LOAD BAN')
@@ -47,6 +48,7 @@ export type ChatEpic = Epic<
   | ReturnType<typeof chatActions.internal.messageRemoved>
   | ReturnType<typeof chatActions.internal.enabledUpdated>
   | ReturnType<typeof chatActions.internal.banUpdated>
+  | ReturnType<typeof chatActions.start>
   | ReturnType<typeof chatActions.sendMessage>
   | ReturnType<typeof chatActions.deleteMessage>
   | ReturnType<typeof chatActions.loadBan>,
@@ -65,7 +67,7 @@ const getQueueMessagesRef = (user: firebase.User) =>
 
 const startEpic: ChatEpic = action$ =>
   Observable.merge(
-    action$.ofType(authActions.internal.userFound.getType()).switchMap(() =>
+    action$.ofType(chatActions.start.getType()).switchMap(() =>
       Observable.merge(
         Observable.fromEvent<firebase.database.DataSnapshot | null>(
           messagesRef as any,

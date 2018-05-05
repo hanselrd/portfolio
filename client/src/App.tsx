@@ -3,6 +3,7 @@ import Header from '@app/containers/Header';
 import Routes from '@app/containers/Routes';
 import { RootState } from '@app/ducks';
 import { authActions } from '@app/ducks/auth';
+import { localeActions } from '@app/ducks/locale';
 import { routerActions } from '@app/ducks/router';
 import * as React from 'react';
 import { connect } from 'react-redux';
@@ -20,6 +21,7 @@ type AppProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 class App extends React.Component<AppProps> {
   public componentWillMount() {
     this.props.authStart();
+    this.props.localeStart();
     this.props.routerStart();
   }
 
@@ -41,6 +43,7 @@ const mapStateToProps = (state: RootState) => state;
 const mapDispatchToProps = {
   authStart: authActions.start,
   authSignOut: authActions.signOut,
+  localeStart: localeActions.start,
   routerStart: routerActions.start
 };
 
