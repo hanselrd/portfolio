@@ -3,14 +3,12 @@ import { Helmet } from 'react-helmet';
 import { Container, Segment } from 'semantic-ui-react';
 
 const Landing: React.SFC = () => (
-  <div>
+  <Segment>
     <Helmet>
       <title>Landing - Hansel De La Cruz</title>
     </Helmet>
-    <Segment>
-      <Container text={true}>Landing</Container>
-    </Segment>
-  </div>
+    <Container text={true}>Landing</Container>
+  </Segment>
 );
 
 export default Landing;
