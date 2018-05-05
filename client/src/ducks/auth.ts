@@ -7,7 +7,10 @@ import { Observable } from 'rxjs';
 export const authActions = {
   internal: {
     userFound: createAction<firebase.User>('@@auth/USER FOUND'),
-    userMissing: createAction('@@auth/USER MISSING')
+    userMissing: createAction('@@auth/USER MISSING'),
+    signInPending: createAction('@@auth/SIGN IN PENDING'),
+    signInFulfilled: createAction('@@auth/SIGN IN FULFILLED'),
+    signInErrored: createAction<Error>('@@auth/SIGN IN ERRORED')
   },
   start: createAction('@@auth/START'),
   signInWithEmailAndPassword: createAction<{
@@ -28,6 +31,9 @@ export const authActions = {
 export type AuthEpic = Epic<
   | ReturnType<typeof authActions.internal.userFound>
   | ReturnType<typeof authActions.internal.userMissing>
+  | ReturnType<typeof authActions.internal.signInPending>
+  | ReturnType<typeof authActions.internal.signInFulfilled>
+  | ReturnType<typeof authActions.internal.signInErrored>
   | ReturnType<typeof authActions.start>
   | ReturnType<typeof authActions.signInWithEmailAndPassword>
   | ReturnType<typeof authActions.signInWithProvider>
@@ -84,15 +90,20 @@ const signInWithEmailAndPasswordEpic: AuthEpic = (action$, store) =>
   action$
     .ofType(authActions.signInWithEmailAndPassword.getType())
     .filter(() => store.getState().auth.user == null)
-    .do(action => {
+    .switchMap(action => {
       const { email, password } = action.payload as {
         email: string;
         password: string;
       };
-      return firebase.auth().signInWithEmailAndPassword(email, password);
-    })
-    .ignoreElements()
-    .retry();
+      return Observable.from(
+        firebase.auth().signInWithEmailAndPassword(email, password)
+      )
+        .map(() => authActions.internal.signInFulfilled())
+        .catch(error =>
+          Observable.of(authActions.internal.signInErrored(error))
+        )
+        .startWith(authActions.internal.signInPending());
+    });
 
 const signInWithProviderEpic: AuthEpic = (action$, store) =>
   action$
@@ -167,9 +178,13 @@ export const authEpic = combineEpics<AuthEpic>(
 
 export type AuthState = Readonly<{
   user?: firebase.User;
+  signIn: {
+    pending: boolean;
+    error?: Error;
+  };
 }>;
 
-const reducer = createReducer<AuthState>({}, {});
+const reducer = createReducer<AuthState>({}, { signIn: { pending: false } });
 
 reducer.on(authActions.internal.userFound, (state, payload) => ({
   ...state,
@@ -179,6 +194,30 @@ reducer.on(authActions.internal.userFound, (state, payload) => ({
 reducer.on(authActions.internal.userMissing, state => ({
   ...state,
   user: undefined
+}));
+
+reducer.on(authActions.internal.signInPending, state => ({
+  ...state,
+  signIn: {
+    pending: true,
+    error: undefined
+  }
+}));
+
+reducer.on(authActions.internal.signInFulfilled, state => ({
+  ...state,
+  signIn: {
+    pending: false,
+    error: undefined
+  }
+}));
+
+reducer.on(authActions.internal.signInErrored, (state, payload) => ({
+  ...state,
+  signIn: {
+    pending: false,
+    error: payload
+  }
 }));
 
 export default reducer;
