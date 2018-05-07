@@ -87,25 +87,28 @@ const Header: React.SFC<HeaderProps> = ({
               {strings.logIn}
             </Menu.Item>
           )}
-          {auth.user && (
-            <Dropdown
-              item={true}
-              icon={<Icon name="user circle" size="large" />}
-            >
-              <Dropdown.Menu>
-                <Dropdown.Header>{auth.user.displayName}</Dropdown.Header>
-                <Dropdown.Item as={NavLink} to="/profile">
-                  {strings.profile}
-                </Dropdown.Item>
-                <Dropdown.Item as={NavLink} to="/settings">
-                  {strings.settings}
-                </Dropdown.Item>
-                <Dropdown.Item onClick={() => authSignOut()}>
-                  {strings.logOut}
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-          )}
+          {auth.user &&
+            users[auth.user.uid] && (
+              <Dropdown
+                item={true}
+                icon={<Icon name="user circle" size="large" />}
+              >
+                <Dropdown.Menu>
+                  <Dropdown.Header>
+                    {users[auth.user.uid].displayName}
+                  </Dropdown.Header>
+                  <Dropdown.Item as={NavLink} to="/profile">
+                    {strings.profile}
+                  </Dropdown.Item>
+                  <Dropdown.Item as={NavLink} to="/settings">
+                    {strings.settings}
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={() => authSignOut()}>
+                    {strings.logOut}
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            )}
         </Responsive>
         <Responsive
           as={React.Fragment}
