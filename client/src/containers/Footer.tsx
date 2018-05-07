@@ -22,7 +22,9 @@ const FooterSocialLinkButton = styled(Button).attrs({
   as: 'a',
   target: '_blank'
 })`
-  margin: 0 0.3em;
+  &&& {
+    margin: 0 0.3em;
+  }
 ` as StyledComponentClass<ButtonProps, {}>;
 
 type FooterProps = ReturnType<typeof mapStateToProps>;
@@ -106,7 +108,7 @@ const Footer: React.SFC<FooterProps> = ({ auth, users }) => (
         <List.Item as={Link} to="/terms">
           {strings.termsAndConditions}
         </List.Item>
-        <List.Item as={Link} to="/privacy-policy">
+        <List.Item as={Link} to="/privacy">
           {strings.privacyPolicy}
         </List.Item>
       </List>
