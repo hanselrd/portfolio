@@ -1,28 +1,42 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import './App.css';
-import logo from './logo.svg';
+import { RootState } from './ducks';
+import { authActions } from './ducks/auth';
 
-class App extends Component {
-  public render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.tsx</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
-}
+type AppProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 
-export default App;
+const App: React.FC<AppProps> = props => {
+  useEffect(() => {
+    props.authStart();
+  }, []);
+
+  const clickHandler = () => {
+    if (!props.auth.user) {
+      props.authSignIn('test@test.com', '123456');
+    } else {
+      props.authSignOut();
+    }
+  };
+
+  return (
+    <div className="App">
+      <p>App</p>
+      <button onClick={clickHandler}>{!props.auth.user ? 'Sign in' : 'Sign out'}</button>
+      <p>{JSON.stringify(props.auth.user)}</p>
+    </div>
+  );
+};
+
+const mapStateToProps = (state: RootState) => state;
+
+const mapDispatchToProps = {
+  authStart: authActions.start,
+  authSignIn: authActions.signIn,
+  authSignOut: authActions.signOut
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
