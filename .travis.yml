@@ -9,7 +9,7 @@ install:
 
 script:
   - npm run lint
-  - npm run test
+  - npm test
   - npm run build
   # - npm run build:database
   # - npm run build:functions
