@@ -8,6 +8,8 @@
     "npm-run-all": "^4.1.5"
   },
   "scripts": {
+    "install:client": "cd client && npm install",
+    "install": "run-s install:*",
     "build:client": "cd client && npm run build",
     "build": "run-s build:*",
     "test:client": "cd client && npm test",
