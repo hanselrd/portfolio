@@ -29,7 +29,15 @@ export const authServices = {
       emit(authActions.internal.userNotFound());
 
       return () => {};
-    })
+    }),
+  getUser: () => {
+    const item = localStorage.getItem('@@@USER');
+    if (item) {
+      return JSON.parse(item) as IUser;
+    }
+  },
+  setUser: (user: IUser) => localStorage.setItem('@@@USER', JSON.stringify(user)),
+  removeUser: () => localStorage.removeItem('@@@USER')
 };
 
 export const authSagas = {
@@ -40,27 +48,26 @@ export const authSagas = {
     //     yield put(action);
     //   }
 
-    const lsUser: string | null = yield call([localStorage, localStorage.getItem], '@@@USER');
+    const user: IUser | undefined = yield call(authServices.getUser);
 
-    if (lsUser) {
-      const user: IUser = JSON.parse(lsUser);
+    if (user) {
       yield put(authActions.internal.userFound(user));
     } else {
       yield put(authActions.internal.userNotFound());
     }
   },
   *signIn(action: ReturnType<typeof authActions.signIn>) {
-    const lsUser: string | null = yield call([localStorage, localStorage.getItem], '@@@USER');
-    if (!lsUser) {
-      const user: IUser = { ...action.payload, created: Date.now() };
-      yield call([localStorage, localStorage.setItem], '@@@USER', JSON.stringify(user));
+    let user: IUser | undefined = yield call(authServices.getUser);
+    if (!user) {
+      user = { ...action.payload, created: 0 };
+      yield call(authServices.setUser, user);
       yield put(authActions.internal.userFound(user));
     }
   },
   *signOut() {
-    const lsUser: string | null = yield call([localStorage, localStorage.getItem], '@@@USER');
-    if (lsUser) {
-      yield call([localStorage, localStorage.removeItem], '@@@USER');
+    const user: IUser | undefined = yield call(authServices.getUser);
+    if (user) {
+      yield call(authServices.removeUser);
       yield put(authActions.internal.userNotFound());
     }
   }
