@@ -1,0 +1,5 @@
+@import '~semantic-ui-css/semantic.min.css';
+
+.ui.page.modals.transition.visible {
+  display: flex !important;
+}

@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import './App.css';
+import Routes from './containers/Routes';
 import { RootState } from './ducks';
 import { authActions } from './ducks/auth';
+import { routerActions } from './ducks/router';
 
 type AppProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 
 const App: React.FC<AppProps> = props => {
   useEffect(() => {
     props.authStart();
+    props.routerStart();
+    props.routerPush('/');
   }, []);
 
   const clickHandler = () => {
@@ -22,8 +25,10 @@ const App: React.FC<AppProps> = props => {
   return (
     <div className="App">
       <p>App</p>
+      <p>{JSON.stringify(props.router.location)}</p>
       <button onClick={clickHandler}>{!props.auth.user ? 'Sign in' : 'Sign out'}</button>
       <p>{JSON.stringify(props.auth.user)}</p>
+      <Routes />
     </div>
   );
 };
@@ -33,7 +38,13 @@ const mapStateToProps = (state: RootState) => state;
 const mapDispatchToProps = {
   authStart: authActions.start,
   authSignIn: authActions.signIn,
-  authSignOut: authActions.signOut
+  authSignOut: authActions.signOut,
+  routerStart: routerActions.start,
+  routerPush: routerActions.push,
+  routerReplace: routerActions.replace,
+  routerGo: routerActions.go,
+  routerGoBack: routerActions.goBack,
+  routerGoForward: routerActions.goForward
 };
 
 export default connect(
