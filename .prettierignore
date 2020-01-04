@@ -1,0 +1,4 @@
+/build
+/coverage
+react-app-env.d.ts
+serviceWorker.ts
