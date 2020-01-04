@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Routes from './containers/Routes';
 import { RootState } from './ducks';
 import { authActions } from './ducks/auth';
+import { localeActions } from './ducks/locale';
 import { routerActions } from './ducks/router';
 
 type AppProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
@@ -10,6 +11,7 @@ type AppProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 const App: React.FC<AppProps> = props => {
   useEffect(() => {
     props.authStart();
+    props.localeStart();
     props.routerStart();
     props.routerPush('/');
   }, []);
@@ -39,6 +41,10 @@ const mapDispatchToProps = {
   authStart: authActions.start,
   authSignIn: authActions.signIn,
   authSignOut: authActions.signOut,
+  localeStart: localeActions.start,
+  localeChange: localeActions.change,
+  localeShowModal: localeActions.showModal,
+  localeHideModal: localeActions.hideModal,
   routerStart: routerActions.start,
   routerPush: routerActions.push,
   routerReplace: routerActions.replace,
