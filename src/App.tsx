@@ -13,7 +13,7 @@ const App: React.FC = () => {
   }, [dispatch]);
 
   return (
-    <div className="flex flex-col h-screen text-white bg-gray-900 border-4 border-red-500 sm:border-blue-500 md:border-green-500 lg:border-yellow-500 xl:border-purple-500">
+    <div className="font-sans flex flex-col h-screen text-white bg-gray-900">
       <header className="px-4 py-6 flex justify-between">
         <div className="font-extrabold">Hansel De La Cruz</div>
         <div className="font-bold text-lg sm:text-sm">
@@ -29,6 +29,11 @@ const App: React.FC = () => {
         </div>
       </header>
       <div className="flex-1 mt-4">
+        <p className="sm:hidden text-red-500 text-center">XS</p>
+        <p className="hidden sm:block md:hidden text-blue-500 text-center">SM</p>
+        <p className="hidden md:block lg:hidden text-green-500 text-center">MD</p>
+        <p className="hidden lg:block xl:hidden text-yellow-500 text-center">LG</p>
+        <p className="hidden xl:block text-purple-500 text-center">XL</p>
         {/* <p>{JSON.stringify(locale)}</p> */}
         {/* <button>Click me</button> */}
       </div>
