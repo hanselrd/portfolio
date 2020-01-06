@@ -3,6 +3,7 @@ import { combineEpics } from 'redux-observable';
 import history from '../core/history';
 import localization from '../core/localization';
 import localeReducer, { LocaleAction, localeEpic, LocaleEpic, LocaleState } from './locale';
+import routerReducer, { RouterAction, routerEpic, RouterEpic, RouterState } from './router';
 
 export const dependencies = {
   history,
@@ -10,12 +11,15 @@ export const dependencies = {
   localStorage
 };
 
-export type RootState = Readonly<{ locale: LocaleState }>;
+export type RootState = Readonly<{ locale: LocaleState; router: RouterState }>;
 
-export type RootAction = LocaleAction; // &
+export type RootAction = LocaleAction & RouterAction;
 
-export type RootEpic = LocaleEpic; // |
+export type RootEpic = LocaleEpic | RouterEpic;
 
-export const rootEpic = combineEpics<RootEpic>(localeEpic);
+export const rootEpic = combineEpics<RootEpic>(localeEpic, routerEpic);
 
-export default combineReducers<RootState, RootAction>({ locale: localeReducer });
+export default combineReducers<RootState, RootAction>({
+  locale: localeReducer,
+  router: routerReducer
+});
