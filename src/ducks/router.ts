@@ -2,7 +2,7 @@ import { Location } from 'history';
 import { Reducer } from 'redux';
 import { combineEpics, Epic, ofType } from 'redux-observable';
 import { Observable } from 'rxjs';
-import { ignoreElements, map, mapTo, switchMap, tap } from 'rxjs/operators';
+import { ignoreElements, map, switchMap, tap } from 'rxjs/operators';
 import { ActionType, createAction, getType } from 'typesafe-actions';
 import { dependencies, RootState } from '../ducks';
 

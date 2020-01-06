@@ -1,6 +1,6 @@
 {
   "defaultSeverity": "error",
-  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
+  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier", "tslint-etc"],
   "linterOptions": {
     "exclude": [
       "config/**/*.js",
@@ -15,7 +15,9 @@
     "object-literal-sort-keys": false,
     "triple-equals": [true, "allow-null-check"],
     "no-empty": false,
-    "no-bitwise": false
+    "no-bitwise": false,
+    "no-unused-variable": false,
+    "no-unused-declaration": true
   },
   "rulesDirectory": []
 }
