@@ -40,6 +40,17 @@ const App: React.FC = () => {
         <p className="hidden xl:block text-purple-500 text-center">XL</p>
         <p>{JSON.stringify(locale)}</p>
         <p>{JSON.stringify(router)}</p>
+        <div>
+          <ul>
+            <li>Hansel De La Cruz</li>
+            <li>
+              <span>Hansel De La Cruz</span>
+            </li>
+            <li>
+              <p>Hansel De La Cruz</p>
+            </li>
+          </ul>
+        </div>
         {/* <button>Click me</button> */}
       </main>
       <footer className="bg-black p-4 flex justify-between text-white">

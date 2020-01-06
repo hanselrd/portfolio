@@ -14,6 +14,6 @@ test('renders learn react link', () => {
       </Router>
     </Provider>
   );
-  const linkElement = getByText(/Hansel De La Cruz/i);
+  const linkElement = getByText(/Contact/i);
   expect(linkElement).toBeInTheDocument();
 });

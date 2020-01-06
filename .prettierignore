@@ -1,6 +1,7 @@
 /.old
 /build
 /coverage
+/node_modules
 /src/generated
 react-app-env.d.ts
 serviceWorker.ts
