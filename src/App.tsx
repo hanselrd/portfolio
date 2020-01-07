@@ -124,6 +124,18 @@ const App: React.FC = () => {
           <span>&copy; Copyright 2020</span> <span className="font-bold">Hansel De La Cruz</span>
         </div>
       </footer>
+      <div
+        className="hidden fixed z-50 top-0 left-0 w-full h-full overflow-auto bg-black"
+        style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}
+      >
+        <div className="mt-16 mx-auto p-4 bg-gray-100 rounded w-5/6 text-white">
+          <div>
+            <h1 className="text-lg font-bold">Header</h1>
+          </div>
+          <div>Content</div>
+          <div>Footer</div>
+        </div>
+      </div>
     </div>
   );
 };
