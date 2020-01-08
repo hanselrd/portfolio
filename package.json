@@ -79,7 +79,7 @@
   "bugs": {
     "url": "https://github.com/hanselrd/portfolio/issues"
   },
-  "homepage": "https://hanselrd.github.io/portfolio",
+  "homepage": ".",
   "browserslist": {
     "production": [
       ">0.2%",
