@@ -57,7 +57,7 @@
     "build:react": "react-scripts build",
     "build": "run-s build:*",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -d build -b master -o prod",
     "test": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject",
     "lint:tslint": "tslint --project . 'src/**/*.{ts,tsx}'",
