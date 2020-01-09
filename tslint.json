@@ -16,6 +16,7 @@
     "triple-equals": [true, "allow-null-check"],
     "no-empty": false,
     "no-bitwise": false,
+    "jsx-no-lambda": false,
     "no-unused-variable": false,
     "no-unused-declaration": true
   },

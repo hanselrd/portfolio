@@ -14,7 +14,8 @@ export const localeActions = {
   start: createAction('@@locale/START')(),
   change: createAction('@@locale/CHANGE', (language: string) => language)(),
   showModal: createAction('@@locale/SHOW MODAL')(),
-  hideModal: createAction('@@locale/HIDE MODAL')()
+  hideModal: createAction('@@locale/HIDE MODAL')(),
+  toggleModal: createAction('@@locale/TOGGLE MODAL')()
 };
 
 export type LocaleAction = ActionType<typeof localeActions>;
@@ -58,6 +59,8 @@ const reducer: Reducer<LocaleState, LocaleAction> = (
       return { ...state, showModal: true };
     case getType(localeActions.hideModal):
       return { ...state, showModal: false };
+    case getType(localeActions.toggleModal):
+      return { ...state, showModal: !state.showModal };
     default:
       return state;
   }
