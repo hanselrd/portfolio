@@ -101,10 +101,8 @@ const Header: React.FC = () => {
       </div>
       {/* language modal */}
       <div
-        onClick={event => {
-          if (event.target === event.currentTarget) {
-            setShowLanguageModal(false);
-          }
+        onClick={() => {
+          setShowLanguageModal(false);
         }}
         className={`${
           showLanguageModal ? 'block' : 'hidden'

@@ -6,6 +6,7 @@ import { RootState } from './ducks';
 import { localeActions } from './ducks/locale';
 import { routerActions } from './ducks/router';
 import Header from './singletons/Header';
+import Routes from './singletons/Routes';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ const App: React.FC = () => {
         <p className="hidden xl:block text-purple-500 text-center">XL</p>
         <p>{JSON.stringify(locale)}</p>
         <p>{JSON.stringify(router)}</p>
+        <Routes />
         <animated.span>{spring.number.interpolate(val => Math.floor(val))}</animated.span>
         <p>
           Ipsum deserunt nisi eligendi nihil impedit. Atque doloremque nostrum minima iusto delectus
