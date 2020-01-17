@@ -7,7 +7,8 @@ module.exports = {
       sm: '640px',
       md: '768px',
       lg: '1024px',
-      xl: '1280px'
+      xl: '1280px',
+      print: { raw: 'print' }
     },
     colors: {
       transparent: 'transparent',
@@ -221,7 +222,6 @@ module.exports = {
     },
     fontFamily: {
       sans: [
-        '"Poppins"',
         '-apple-system',
         'BlinkMacSystemFont',
         '"Segoe UI"',
@@ -236,7 +236,10 @@ module.exports = {
         '"Noto Color Emoji"'
       ],
       serif: ['Georgia', 'Cambria', '"Times New Roman"', 'Times', 'serif'],
-      mono: ['Menlo', 'Monaco', 'Consolas', '"Liberation Mono"', '"Courier New"', 'monospace']
+      mono: ['Menlo', 'Monaco', 'Consolas', '"Liberation Mono"', '"Courier New"', 'monospace'],
+      poppins: ['"Poppins"', 'sans-serif'],
+      lato: ['"Lato"', 'sans-serif'],
+      montserrat: ['"Montserrat"', 'sans-serif']
     },
     fontSize: {
       xs: '0.75rem',
