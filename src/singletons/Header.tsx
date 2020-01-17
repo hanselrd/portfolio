@@ -5,6 +5,7 @@ import { RemoveScroll } from 'react-remove-scroll';
 import { animated, useSpring } from 'react-spring';
 import { RootState } from '../ducks';
 import { localeActions } from '../ducks/locale';
+import { routerActions } from '../ducks/router';
 
 const Header: React.FC = () => {
   const dispatch = useDispatch();
@@ -22,8 +23,8 @@ const Header: React.FC = () => {
 
   return (
     <>
-      <header className="bg-gray-900 fixed top-0 left-0 text-gray-300 w-full p-6 m-auto z-10 shadow-md">
-        <div className="container flex m-auto justify-between sm:px-2 md:px-4 lg:px-8 xl:px-16">
+      <header className="fixed top-0 left-0 z-10 w-full p-6 m-auto text-gray-300 bg-gray-900 shadow-md ">
+        <div className="container flex justify-between m-auto sm:px-2 md:px-4 lg:px-8 xl:px-16">
           <div className="flex my-auto">
             <div className="flex sm:hidden">
               <button
@@ -36,20 +37,59 @@ const Header: React.FC = () => {
                 <FaBars className="my-auto hover:text-white" />
               </button>
             </div>
-            <div className="flex ml-6 my-auto sm:ml-0">
+            <div className="flex my-auto ml-6 sm:ml-0">
               <FaRegBookmark className="my-auto text-xl text-gray-600" />
               <span className="ml-1 font-bold text-white">Hansel De La Cruz</span>
             </div>
-            <div className="hidden ml-12 m-auto sm:block">
-              <ul className="text-xs font-bold flex">
-                <li className="hover:text-white text-white">
-                  <span className="border-b-4 border-white px-1">Home</span>
+            <div className="hidden m-auto ml-12 sm:block">
+              <ul className="flex text-xs font-bold">
+                <li
+                  onClick={() => {
+                    dispatch(routerActions.push('/home'));
+                  }}
+                  className="cursor-pointer hover:text-white"
+                >
+                  <span
+                    className={`px-1 ${
+                      selected.router.location && selected.router.location.pathname === '/home'
+                        ? 'border-b-4 border-white text-white'
+                        : ''
+                    }`}
+                  >
+                    Home
+                  </span>
                 </li>
-                <li className="ml-6 hover:text-white">
-                  <span className="px-1">Projects</span>
+                <li
+                  onClick={() => {
+                    dispatch(routerActions.push('/projects'));
+                  }}
+                  className="ml-6 cursor-pointer hover:text-white"
+                >
+                  <span
+                    className={`px-1 ${
+                      selected.router.location && selected.router.location.pathname === '/projects'
+                        ? 'border-b-4 border-white text-white'
+                        : ''
+                    }`}
+                  >
+                    Projects
+                  </span>
                 </li>
-                <li className="ml-6 hover:text-white">
-                  <span className="px-1">Résumé</span>
+                <li
+                  onClick={() => {
+                    dispatch(routerActions.push('/resume'));
+                  }}
+                  className="ml-6 cursor-pointer hover:text-white"
+                >
+                  <span
+                    className={`px-1 ${
+                      selected.router.location && selected.router.location.pathname === '/resume'
+                        ? 'border-b-4 border-white text-white'
+                        : ''
+                    }`}
+                  >
+                    Résumé
+                  </span>
                 </li>
               </ul>
             </div>
@@ -79,20 +119,62 @@ const Header: React.FC = () => {
         style={{ backgroundColor: 'rgba(0,0,0,0.4)' }}
       >
         <animated.div
-          className="bg-gray-900 pt-24 w-5/12 h-full text-gray-300 shadow-md"
+          className="w-5/12 h-full pt-24 text-gray-300 bg-gray-900 shadow-md"
           style={sidebarSpring}
         >
           <RemoveScroll enabled={showSidebar}>
             <div>
               <ul className="text-sm font-semibold text-center">
-                <li className="hover:text-white text-white">
-                  <span className="border-b-4 border-white px-1">Home</span>
+                <li
+                  onClick={() => {
+                    dispatch(routerActions.push('/home'));
+                    setShowSidebar(false);
+                  }}
+                  className="cursor-pointer hover:text-white"
+                >
+                  <span
+                    className={`px-1 ${
+                      selected.router.location && selected.router.location.pathname === '/home'
+                        ? 'border-b-4 border-white text-white'
+                        : ''
+                    }`}
+                  >
+                    Home
+                  </span>
                 </li>
-                <li className="mt-8 hover:text-white">
-                  <span className="px-1">Projects</span>
+                <li
+                  onClick={() => {
+                    dispatch(routerActions.push('/projects'));
+                    setShowSidebar(false);
+                  }}
+                  className="mt-8 cursor-pointer hover:text-white"
+                >
+                  <span
+                    className={`px-1 ${
+                      selected.router.location && selected.router.location.pathname === '/projects'
+                        ? 'border-b-4 border-white text-white'
+                        : ''
+                    }`}
+                  >
+                    Projects
+                  </span>
                 </li>
-                <li className="mt-8 hover:text-white">
-                  <span className="px-1">Résumé</span>
+                <li
+                  onClick={() => {
+                    dispatch(routerActions.push('/resume'));
+                    setShowSidebar(false);
+                  }}
+                  className="mt-8 cursor-pointer hover:text-white"
+                >
+                  <span
+                    className={`px-1 ${
+                      selected.router.location && selected.router.location.pathname === '/resume'
+                        ? 'border-b-4 border-white text-white'
+                        : ''
+                    }`}
+                  >
+                    Résumé
+                  </span>
                 </li>
               </ul>
             </div>
@@ -110,15 +192,15 @@ const Header: React.FC = () => {
         style={{ backgroundColor: 'rgba(0,0,0,0.85)' }}
       >
         <RemoveScroll enabled={showLanguageModal}>
-          <div className="mt-32 w-3/4 h-auto mx-auto text-white rounded">
-            <h1 className="font-bold text-lg text-center">Choose your preferred language</h1>
-            <div className="mt-10 flex justify-center">
+          <div className="w-3/4 h-auto mx-auto mt-32 text-white rounded">
+            <h1 className="text-lg font-bold text-center">Choose your preferred language</h1>
+            <div className="flex justify-center mt-10">
               <button
                 onClick={() => {
                   dispatch(localeActions.change('en'));
                   setShowLanguageModal(false);
                 }}
-                className="border-2 rounded px-6 py-2 hover:bg-gray-100 hover:text-black focus:outline-none"
+                className="px-6 py-2 border-2 rounded hover:bg-gray-100 hover:text-black focus:outline-none"
               >
                 English
               </button>
@@ -127,7 +209,7 @@ const Header: React.FC = () => {
                   dispatch(localeActions.change('es'));
                   setShowLanguageModal(false);
                 }}
-                className="ml-6 border-2 rounded px-6 py-2 hover:bg-gray-100 hover:text-black focus:outline-none sm:ml-10"
+                className="px-6 py-2 ml-6 border-2 rounded hover:bg-gray-100 hover:text-black focus:outline-none sm:ml-10"
               >
                 Español
               </button>
