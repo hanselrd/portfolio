@@ -16,7 +16,7 @@ const App: React.FC = () => {
   useEffect(() => {
     dispatch(localeActions.start());
     dispatch(routerActions.start());
-    dispatch(routerActions.push('/'));
+    /* dispatch(routerActions.push('/')); */
   }, [dispatch]);
 
   const spring = useSpring({ opacity: 1, number: 2020, from: { opacity: 0, number: 0 } });
@@ -33,7 +33,7 @@ const App: React.FC = () => {
         <p>{JSON.stringify(locale)}</p>
         <p>{JSON.stringify(router)}</p>
         <Routes />
-        <animated.span>{spring.number.interpolate(val => Math.floor(val))}</animated.span>
+        <animated.span>{spring.number.interpolate(x => Math.floor(x))}</animated.span>
         <p>{JSON.stringify(window.location)}</p>
       </animated.main>
       <footer className="px-4 py-16 mt-4 text-white bg-gray-900">
