@@ -35,7 +35,6 @@ const App: React.FC = () => {
         <Routes />
         <animated.span>{spring.number.interpolate(val => Math.floor(val))}</animated.span>
         <p>{JSON.stringify(window.location)}</p>
-        {/* <button>Click me</button> */}
       </animated.main>
       <footer className="px-4 py-16 mt-4 text-white bg-gray-900">
         <div className="flex justify-between">
