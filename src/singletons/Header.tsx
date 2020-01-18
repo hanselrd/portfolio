@@ -63,11 +63,11 @@ const Header: React.FC = () => {
                 </li>
                 <li className="ml-6 cursor-pointer hover:text-white">
                   <NavLink
-                    to="/resume"
+                    to="/cv"
                     className="px-1"
                     activeClassName="border-b-4 border-white text-white"
                   >
-                    Résumé
+                    CV
                   </NavLink>
                 </li>
               </ul>
@@ -139,11 +139,11 @@ const Header: React.FC = () => {
                   className="mt-8 cursor-pointer hover:text-white"
                 >
                   <NavLink
-                    to="/resume"
+                    to="/cv"
                     className="px-1"
                     activeClassName="border-b-4 border-white text-white"
                   >
-                    Résumé
+                    CV
                   </NavLink>
                 </li>
               </ul>
