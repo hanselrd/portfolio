@@ -1,3 +1,11 @@
-import { createBrowserHistory } from 'history';
+import { createBrowserHistory, createHashHistory, History } from 'history';
 
-export default createBrowserHistory();
+let history: History;
+
+if (window.location.hostname.includes('github.io')) {
+  history = createHashHistory();
+} else {
+  history = createBrowserHistory();
+}
+
+export default history;
