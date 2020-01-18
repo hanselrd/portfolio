@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { FaBars, FaGlobeAmericas, FaRegBookmark } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { RemoveScroll } from 'react-remove-scroll';
+import { NavLink } from 'react-router-dom';
 import { animated, useSpring } from 'react-spring';
 import { RootState } from '../ducks';
 import { localeActions } from '../ducks/locale';
-import { routerActions } from '../ducks/router';
 
 const Header: React.FC = () => {
   const dispatch = useDispatch();
@@ -43,53 +43,32 @@ const Header: React.FC = () => {
             </div>
             <div className="hidden m-auto ml-12 sm:block">
               <ul className="flex text-xs font-bold">
-                <li
-                  onClick={() => {
-                    dispatch(routerActions.push('/home'));
-                  }}
-                  className="cursor-pointer hover:text-white"
-                >
-                  <span
-                    className={`px-1 ${
-                      selected.router.location && selected.router.location.pathname === '/home'
-                        ? 'border-b-4 border-white text-white'
-                        : ''
-                    }`}
+                <li className="cursor-pointer hover:text-white">
+                  <NavLink
+                    to="/home"
+                    className="px-1"
+                    activeClassName="border-b-4 border-white text-white"
                   >
                     Home
-                  </span>
+                  </NavLink>
                 </li>
-                <li
-                  onClick={() => {
-                    dispatch(routerActions.push('/projects'));
-                  }}
-                  className="ml-6 cursor-pointer hover:text-white"
-                >
-                  <span
-                    className={`px-1 ${
-                      selected.router.location && selected.router.location.pathname === '/projects'
-                        ? 'border-b-4 border-white text-white'
-                        : ''
-                    }`}
+                <li className="ml-6 cursor-pointer hover:text-white">
+                  <NavLink
+                    to="/projects"
+                    className="px-1"
+                    activeClassName="border-b-4 border-white text-white"
                   >
                     Projects
-                  </span>
+                  </NavLink>
                 </li>
-                <li
-                  onClick={() => {
-                    dispatch(routerActions.push('/resume'));
-                  }}
-                  className="ml-6 cursor-pointer hover:text-white"
-                >
-                  <span
-                    className={`px-1 ${
-                      selected.router.location && selected.router.location.pathname === '/resume'
-                        ? 'border-b-4 border-white text-white'
-                        : ''
-                    }`}
+                <li className="ml-6 cursor-pointer hover:text-white">
+                  <NavLink
+                    to="/resume"
+                    className="px-1"
+                    activeClassName="border-b-4 border-white text-white"
                   >
                     Résumé
-                  </span>
+                  </NavLink>
                 </li>
               </ul>
             </div>
@@ -127,54 +106,45 @@ const Header: React.FC = () => {
               <ul className="text-sm font-semibold text-center">
                 <li
                   onClick={() => {
-                    dispatch(routerActions.push('/home'));
                     setShowSidebar(false);
                   }}
                   className="cursor-pointer hover:text-white"
                 >
-                  <span
-                    className={`px-1 ${
-                      selected.router.location && selected.router.location.pathname === '/home'
-                        ? 'border-b-4 border-white text-white'
-                        : ''
-                    }`}
+                  <NavLink
+                    to="/home"
+                    className="px-1"
+                    activeClassName="border-b-4 border-white text-white"
                   >
                     Home
-                  </span>
+                  </NavLink>
                 </li>
                 <li
                   onClick={() => {
-                    dispatch(routerActions.push('/projects'));
                     setShowSidebar(false);
                   }}
                   className="mt-8 cursor-pointer hover:text-white"
                 >
-                  <span
-                    className={`px-1 ${
-                      selected.router.location && selected.router.location.pathname === '/projects'
-                        ? 'border-b-4 border-white text-white'
-                        : ''
-                    }`}
+                  <NavLink
+                    to="/projects"
+                    className="px-1"
+                    activeClassName="border-b-4 border-white text-white"
                   >
                     Projects
-                  </span>
+                  </NavLink>
                 </li>
                 <li
                   onClick={() => {
-                    dispatch(routerActions.push('/resume'));
                     setShowSidebar(false);
                   }}
                   className="mt-8 cursor-pointer hover:text-white"
                 >
-                  <span
-                    className={`px-1 ${
-                      selected.router.location && selected.router.location.pathname === '/resume'
-                        ? 'border-b-4 border-white text-white'
-                        : ''
-                    }`}
+                  <NavLink
+                    to="/resume"
+                    className="px-1"
+                    activeClassName="border-b-4 border-white text-white"
                   >
                     Résumé
-                  </span>
+                  </NavLink>
                 </li>
               </ul>
             </div>
