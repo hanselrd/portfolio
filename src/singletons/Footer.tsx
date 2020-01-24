@@ -1,33 +1,36 @@
 import React from 'react';
-import { FaFacebook, FaGithub, FaLinkedin } from 'react-icons/fa';
+import { FaFacebookSquare, FaLinkedinIn, FaGithub } from 'react-icons/fa';
+import { NavLink } from 'react-router-dom';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="px-4 py-16 mt-4 text-white bg-gray-900">
-      <div className="flex justify-between">
-        <div className="text-sm font-semibold">
-          <ul className="flex">
-            <li>About Me</li>
-            <li className="ml-2">Contact</li>
-          </ul>
-        </div>
-        <div className="text-lg">
-          <ul className="flex">
-            <li>
-              <FaFacebook />
-            </li>
-            <li className="ml-3">
-              <FaLinkedin />
-            </li>
-            <li className="ml-3">
-              <FaGithub />
-            </li>
-          </ul>
-        </div>
+    <footer className="px-4 py-16 mt-4 text-gray-300 bg-gray-900">
+      <div className="block sm:flex">
+        <ul className="flex justify-center w-full text-xs font-bold">
+          <li className="cursor-pointer hover:text-white">
+            <NavLink to="/aboutme">About Me</NavLink>
+          </li>
+          <li className="ml-6 cursor-pointer hover:text-white">
+            <NavLink to="/contact">Contact</NavLink>
+          </li>
+        </ul>
+        <hr className="my-8 border-0 border-gray-800 sm:hidden" />
+        <ul className="flex justify-center w-full text-2xl">
+          <li className="cursor-pointer hover:text-white">
+            <FaFacebookSquare />
+          </li>
+          <li className="ml-8 cursor-pointer hover:text-white">
+            <FaLinkedinIn />
+          </li>
+          <li className="ml-8 cursor-pointer hover:text-white">
+            <FaGithub />
+          </li>
+        </ul>
       </div>
       <hr className="my-8 border-0 border-gray-800" />
       <div className="w-full text-xs text-center text-gray-300">
-        <span>&copy; Copyright 2020</span> <span className="font-bold">Hansel De La Cruz</span>
+        <span>&copy; Copyright {new Date().getFullYear()}</span>{' '}
+        <span className="font-bold">Hansel De La Cruz</span>
       </div>
     </footer>
   );

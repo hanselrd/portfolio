@@ -10,8 +10,7 @@ import { localeActions } from '../ducks/locale';
 const Header: React.FC = () => {
   const dispatch = useDispatch();
   const selected = useSelector((state: RootState) => ({
-    locale: state.locale,
-    router: state.router
+    locale: state.locale
   }));
 
   const [showSidebar, setShowSidebar] = useState(false);
