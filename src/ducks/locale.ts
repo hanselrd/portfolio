@@ -12,10 +12,7 @@ export const localeActions = {
     )()
   },
   start: createAction('@@locale/START')(),
-  change: createAction('@@locale/CHANGE', (language: string) => language)(),
-  showModal: createAction('@@locale/SHOW MODAL')(),
-  hideModal: createAction('@@locale/HIDE MODAL')(),
-  toggleModal: createAction('@@locale/TOGGLE MODAL')()
+  change: createAction('@@locale/CHANGE', (language: string) => language)()
 };
 
 export type LocaleAction = ActionType<typeof localeActions>;
@@ -44,23 +41,15 @@ export const localeEpics = {
 
 export const localeEpic = combineEpics<LocaleEpic>(localeEpics.start, localeEpics.change);
 
-export type LocaleState = Readonly<{ language?: string; showModal: boolean }>;
+export type LocaleState = Readonly<{ language?: string }>;
 
 const reducer: Reducer<LocaleState, LocaleAction> = (
-  state: LocaleState = {
-    showModal: false
-  },
+  state: LocaleState = {},
   action: LocaleAction
 ) => {
   switch (action.type) {
     case getType(localeActions.internal.languageChanged):
       return { ...state, language: action.payload };
-    case getType(localeActions.showModal):
-      return { ...state, showModal: true };
-    case getType(localeActions.hideModal):
-      return { ...state, showModal: false };
-    case getType(localeActions.toggleModal):
-      return { ...state, showModal: !state.showModal };
     default:
       return state;
   }

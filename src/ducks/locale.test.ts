@@ -7,7 +7,8 @@ import { localeActions, localeEpics } from './locale';
 it('start epic executes correctly', async () => {
   const action$ = ActionsObservable.of(localeActions.start());
   const state$ = new StateObservable<RootState>(new Subject(), {
-    locale: { showModal: false }
+    locale: {},
+    router: {}
   });
 
   const mockLocalizationGetLanguage = jest.spyOn(dependencies.localization, 'getLanguage');
@@ -22,11 +23,10 @@ it('start epic executes correctly', async () => {
   expect(result).toEqual([localeActions.internal.languageChanged('en')]);
 });
 
-it('change saga executes correctly', async () => {
+it('change epic executes correctly', async () => {
   const action$ = ActionsObservable.of(localeActions.change('en'));
   const state$ = new StateObservable<RootState>(new Subject(), {
-    auth: {},
-    locale: { showModal: false },
+    locale: {},
     router: {}
   });
 
