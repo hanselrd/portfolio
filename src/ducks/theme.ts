@@ -1,8 +1,8 @@
 import { Reducer } from "redux";
-import { combineEpics, ofType, Epic } from "redux-observable";
+import { Epic, combineEpics, ofType } from "redux-observable";
 import { map, tap, withLatestFrom } from "rxjs/operators";
-import { createAction, getType, ActionType } from "typesafe-actions";
-import { dependencies, RootState } from "../ducks";
+import { ActionType, createAction, getType } from "typesafe-actions";
+import { RootState, dependencies } from "../ducks";
 
 export const themeActions = {
   internal: {
@@ -30,7 +30,7 @@ export const themeEpics = {
         )
       ),
       tap((action) => {
-        if ((action as ReturnType<typeof themeActions.internal.modeChanged>).payload === "dark") {
+        if (action.payload === "dark") {
           document?.querySelector("html")?.classList.add("dark");
         } else {
           document?.querySelector("html")?.classList.remove("dark");

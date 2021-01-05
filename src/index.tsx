@@ -13,7 +13,9 @@ ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <Router history={history}>
-        <App />
+        <React.StrictMode>
+          <App />
+        </React.StrictMode>
       </Router>
     </PersistGate>
   </Provider>,

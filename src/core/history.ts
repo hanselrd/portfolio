@@ -1,4 +1,4 @@
-import { createBrowserHistory, createHashHistory, History } from "history";
+import { History, createBrowserHistory, createHashHistory } from "history";
 
 let history: History;
 

@@ -1,11 +1,10 @@
-import { applyMiddleware, createStore, AnyAction, Store } from "redux";
+import { AnyAction, Store, applyMiddleware, createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import logger from "redux-logger";
 import { createEpicMiddleware } from "redux-observable";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-
-import rootReducer, { dependencies, rootEpic, RootAction, RootState } from "../ducks";
+import rootReducer, { RootAction, RootState, dependencies, rootEpic } from "../ducks";
 
 export let store: Store<RootState, RootAction>;
 
@@ -16,7 +15,7 @@ const persistedReducer = persistReducer(
   rootReducer
 );
 
-if (process.env.NODE_ENV !== "production") {
+if (process.env.NODE_ENV !== "production" && process.env.NODE_ENV !== "test") {
   store = createStore(
     persistedReducer,
     composeWithDevTools(applyMiddleware(logger, epicMiddleware))
