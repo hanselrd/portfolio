@@ -1,10 +1,10 @@
-import { createBrowserHistory, createHashHistory, History } from 'history';
+import { createBrowserHistory, createHashHistory, History } from "history";
 
 let history: History;
 
 if (
-  window.location.hostname.includes('github.io') ||
-  window.location.hostname.includes('dev.hanseldelacruz.com')
+  window.location.hostname.includes("github.io") ||
+  window.location.hostname.includes("dev.hanseldelacruz.com")
 ) {
   history = createHashHistory();
 } else {
