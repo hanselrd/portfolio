@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import React, { useState } from "react";
 import { FaBars, FaGlobeAmericas, FaRegBookmark } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,7 +23,7 @@ const Header: React.FC = () => {
 
   return (
     <>
-      <header className="fixed top-0 left-0 z-10 w-full p-6 m-auto text-gray-300 bg-gray-900 shadow-md ">
+      <header className="fixed top-0 left-0 z-10 w-full p-6 m-auto text-gray-300 bg-gray-900 shadow-md">
         <div className="container flex justify-between m-auto sm:px-2 md:px-4 lg:px-8 xl:px-16">
           <div className="flex my-auto">
             <div className="flex sm:hidden">
@@ -88,7 +89,13 @@ const Header: React.FC = () => {
             setShowSidebar(false);
           }
         }}
-        className={`${showSidebar ? "block" : "hidden"} fixed top-0 left-0 w-full h-full sm:hidden`}
+        className={clsx(
+          {
+            block: showSidebar,
+            hidden: !showSidebar,
+          },
+          "fixed top-0 left-0 w-full h-full sm:hidden"
+        )}
         style={{ backgroundColor: "rgba(0,0,0,0.4)" }}>
         <animated.div
           className="w-5/12 h-full pt-24 text-gray-300 bg-gray-900 shadow-md"
@@ -142,9 +149,13 @@ const Header: React.FC = () => {
         onClick={() => {
           setShowLanguageModal(false);
         }}
-        className={`${
-          showLanguageModal ? "block" : "hidden"
-        } fixed top-0 left-0 w-full h-full z-50`}
+        className={clsx(
+          {
+            block: showLanguageModal,
+            hidden: !showLanguageModal,
+          },
+          "fixed top-0 left-0 w-full h-full z-50"
+        )}
         style={{ backgroundColor: "rgba(0,0,0,0.85)" }}>
         <RemoveScroll enabled={showLanguageModal}>
           <div className="w-3/4 h-auto mx-auto mt-32 text-white rounded">
