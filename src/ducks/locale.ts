@@ -1,8 +1,8 @@
 import { Reducer } from "redux";
-import { combineEpics, ofType, Epic } from "redux-observable";
+import { Epic, combineEpics, ofType } from "redux-observable";
 import { map, tap, withLatestFrom } from "rxjs/operators";
-import { createAction, getType, ActionType } from "typesafe-actions";
-import { dependencies, RootState } from "../ducks";
+import { ActionType, createAction, getType } from "typesafe-actions";
+import { RootState, dependencies } from "../ducks";
 
 export const localeActions = {
   internal: {
@@ -29,11 +29,7 @@ export const localeEpics = {
           state.locale.language ? state.locale.language : localization.getLanguage()
         )
       ),
-      tap((action) =>
-        localization.setLanguage(
-          (action as ReturnType<typeof localeActions.internal.languageChanged>).payload
-        )
-      )
+      tap((action) => localization.setLanguage(action.payload))
     )) as LocaleEpic,
   change: ((action$, state$, { localization }) =>
     action$.pipe(

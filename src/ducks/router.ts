@@ -1,10 +1,10 @@
 import { Location } from "history";
 import { Reducer } from "redux";
-import { combineEpics, ofType, Epic } from "redux-observable";
+import { Epic, combineEpics, ofType } from "redux-observable";
 import { Observable } from "rxjs";
 import { ignoreElements, map, switchMap, tap } from "rxjs/operators";
-import { createAction, getType, ActionType } from "typesafe-actions";
-import { dependencies, RootState } from "../ducks";
+import { ActionType, createAction, getType } from "typesafe-actions";
+import { RootState, dependencies } from "../ducks";
 
 export const routerActions = {
   internal: {
