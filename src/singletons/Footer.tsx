@@ -1,6 +1,6 @@
-import React from 'react';
-import { FaFacebookSquare, FaLinkedinIn, FaGithub } from 'react-icons/fa';
-import { NavLink } from 'react-router-dom';
+import React from "react";
+import { FaFacebookSquare, FaGithub, FaLinkedinIn } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
 
 const Footer: React.FC = () => {
   return (
@@ -29,7 +29,7 @@ const Footer: React.FC = () => {
       </div>
       <hr className="my-8 border-0 border-gray-800" />
       <div className="w-full text-xs text-center text-gray-300">
-        <span>&copy; Copyright {new Date().getFullYear()}</span>{' '}
+        <span>&copy; Copyright {new Date().getFullYear()}</span>{" "}
         <span className="font-bold">Hansel De La Cruz</span>
       </div>
     </footer>

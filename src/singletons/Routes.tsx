@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
-import { animateScroll } from 'react-scroll';
-import { RootState } from '../ducks';
-import CV from '../routes/CV';
-import Home from '../routes/Home';
-import Landing from '../routes/Landing';
-import Projects from '../routes/Projects';
-import AboutMe from '../routes/AboutMe';
-import Contact from '../routes/Contact';
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { Route, Switch } from "react-router-dom";
+import { animateScroll } from "react-scroll";
+import { RootState } from "../ducks";
+import AboutMe from "../routes/AboutMe";
+import CV from "../routes/CV";
+import Contact from "../routes/Contact";
+import Home from "../routes/Home";
+import Landing from "../routes/Landing";
+import Projects from "../routes/Projects";
 
 const Routes: React.FC = () => {
   const selected = useSelector((state: RootState) => state.router);

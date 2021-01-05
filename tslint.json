@@ -11,14 +11,18 @@
   },
   "jsRules": {},
   "rules": {
-    "no-console": false,
-    "object-literal-sort-keys": false,
-    "triple-equals": [true, "allow-null-check"],
-    "no-empty": false,
-    "no-bitwise": false,
     "jsx-no-lambda": false,
+    "no-bitwise": false,
+    "no-console": false,
+    "no-empty": false,
+    "no-unused-declaration": true,
     "no-unused-variable": false,
-    "no-unused-declaration": true
+    "object-literal-sort-keys": false,
+    "ordered-imports": [
+      true,
+      { "import-sources-order": "lowercase-last", "named-imports-order": "lowercase-first" }
+    ],
+    "triple-equals": [true, "allow-null-check"]
   },
   "rulesDirectory": []
 }

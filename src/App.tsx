@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { animated, useSpring } from 'react-spring';
-import { RootState } from './ducks';
-import { localeActions } from './ducks/locale';
-import { routerActions } from './ducks/router';
-import Footer from './singletons/Footer';
-import Header from './singletons/Header';
-import Routes from './singletons/Routes';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { animated, useSpring } from "react-spring";
+import { RootState } from "./ducks";
+import { localeActions } from "./ducks/locale";
+import { routerActions } from "./ducks/router";
+import { themeActions } from "./ducks/theme";
+import Footer from "./singletons/Footer";
+import Header from "./singletons/Header";
+import Routes from "./singletons/Routes";
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
@@ -17,9 +18,14 @@ const App: React.FC = () => {
     dispatch(localeActions.start());
     dispatch(routerActions.start());
     /* dispatch(routerActions.push('/')); */
+    dispatch(themeActions.start());
   }, [dispatch]);
 
-  const spring = useSpring({ opacity: 1, number: 2020, from: { opacity: 0, number: 0 } });
+  const spring = useSpring({
+    opacity: 1,
+    number: 2020,
+    from: { opacity: 0, number: 0 },
+  });
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -33,7 +39,7 @@ const App: React.FC = () => {
         <p>{JSON.stringify(locale)}</p>
         <p>{JSON.stringify(router)}</p>
         <Routes />
-        <animated.span>{spring.number.interpolate(x => Math.floor(x))}</animated.span>
+        <animated.span>{spring.number.interpolate((x) => Math.floor(x as number))}</animated.span>
         <p>{JSON.stringify(window.location)}</p>
       </animated.main>
       <Footer />

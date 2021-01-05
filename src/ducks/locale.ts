@@ -1,18 +1,18 @@
-import { Reducer } from 'redux';
-import { combineEpics, Epic, ofType } from 'redux-observable';
-import { map, mapTo, tap } from 'rxjs/operators';
-import { ActionType, createAction, getType } from 'typesafe-actions';
-import { dependencies, RootState } from '../ducks';
+import { Reducer } from "redux";
+import { combineEpics, ofType, Epic } from "redux-observable";
+import { map, tap, withLatestFrom } from "rxjs/operators";
+import { createAction, getType, ActionType } from "typesafe-actions";
+import { dependencies, RootState } from "../ducks";
 
 export const localeActions = {
   internal: {
     languageChanged: createAction(
-      '@@locale-internal/LANGUAGE CHANGED',
+      "@@locale-internal/LANGUAGE CHANGED",
       (language: string) => language
-    )()
+    )(),
   },
-  start: createAction('@@locale/START')(),
-  change: createAction('@@locale/CHANGE', (language: string) => language)()
+  start: createAction("@@locale/START")(),
+  change: createAction("@@locale/CHANGE", (language: string) => language)(),
 };
 
 export type LocaleAction = ActionType<typeof localeActions>;
@@ -23,20 +23,30 @@ export const localeEpics = {
   start: ((action$, state$, { localization }) =>
     action$.pipe(
       ofType(getType(localeActions.start)),
-      mapTo(localeActions.internal.languageChanged(localization.getLanguage()))
+      withLatestFrom(state$),
+      map(([, state]) =>
+        localeActions.internal.languageChanged(
+          state.locale.language ? state.locale.language : localization.getLanguage()
+        )
+      ),
+      tap((action) =>
+        localization.setLanguage(
+          (action as ReturnType<typeof localeActions.internal.languageChanged>).payload
+        )
+      )
     )) as LocaleEpic,
   change: ((action$, state$, { localization }) =>
     action$.pipe(
       ofType(getType(localeActions.change)),
-      tap(action =>
+      tap((action) =>
         localization.setLanguage((action as ReturnType<typeof localeActions.change>).payload)
       ),
-      map(action =>
+      map((action) =>
         localeActions.internal.languageChanged(
           (action as ReturnType<typeof localeActions.change>).payload
         )
       )
-    )) as LocaleEpic
+    )) as LocaleEpic,
 };
 
 export const localeEpic = combineEpics<LocaleEpic>(localeEpics.start, localeEpics.change);
