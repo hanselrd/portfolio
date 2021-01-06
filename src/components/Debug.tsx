@@ -19,7 +19,9 @@ const Debug: React.FC<DebugProps> = (props) => {
       )}>
       {props.children}
     </div>
-  ) : null;
+  ) : (
+    <>{props.children}</>
+  );
 };
 
 Debug.defaultProps = { width: 2 };
