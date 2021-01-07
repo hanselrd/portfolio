@@ -1,6 +1,6 @@
+import { Color } from "@/data/color";
 import clsx from "clsx";
 import React from "react";
-import { Color } from "../data/color";
 
 interface DebugProps {
   color: Color;

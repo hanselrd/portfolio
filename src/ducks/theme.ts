@@ -1,8 +1,8 @@
+import { RootState, dependencies } from "@/ducks";
 import { Reducer } from "redux";
 import { Epic, combineEpics, ofType } from "redux-observable";
 import { map, tap, withLatestFrom } from "rxjs/operators";
 import { ActionType, createAction, getType } from "typesafe-actions";
-import { RootState, dependencies } from "../ducks";
 
 export const themeActions = {
   internal: {

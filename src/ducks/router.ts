@@ -1,10 +1,10 @@
+import { RootState, dependencies } from "@/ducks";
 import { Location } from "history";
 import { Reducer } from "redux";
 import { Epic, combineEpics, ofType } from "redux-observable";
 import { Observable } from "rxjs";
 import { ignoreElements, map, switchMap, tap } from "rxjs/operators";
 import { ActionType, createAction, getType } from "typesafe-actions";
-import { RootState, dependencies } from "../ducks";
 
 export const routerActions = {
   internal: {

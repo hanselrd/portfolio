@@ -1,7 +1,7 @@
+import { RootState, dependencies } from "@/ducks";
 import { ActionsObservable, StateObservable } from "redux-observable";
 import { Subject } from "rxjs";
 import { toArray } from "rxjs/operators";
-import { RootState, dependencies } from "../ducks";
 import { localeActions, localeEpics } from "./locale";
 
 it("start epic executes correctly", async () => {

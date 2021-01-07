@@ -1,13 +1,13 @@
+import App from "@/App";
+import history from "@/core/history";
+import { persistor, store } from "@/core/redux";
+import reportWebVitals from "@/reportWebVitals";
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { Router } from "react-router-dom";
 import { PersistGate } from "redux-persist/integration/react";
-import App from "./App";
-import history from "./core/history";
-import { persistor, store } from "./core/redux";
-import "./index.css";
-import reportWebVitals from "./reportWebVitals";
+import "@/index.css";
 
 ReactDOM.render(
   <React.StrictMode>
