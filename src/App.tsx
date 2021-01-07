@@ -1,16 +1,16 @@
+import Debug from "@/components/Debug";
+import List from "@/components/List";
+import Footer from "@/containers/Footer";
+import Header from "@/containers/Header";
+import Routes from "@/containers/Routes";
+import { Color } from "@/data/color";
+import { RootState } from "@/ducks";
+import { localeActions } from "@/ducks/locale";
+import { routerActions } from "@/ducks/router";
+import { themeActions } from "@/ducks/theme";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { animated, useSpring } from "react-spring";
-import Debug from "./components/Debug";
-import List from "./components/List";
-import Footer from "./containers/Footer";
-import Header from "./containers/Header";
-import Routes from "./containers/Routes";
-import { Color } from "./data/color";
-import { RootState } from "./ducks";
-import { localeActions } from "./ducks/locale";
-import { routerActions } from "./ducks/router";
-import { themeActions } from "./ducks/theme";
 
 const App: React.FC = () => {
   const dispatch = useDispatch();

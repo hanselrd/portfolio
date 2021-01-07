@@ -1,10 +1,10 @@
+import rootReducer, { RootAction, RootState, dependencies, rootEpic } from "@/ducks";
 import { AnyAction, Store, applyMiddleware, createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import logger from "redux-logger";
 import { createEpicMiddleware } from "redux-observable";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import rootReducer, { RootAction, RootState, dependencies, rootEpic } from "../ducks";
 
 export let store: Store<RootState, RootAction>;
 

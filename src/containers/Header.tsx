@@ -1,3 +1,5 @@
+import { RootState } from "@/ducks";
+import { localeActions } from "@/ducks/locale";
 import clsx from "clsx";
 import React, { useState } from "react";
 import { FaBars, FaGlobeAmericas, FaRegBookmark } from "react-icons/fa";
@@ -5,8 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { RemoveScroll } from "react-remove-scroll";
 import { NavLink } from "react-router-dom";
 import { animated, useSpring } from "react-spring";
-import { RootState } from "../ducks";
-import { localeActions } from "../ducks/locale";
 
 const Header: React.FC = () => {
   const dispatch = useDispatch();
