@@ -1,4 +1,4 @@
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import React from "react";
 import { Provider } from "react-redux";
 import { Router } from "react-router-dom";
@@ -8,7 +8,7 @@ import history from "./core/history";
 import { persistor, store } from "./core/redux";
 
 test("renders learn react link", () => {
-  const { getByText } = render(
+  render(
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <Router history={history}>
@@ -17,6 +17,6 @@ test("renders learn react link", () => {
       </PersistGate>
     </Provider>
   );
-  const linkElement = getByText(/Contact/i);
+  const linkElement = screen.getByText(/Contact/i);
   expect(linkElement).toBeInTheDocument();
 });
