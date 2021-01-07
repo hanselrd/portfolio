@@ -23,8 +23,8 @@ export const routerActions = {
     state,
   }))(),
   go: createAction("@@router/GO", (n: number) => n)(),
-  back: createAction("@@router/BACK")(),
-  forward: createAction("@@router/FORWARD")(),
+  goBack: createAction("@@router/GO BACK")(),
+  goForward: createAction("@@router/GO FORWARD")(),
 };
 
 export type RouterAction = ActionType<typeof routerActions>;
@@ -38,7 +38,7 @@ export const routerEpics = {
       switchMap(
         () =>
           new Observable<Location>((observer) =>
-            history.listen((update) => observer.next(update.location))
+            history.listen((location) => observer.next(location))
           )
       ),
       map((location) => routerActions.internal.locationChanged(location))
@@ -69,16 +69,16 @@ export const routerEpics = {
       }),
       ignoreElements()
     )) as RouterEpic,
-  back: ((action$, state$, { history }) =>
+  goBack: ((action$, state$, { history }) =>
     action$.pipe(
-      ofType(getType(routerActions.back)),
-      tap(() => history.back()),
+      ofType(getType(routerActions.goBack)),
+      tap(() => history.goBack()),
       ignoreElements()
     )) as RouterEpic,
-  forward: ((action$, state$, { history }) =>
+  goForward: ((action$, state$, { history }) =>
     action$.pipe(
-      ofType(getType(routerActions.forward)),
-      tap(() => history.forward()),
+      ofType(getType(routerActions.goForward)),
+      tap(() => history.goForward()),
       ignoreElements()
     )) as RouterEpic,
 };
@@ -88,8 +88,8 @@ export const routerEpic = combineEpics<RouterEpic>(
   routerEpics.push,
   routerEpics.replace,
   routerEpics.go,
-  routerEpics.back,
-  routerEpics.forward
+  routerEpics.goBack,
+  routerEpics.goForward
 );
 
 export type RouterState = Readonly<{ location?: Location }>;

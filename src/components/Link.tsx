@@ -6,7 +6,7 @@ interface LinkProps {
   first?: boolean;
   embedded?: boolean;
   external?: boolean;
-  href?: string;
+  to: string;
 }
 
 const Link: React.FC<LinkProps> = (props) => {
@@ -14,13 +14,13 @@ const Link: React.FC<LinkProps> = (props) => {
     <div className={clsx({ "ml-6": !props.first }, "cursor-pointer hover:text-white")}>
       {!props.external ? (
         <NavLink
-          to={props.href}
+          to={props.to}
           className={clsx({ "px-1": !props.embedded })}
           activeClassName={clsx({ "border-b-4 border-white text-white": !props.embedded })}>
           {props.children}
         </NavLink>
       ) : (
-        <a href={props.href}>{props.children}</a>
+        <a href={props.to}>{props.children}</a>
       )}
     </div>
   );
