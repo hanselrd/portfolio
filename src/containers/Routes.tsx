@@ -17,17 +17,29 @@ const Routes: React.FC = () => {
     animateScroll.scrollToTop();
   }, [selected.location]);
 
-  const renderCatchAll = () => <p>Catch all</p>;
-
   return (
     <Switch>
-      <Route exact path="/" component={Landing} />
-      <Route exact path="/home" component={Home} />
-      <Route exact path="/projects" component={Projects} />
-      <Route exact path="/cv" component={CV} />
-      <Route exact path="/aboutme" component={AboutMe} />
-      <Route exact path="/contact" component={Contact} />
-      <Route path="/" render={renderCatchAll} />
+      <Route exact path="/">
+        <Landing />
+      </Route>
+      <Route exact path="/home">
+        <Home />
+      </Route>
+      <Route exact path="/projects">
+        <Projects />
+      </Route>
+      <Route exact path="/cv">
+        <CV />
+      </Route>
+      <Route exact path="/aboutme">
+        <AboutMe />
+      </Route>
+      <Route exact path="/contact">
+        <Contact />
+      </Route>
+      <Route path="/">
+        <p>Catch all</p>
+      </Route>
     </Switch>
   );
 };

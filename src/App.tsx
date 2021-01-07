@@ -24,16 +24,12 @@ const App: React.FC = () => {
     dispatch(themeActions.start());
   }, [dispatch]);
 
-  const spring = useSpring({
-    opacity: 1,
-    number: 2020,
-    from: { opacity: 0, number: 0 },
-  });
+  const spring = useSpring({ from: { opacity: 0, number: 0 }, to: { opacity: 1, number: 2021 } });
 
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <animated.main className="container flex-1 px-6 mt-20 break-all" style={spring}>
+      <animated.main className="container flex-1 px-6 mt-20 break-all" style={spring as any}>
         <Debug color={Color.Red500}>
           <p className="text-center text-red-700 sm:hidden">XS</p>
           <p className="hidden text-center text-blue-700 sm:block md:hidden">SM</p>
@@ -50,7 +46,7 @@ const App: React.FC = () => {
           <Routes />
         </Debug>
         <Debug color={Color.Yellow500}>
-          <animated.span>{spring.number.interpolate((x) => Math.floor(x as number))}</animated.span>
+          <animated.span>{spring.number.interpolate((x) => Math.floor(x))}</animated.span>
         </Debug>
         <Debug color={Color.Pink500}>
           <p>{JSON.stringify(window.location)}</p>

@@ -23,9 +23,9 @@ const Home: React.FC = () => {
           setActive(!active);
         }}
         className="w-64 h-8 text-center border-4 border-black cursor-pointer">
-        <animated.div className="w-full h-full text-center bg-red-500" style={spring} />
+        <animated.div className="w-full h-full text-center bg-red-500" style={spring as any} />
         <animated.div className="-mt-6">
-          {spring.progress.interpolate((x) => Math.floor(x as number))}
+          {spring.progress.interpolate((x) => Math.floor(x))}
         </animated.div>
       </div>
     </div>
