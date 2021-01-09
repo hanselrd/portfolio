@@ -57,7 +57,17 @@ module.exports = {
         singleline: { delimiter: "semi", requireLast: false },
       },
     ],
-    "@typescript-eslint/naming-convention": "off",
+    "@typescript-eslint/naming-convention": [
+      "off",
+      {
+        selector: "interface",
+        format: ["PascalCase"],
+        custom: {
+          regex: "^I[A-Z]",
+          match: true,
+        },
+      },
+    ],
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/no-empty-interface": "error",
     "@typescript-eslint/no-explicit-any": "off",

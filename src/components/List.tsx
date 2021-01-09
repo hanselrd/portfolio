@@ -6,23 +6,24 @@ interface ListProps {
   horizontal?: boolean;
   vertical?: boolean;
   reverse?: boolean;
-  className?: string;
+  wrap?: boolean;
 }
 
 const List: React.FC<ListProps> = (props) => {
   return (
     <div
-      className={clsx(
-        "flex flex-nowrap",
-        {
-          "flex-row": props.horizontal && !props.reverse,
-          "flex-row-reverse": props.horizontal && props.reverse,
-          "flex-col": props.vertical && !props.reverse,
-          "flex-col-reverse": props.vertical && props.reverse,
-        },
-        props.className
-      )}>
-      {React.Children.map(props.children, (child, index) => {
+      className={clsx("flex", {
+        "flex-row": props.horizontal && !props.reverse,
+        "flex-row-reverse": props.horizontal && props.reverse,
+        "flex-col": props.vertical && !props.reverse,
+        "flex-col-reverse": props.vertical && props.reverse,
+        "flex-wrap": props.wrap,
+        [`space-${props.horizontal ? "x" : "y"}-${props.spacing!}`]:
+          (props.horizontal || props.vertical) && props.spacing && props.spacing >= 0,
+        "space-x-reverse": props.horizontal && props.reverse,
+        "space-y-reverse": props.vertical && props.reverse,
+      })}>
+      {React.Children.map(props.children, (child) => {
         if (React.isValidElement<{ children?: React.ReactNode; className?: string }>(child)) {
           return React.cloneElement(
             child,
@@ -31,9 +32,8 @@ const List: React.FC<ListProps> = (props) => {
               className: clsx(
                 "flex-none",
                 {
-                  [`m${
-                    props.horizontal ? (!props.reverse ? "l" : "r") : !props.reverse ? "t" : "b"
-                  }-${props.spacing!}`]: props.spacing && props.spacing >= 1 && index >= 1,
+                  "mx-auto": props.vertical,
+                  "my-auto": props.horizontal,
                 },
                 child.props.className
               ),

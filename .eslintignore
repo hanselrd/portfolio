@@ -1,2 +1,3 @@
-src/reportWebVitals.ts
 src/**/__tests__/**
+src/codegen
+src/reportWebVitals.ts

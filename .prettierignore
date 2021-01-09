@@ -1,6 +1,6 @@
-/.old
-/build
-/coverage
-/node_modules
-react-app-env.d.ts
+.old
+build
+coverage
+node_modules
+src/codegen
 tsconfig.json

@@ -3,7 +3,6 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 interface LinkProps {
-  first?: boolean;
   embedded?: boolean;
   external?: boolean;
   to: string;
@@ -11,7 +10,7 @@ interface LinkProps {
 
 const Link: React.FC<LinkProps> = (props) => {
   return (
-    <div className={clsx({ "ml-6": !props.first }, "cursor-pointer hover:text-white")}>
+    <div className="font-semibold text-gray-300 cursor-pointer w-max hover:text-white">
       {!props.external ? (
         <NavLink
           to={props.to}
@@ -20,7 +19,9 @@ const Link: React.FC<LinkProps> = (props) => {
           {props.children}
         </NavLink>
       ) : (
-        <a href={props.to}>{props.children}</a>
+        <a href={props.to} rel="noopener noreferrer" target="_blank">
+          {props.children}
+        </a>
       )}
     </div>
   );
