@@ -1,6 +1,6 @@
-.old
+.cra
+.next
 build
 coverage
 node_modules
-src/codegen
-tsconfig.json
+out

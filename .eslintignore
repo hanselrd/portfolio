@@ -1,3 +1,9 @@
-src/**/__tests__/**
-src/codegen
-src/reportWebVitals.ts
+.cra
+.eslintrc.js
+.next
+build
+coverage
+node_modules
+out
+postcss.config.js
+tailwind.config.js
