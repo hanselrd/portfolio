@@ -9,33 +9,33 @@ const Header: React.FC = () => {
 
   return (
     <>
-      <header className="fixed top-0 left-0 z-10 w-full p-6 bg-gray-100 shadow-md dark:bg-gray-900">
+      <header className="bg-gray-100 dark:bg-gray-900 p-6 fixed left-0 top-0 shadow-md w-full z-10">
         <div className="container flex justify-between mx-auto sm:px-2 md:px-4 lg:px-8 xl:px-16">
           <button
             onClick={() => {
               setShowMenu(!showMenu);
             }}
-            className="my-auto focus:outline-none transition-transform transform hover:scale-125 ease-in-out duration-500">
+            className="my-auto focus:outline-none transform hover:scale-125 transition-transform ease-in-out duration-500">
             <MenuAlt1 size={30} />
           </button>
           <div className="flex my-auto">
-            <span className="text-gray-600 dark:text-gray-400">
+            <span className="dark:text-gray-400 text-gray-600">
               <BookmarkOutline size={30} />
             </span>
-            <span className="my-auto text-lg font-semibold">Hansel De La Cruz</span>
+            <span className="font-semibold text-lg my-auto">Hansel De La Cruz</span>
           </div>
           <button
             onClick={() => {
               themeActions.toggleMode();
             }}
-            className="my-auto grid focus:outline-none transition-transform transform hover:scale-125 ease-in-out duration-500">
+            className="grid my-auto focus:outline-none transform hover:scale-125 transition-transform ease-in-out duration-500">
             {themeState.mode &&
               (themeState.mode === "dark" ? (
-                <span className="row-start-1 col-start-1">
+                <span className="col-start-1 row-start-1">
                   <Moon size={30} />
                 </span>
               ) : (
-                <span className="row-start-1 col-start-1">
+                <span className="col-start-1 row-start-1">
                   <MoonOutline size={30} />
                 </span>
               ))}
