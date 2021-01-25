@@ -11,9 +11,9 @@ module.exports = {
         poppins: ["Poppins", ...defaultTheme.fontFamily.sans],
         lato: ["Lato", ...defaultTheme.fontFamily.sans],
         montserrat: ["Montserrat", ...defaultTheme.fontFamily.sans],
-        colors: {
-          gray: colors.trueGray,
-        },
+      },
+      colors: {
+        gray: colors.trueGray,
       },
     },
   },

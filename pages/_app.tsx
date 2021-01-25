@@ -8,11 +8,11 @@ import Head from "next/head";
 import React, { useEffect } from "react";
 
 const App: React.FC<AppProps> = (props) => {
-  const themeStart = useStoreActions((actions) => actions.theme.start);
+  const themeActions = useStoreActions((actions) => actions.theme);
 
   useEffect(() => {
-    // themeStart();
-  }, [themeStart]);
+    themeActions.start();
+  }, [themeActions]);
 
   return (
     <>
@@ -56,7 +56,7 @@ const App: React.FC<AppProps> = (props) => {
       <div className="flex flex-col min-h-screen">
         <Header />
         <div className="container flex-1 px-6 mt-24">
-          <props.Component {...props.pageProps}></props.Component>
+          <props.Component {...props.pageProps} />
         </div>
         <div>Footer</div>
       </div>

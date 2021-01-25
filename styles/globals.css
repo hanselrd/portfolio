@@ -18,5 +18,9 @@
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
+
+    .tap-highlight-none {
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
   }
 }

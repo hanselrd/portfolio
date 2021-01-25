@@ -1,7 +1,7 @@
 import { Action, Thunk, action, thunk } from "easy-peasy";
 
 export interface ThemeModel {
-  mode: "light" | "dark";
+  mode?: "light" | "dark";
   start: Thunk<ThemeModel>;
   changeMode: Thunk<ThemeModel, ThemeModel["mode"]>;
   toggleMode: Thunk<ThemeModel>;
@@ -9,11 +9,12 @@ export interface ThemeModel {
 }
 
 export const themeModel: ThemeModel = {
-  mode: "light",
-  start: thunk((actions) => {
+  start: thunk((actions, payload, helpers) => {
     if (
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches
+      helpers.getState().mode === "dark" ||
+      (!helpers.getState().mode &&
+        typeof window !== "undefined" &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches)
     ) {
       actions.changeMode("dark");
     } else {

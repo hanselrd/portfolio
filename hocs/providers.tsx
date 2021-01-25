@@ -7,7 +7,7 @@ const withProviders = <P extends unknown>(Component: React.ComponentType<P>): Re
     return (
       <>
         <StoreProvider store={store}>
-          <Component {...props}></Component>
+          <Component {...props} />
         </StoreProvider>
       </>
     );

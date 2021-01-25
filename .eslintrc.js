@@ -336,6 +336,7 @@ module.exports = {
     "react/no-typos": "error",
     "react/prop-types": "off",
     "react/require-render-return": "error",
+    "react/self-closing-comp": "warn",
     "react/style-prop-object": "warn",
     "require-yield": "warn",
     "rest-spread-spacing": ["warn", "never"],
