@@ -7,7 +7,7 @@
     "build": "next build && next export",
     "start": "next start",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d out -b master -r https://github.com/hanselrd/hanselrd.github.io.git",
+    "deploy": "gh-pages -t -d out -b master -r https://github.com/hanselrd/hanselrd.github.io.git",
     "lint:eslint": "eslint '**/*.{js,jsx,ts,tsx}'",
     "lint:prettier": "prettier '**/*.{html,css,js,jsx,ts,tsx,json,md}' --check",
     "lint": "run-s lint:*",
