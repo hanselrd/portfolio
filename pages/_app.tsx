@@ -53,7 +53,7 @@ const App: React.FC<AppProps> = (props) => {
           ],
         }}
       />
-      <div className="flex flex-col min-h-screen bg-gray-100 font-poppins dark:bg-gray-900 dark:text-white">
+      <div className="flex flex-col min-h-screen">
         <Header />
         <div className="container flex-1 px-6 mt-24">
           <props.Component {...props.pageProps}></props.Component>
