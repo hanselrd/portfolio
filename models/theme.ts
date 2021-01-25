@@ -4,6 +4,7 @@ export interface ThemeModel {
   mode: "light" | "dark";
   start: Thunk<ThemeModel>;
   changeMode: Thunk<ThemeModel, ThemeModel["mode"]>;
+  toggleMode: Thunk<ThemeModel>;
   changeModeInternal: Action<ThemeModel, ThemeModel["mode"]>;
 }
 
@@ -27,6 +28,9 @@ export const themeModel: ThemeModel = {
     }
 
     actions.changeModeInternal(payload);
+  }),
+  toggleMode: thunk((actions, payload, helpers) => {
+    actions.changeMode(helpers.getState().mode === "dark" ? "light" : "dark");
   }),
   changeModeInternal: action((state, payload) => {
     state.mode = payload;
