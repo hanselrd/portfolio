@@ -85,6 +85,7 @@ module.exports = {
     "@typescript-eslint/prefer-function-type": "error",
     "@typescript-eslint/prefer-namespace-keyword": "error",
     "@typescript-eslint/quotes": "off",
+    "@typescript-eslint/require-await": "off",
     "@typescript-eslint/semi": ["off", null],
     "@typescript-eslint/triple-slash-reference": [
       "error",
