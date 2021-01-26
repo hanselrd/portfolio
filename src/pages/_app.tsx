@@ -2,6 +2,7 @@ import "@/styles/globals.css";
 import Footer from "@/containers/Footer";
 import Header from "@/containers/Header";
 import { NEXT_PUBLIC_URL } from "@/core/environment";
+import { DEV } from "@/core/environment";
 import { useStoreActions } from "@/core/store";
 import withProviders from "@/hocs/providers";
 import { DefaultSeo } from "next-seo";
@@ -29,6 +30,8 @@ const App: React.FC<AppProps> = (props) => {
         <meta name="theme-color" content="#333333" />
       </Head>
       <DefaultSeo
+        dangerouslySetAllPagesToNoIndex={DEV}
+        dangerouslySetAllPagesToNoFollow={DEV}
         title="Hansel De La Cruz"
         description="Hansel De La Cruz's Portfolio"
         canonical={NEXT_PUBLIC_URL}
@@ -57,7 +60,7 @@ const App: React.FC<AppProps> = (props) => {
       />
       <div className="flex flex-col min-h-screen">
         <Header />
-        <main className="container flex-1 mt-24 px-6">
+        <main className="container flex-1 mt-20 p-6">
           <props.Component {...props.pageProps} />
         </main>
         <Footer />

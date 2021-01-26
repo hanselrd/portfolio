@@ -1,6 +1,13 @@
 import { DEV } from "@/core/environment";
 import React from "react";
-import { FaCopyright, FaFacebookSquare, FaGithub, FaHammer, FaLinkedinIn } from "react-icons/fa";
+import {
+  FaCopyright,
+  FaFacebookSquare,
+  FaGithub,
+  FaHammer,
+  FaLinkedinIn,
+  FaTrashAlt,
+} from "react-icons/fa";
 
 const Footer: React.FC = () => {
   return (
@@ -29,6 +36,26 @@ const Footer: React.FC = () => {
                 <FaHammer />
               </span>
               <span>Development version</span>
+            </div>
+          )}
+          {DEV && (
+            <div className="flex justify-center">
+              <button
+                onClick={() => {
+                  localStorage.clear();
+                  sessionStorage.clear();
+
+                  const cookies = document.cookie.split(";");
+                  for (const cookie of cookies) {
+                    document.cookie = cookie + "=;expires=" + new Date(0).toUTCString();
+                  }
+                }}
+                className="space-x-1 bg-red-600 flex text-xs focus:outline-none p-3 sm:transform sm:transition-transform sm:ease-in-out sm:duration-500 sm:hover:scale-110">
+                <span className="my-auto">
+                  <FaTrashAlt />
+                </span>
+                <span>Clear storage</span>
+              </button>
             </div>
           )}
         </div>
