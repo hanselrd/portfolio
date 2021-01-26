@@ -1,5 +1,6 @@
+import { DEV } from "@/core/environment";
 import React from "react";
-import { FaCopyright, FaFacebookSquare, FaGithub, FaLinkedinIn } from "react-icons/fa";
+import { FaCopyright, FaFacebookSquare, FaGithub, FaHammer, FaLinkedinIn } from "react-icons/fa";
 
 const Footer: React.FC = () => {
   return (
@@ -22,6 +23,14 @@ const Footer: React.FC = () => {
             <span>Copyright {new Date().getFullYear()}</span>
             <span className="font-bold">Hansel De La Cruz</span>
           </div>
+          {DEV && (
+            <div className="space-x-1 flex justify-center text-xs text-red-400">
+              <span className="my-auto">
+                <FaHammer />
+              </span>
+              <span>Development version</span>
+            </div>
+          )}
         </div>
       </footer>
     </>
