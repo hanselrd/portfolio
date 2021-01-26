@@ -56,9 +56,9 @@ const App: React.FC<AppProps> = (props) => {
       />
       <div className="flex flex-col min-h-screen">
         <Header />
-        <div className="container flex-1 mt-24 px-6">
+        <main className="container flex-1 mt-24 px-6">
           <props.Component {...props.pageProps} />
-        </div>
+        </main>
         <Footer />
       </div>
     </>
