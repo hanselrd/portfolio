@@ -1,3 +1,4 @@
+import { NEXT_PUBLIC_URL } from "@/core/environment";
 import projects, { Project } from "@/data/projects";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { NextSeo } from "next-seo";
@@ -17,9 +18,9 @@ const ProjectsSlug: React.FC<ProjectsSlugProps> = (props) => {
       <NextSeo
         title={`Hansel De La Cruz | ${props.project.title}`}
         description={props.project.description}
-        canonical={`${process.env.NEXT_PUBLIC_URL!}/projects/${slug}`}
+        canonical={`${NEXT_PUBLIC_URL}/projects/${slug}`}
         openGraph={{
-          url: `${process.env.NEXT_PUBLIC_URL!}/projects/${slug}`,
+          url: `${NEXT_PUBLIC_URL}/projects/${slug}`,
           title: `Hansel De La Cruz | ${props.project.title}`,
           description: props.project.description,
         }}
