@@ -3,6 +3,7 @@
 .next
 build
 coverage
+next.config.js
 node_modules
 out
 postcss.config.js
