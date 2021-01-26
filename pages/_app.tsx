@@ -1,4 +1,5 @@
 import "@/styles/globals.css";
+import Footer from "@/containers/Footer";
 import Header from "@/containers/Header";
 import { useStoreActions } from "@/core/store";
 import withProviders from "@/hocs/providers";
@@ -58,7 +59,7 @@ const App: React.FC<AppProps> = (props) => {
         <div className="container flex-1 mt-24 px-6">
           <props.Component {...props.pageProps} />
         </div>
-        <div>Footer</div>
+        <Footer />
       </div>
     </>
   );
