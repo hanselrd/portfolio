@@ -12,7 +12,7 @@ const Index: React.FC = () => {
       <div>Landing</div>
       <div>{JSON.stringify({ DEV })}</div>
       <div>{i18n.t("title")}</div>
-      <div>{i18n.t("welcome", { name: "John" })}</div>
+      <div>{i18n.t("welcome", { name: "Hansel" })}</div>
     </>
   );
 };

@@ -58,12 +58,6 @@ const App: React.FC<AppProps> = (props) => {
               height: 630,
               alt: "Logo",
             },
-            {
-              url: `${NEXT_PUBLIC_URL}/logo-transparent-ogimage.png`,
-              width: 1200,
-              height: 630,
-              alt: "Logo Transparent",
-            },
           ],
         }}
       />
