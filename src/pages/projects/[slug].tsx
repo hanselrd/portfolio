@@ -11,7 +11,10 @@ interface ProjectsSlugProps {
 const ProjectsSlug: React.FC<ProjectsSlugProps> = (props) => {
   return (
     <>
-      <Page title={props.project.name} description={props.project.description || ""}>
+      <Page
+        namespace="Project"
+        title={props.project.name}
+        description={props.project.description || ""}>
         <div>Project {props.project.name}</div>
         <div>{props.project.description}</div>
         <div>{props.project.language}</div>
