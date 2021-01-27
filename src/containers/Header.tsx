@@ -1,4 +1,6 @@
+import { DEV } from "@/core/environment";
 import { useStoreActions, useStoreState } from "@/core/store";
+import clsx from "clsx";
 import React, { useState } from "react";
 import { HiMenuAlt1, HiMoon, HiOutlineBookmark, HiOutlineMoon } from "react-icons/hi";
 
@@ -19,7 +21,11 @@ const Header: React.FC = () => {
             <HiMenuAlt1 size={30} />
           </button>
           <div className="flex my-auto">
-            <span className="dark:text-gray-400 text-gray-600">
+            <span
+              className={clsx({
+                "text-gray-600 dark:text-gray-400": !DEV,
+                "text-red-600 dark:text-red-400": DEV,
+              })}>
               <HiOutlineBookmark size={30} />
             </span>
             <span className="font-semibold text-lg my-auto">Hansel De La Cruz</span>
