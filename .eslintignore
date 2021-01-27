@@ -3,6 +3,7 @@
 .next
 build
 coverage
+next-sitemap.config.js
 next.config.js
 node_modules
 out
