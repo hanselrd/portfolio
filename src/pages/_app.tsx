@@ -1,8 +1,7 @@
 import "@/styles/globals.css";
 import Footer from "@/containers/Footer";
 import Header from "@/containers/Header";
-import { NEXT_PUBLIC_URL } from "@/core/environment";
-import { DEV } from "@/core/environment";
+import { DEV, NEXT_PUBLIC_URL } from "@/core/environment";
 import { useStoreActions } from "@/core/store";
 import withProviders from "@/hocs/providers";
 import { DefaultSeo } from "next-seo";
