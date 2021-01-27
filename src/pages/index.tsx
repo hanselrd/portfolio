@@ -1,11 +1,11 @@
 import { DEV } from "@/core/environment";
-import { Table } from "@/i18n";
+import { I18nTable } from "@/i18n";
 import { GetStaticProps } from "next";
 import { I18nProps, useI18n } from "next-rosetta";
 import React from "react";
 
 const Index: React.FC = () => {
-  const i18n = useI18n<Table>();
+  const i18n = useI18n<I18nTable>();
 
   return (
     <>
@@ -17,7 +17,7 @@ const Index: React.FC = () => {
   );
 };
 
-export const getStaticProps: GetStaticProps<I18nProps<Table>> = async (context) => {
+export const getStaticProps: GetStaticProps<I18nProps<I18nTable>> = async (context) => {
   const locale = context.locale! || context.defaultLocale!;
   const { table = {} } = await import(`@/i18n/${locale}`);
   return { props: { table } };
