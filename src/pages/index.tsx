@@ -1,3 +1,4 @@
+import Page from "@/components/Page";
 import { DEV } from "@/core/environment";
 import { I18nTable } from "@/i18n";
 import { GetStaticProps } from "next";
@@ -9,10 +10,12 @@ const Index: React.FC = () => {
 
   return (
     <>
-      <div>Landing</div>
-      <div>{JSON.stringify({ DEV })}</div>
-      <div>{i18n.t("title")}</div>
-      <div>{i18n.t("welcome", { name: "Hansel" })}</div>
+      <Page>
+        <div>Landing</div>
+        <div>{JSON.stringify({ DEV })}</div>
+        <div>{i18n.t("title")}</div>
+        <div>{i18n.t("welcome", { name: "Hansel" })}</div>
+      </Page>
     </>
   );
 };
