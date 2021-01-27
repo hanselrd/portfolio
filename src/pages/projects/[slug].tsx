@@ -1,5 +1,6 @@
 import { NEXT_PUBLIC_URL } from "@/core/environment";
 import projects, { Project } from "@/data/projects";
+import _ from "lodash";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
@@ -30,9 +31,13 @@ const ProjectsSlug: React.FC<ProjectsSlugProps> = (props) => {
   );
 };
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async (context) => {
   return {
-    paths: projects.map((project) => ({ params: { slug: project.slug } })),
+    paths: _.flattenDeep(
+      context.locales!.map((locale) =>
+        projects.map((project) => ({ params: { slug: project.slug }, locale }))
+      )
+    ),
     fallback: false,
   };
 };
