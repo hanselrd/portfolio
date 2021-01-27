@@ -34,6 +34,11 @@ const App: React.FC<AppProps> = (props) => {
         title="Hansel De La Cruz"
         description="Hansel De La Cruz's Portfolio"
         canonical={NEXT_PUBLIC_URL}
+        languageAlternates={[
+          { hrefLang: "en", href: `${NEXT_PUBLIC_URL}/en` },
+          { hrefLang: "es", href: `${NEXT_PUBLIC_URL}/es` },
+          { hrefLang: "x-default", href: `${NEXT_PUBLIC_URL}` },
+        ]}
         openGraph={{
           type: "website",
           url: NEXT_PUBLIC_URL,

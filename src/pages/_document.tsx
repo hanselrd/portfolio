@@ -16,7 +16,7 @@ class Document extends D {
 
   public render(): JSX.Element {
     return (
-      <Html lang="en">
+      <Html>
         <Head />
         <body className="bg-gray-100 dark:bg-gray-900 font-poppins dark:text-white transition-colors duration-500 tap-highlight-none">
           <Main />
