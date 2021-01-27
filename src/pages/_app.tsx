@@ -35,21 +35,35 @@ const App: React.FC<AppProps> = (props) => {
         dangerouslySetAllPagesToNoIndex={DEV}
         dangerouslySetAllPagesToNoFollow={DEV}
         title="Hansel De La Cruz"
-        description="Hansel De La Cruz's Portfolio"
-        canonical={NEXT_PUBLIC_URL}
+        description="Hansel De La Cruz"
+        canonical={`${NEXT_PUBLIC_URL}${
+          router.locale && router.locale !== router.defaultLocale ? `/${router.locale}` : ""
+        }${router.asPath !== "/" ? router.asPath : ""}`}
+        mobileAlternate={{
+          media: "only screen and (max-width: 640px)",
+          href: `${NEXT_PUBLIC_URL}${
+            router.locale && router.locale !== router.defaultLocale ? `/${router.locale}` : ""
+          }${router.asPath !== "/" ? router.asPath : ""}`,
+        }}
         languageAlternates={_.flattenDeep([
           router.locales!.map((locale) => ({
             hrefLang: locale,
-            href: `${NEXT_PUBLIC_URL}/${locale}`,
+            href: `${NEXT_PUBLIC_URL}${locale !== router.defaultLocale ? `/${locale}` : ""}${
+              router.asPath !== "/" ? router.asPath : ""
+            }`,
           })),
-          { hrefLang: "x-default", href: `${NEXT_PUBLIC_URL}` },
+          {
+            hrefLang: "x-default",
+            href: `${NEXT_PUBLIC_URL}${router.asPath !== "/" ? router.asPath : ""}`,
+          },
         ])}
         openGraph={{
           type: "website",
-          url: NEXT_PUBLIC_URL,
+          url: `${NEXT_PUBLIC_URL}${
+            router.locale && router.locale !== router.defaultLocale ? `/${router.locale}` : ""
+          }${router.asPath !== "/" ? router.asPath : ""}`,
           title: "Hansel De La Cruz",
-          description: "Hansel De La Cruz's Portfolio",
-          locale: "en_US",
+          description: "Hansel De La Cruz",
           site_name: "Hansel De La Cruz",
           images: [
             {
