@@ -120,7 +120,7 @@ module.exports = {
     "jsdoc/newline-after-description": "error",
     "jsx-a11y/alt-text": "warn",
     "jsx-a11y/anchor-has-content": "warn",
-    "jsx-a11y/anchor-is-valid": ["warn", { aspects: ["noHref", "invalidHref"] }],
+    "jsx-a11y/anchor-is-valid": ["off", { aspects: ["noHref", "invalidHref"] }],
     "jsx-a11y/aria-activedescendant-has-tabindex": "warn",
     "jsx-a11y/aria-props": "warn",
     "jsx-a11y/aria-proptypes": "warn",
