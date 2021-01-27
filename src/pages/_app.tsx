@@ -4,12 +4,15 @@ import Header from "@/containers/Header";
 import { DEV, NEXT_PUBLIC_URL } from "@/core/environment";
 import { useStoreActions } from "@/core/store";
 import withProviders from "@/hocs/providers";
+import _ from "lodash";
 import { DefaultSeo } from "next-seo";
 import { AppProps } from "next/app";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 
 const App: React.FC<AppProps> = (props) => {
+  const router = useRouter();
   const themeActions = useStoreActions((actions) => actions.theme);
 
   useEffect(() => {
@@ -34,11 +37,13 @@ const App: React.FC<AppProps> = (props) => {
         title="Hansel De La Cruz"
         description="Hansel De La Cruz's Portfolio"
         canonical={NEXT_PUBLIC_URL}
-        languageAlternates={[
-          { hrefLang: "en", href: `${NEXT_PUBLIC_URL}/en` },
-          { hrefLang: "es", href: `${NEXT_PUBLIC_URL}/es` },
+        languageAlternates={_.flattenDeep([
+          router.locales!.map((locale) => ({
+            hrefLang: locale,
+            href: `${NEXT_PUBLIC_URL}/${locale}`,
+          })),
           { hrefLang: "x-default", href: `${NEXT_PUBLIC_URL}` },
-        ]}
+        ])}
         openGraph={{
           type: "website",
           url: NEXT_PUBLIC_URL,

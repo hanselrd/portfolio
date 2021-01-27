@@ -1,6 +1,6 @@
-import { Table } from ".";
+import { I18nTable } from ".";
 
-export const table: Table = {
+export const table: I18nTable = {
   language: "Español",
   title: "Título",
   welcome: "Bienvenido {{name}}!",
