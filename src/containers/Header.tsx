@@ -3,7 +3,7 @@ import { useStoreActions, useStoreState } from "@/core/store";
 import clsx from "clsx";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { HiMenuAlt1, HiMoon, HiOutlineBookmark, HiOutlineMoon } from "react-icons/hi";
+import { HiMenuAlt1, HiMoon, HiOutlineBookmark, HiOutlineMoon, HiTranslate } from "react-icons/hi";
 
 const Header: React.FC = () => {
   const themeState = useStoreState((state) => state.theme);
@@ -44,26 +44,34 @@ const Header: React.FC = () => {
               >
                 <HiOutlineBookmark size={30} />
               </span>
-              <span className="font-semibold text-lg my-auto">Hansel De La Cruz</span>
+              <span className="xs:hidden font-semibold text-lg my-auto">Hansel D.</span>
+              <span className="hidden xs:inline font-semibold text-lg my-auto">
+                Hansel De La Cruz
+              </span>
             </a>
           </Link>
-          <button
-            className="grid focus:outline-none sm:transform sm:transition-transform sm:ease-in-out sm:duration-500 sm:hover:scale-125"
-            onClick={() => {
-              themeActions.toggleMode();
-            }}
-          >
-            {themeState.mode &&
-              (themeState.mode === "dark" ? (
-                <span className="col-start-1 row-start-1">
-                  <HiMoon size={30} />
-                </span>
-              ) : (
-                <span className="col-start-1 row-start-1">
-                  <HiOutlineMoon size={30} />
-                </span>
-              ))}
-          </button>
+          <div className="space-x-1 flex sm:space-x-3">
+            <button className="focus:outline-none sm:transform sm:transition-transform sm:ease-in-out sm:duration-500 sm:hover:scale-125">
+              <HiTranslate size={30} />
+            </button>
+            <button
+              className="grid focus:outline-none sm:transform sm:transition-transform sm:ease-in-out sm:duration-500 sm:hover:scale-125"
+              onClick={() => {
+                themeActions.toggleMode();
+              }}
+            >
+              {themeState.mode &&
+                (themeState.mode === "dark" ? (
+                  <span className="col-start-1 row-start-1">
+                    <HiMoon size={30} />
+                  </span>
+                ) : (
+                  <span className="col-start-1 row-start-1">
+                    <HiOutlineMoon size={30} />
+                  </span>
+                ))}
+            </button>
+          </div>
         </div>
       </header>
     </>
