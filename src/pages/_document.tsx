@@ -18,7 +18,7 @@ class Document extends D {
     return (
       <Html>
         <Head />
-        <body className="bg-gray-100 dark:bg-gray-900 font-poppins dark:text-white transition-colors duration-500 tap-highlight-none">
+        <body className="bg-gray-100 font-poppins transition-colors duration-500 dark:bg-gray-900 dark:text-white tap-highlight-none">
           <Main />
           <NextScript />
         </body>

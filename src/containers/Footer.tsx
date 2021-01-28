@@ -5,7 +5,7 @@ import { FaCopyright, FaFacebookSquare, FaGithub, FaHammer, FaLinkedinIn } from 
 const Footer: React.FC = () => {
   return (
     <>
-      <footer className="bg-black 2xl:px-40 px-6 py-20 text-white w-full sm:px-8 md:px-10 lg:px-14 xl:px-24">
+      <footer className="bg-black px-6 py-20 text-white w-full sm:px-8 md:px-10 lg:px-14 xl:px-24 2xl:px-40">
         <div className="container space-y-10 flex flex-col mx-auto">
           <div className="space-x-8 flex justify-center font-medium text-sm">
             <span>About Me</span>
