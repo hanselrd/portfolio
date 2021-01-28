@@ -8,7 +8,7 @@ const ProjectsIndex: React.FC = () => {
     <>
       <Page title="Projects" description="List of personal development projects">
         <div className="space-y-6 flex flex-col">
-          <h1 className="flex justify-center font-bold text-4xl">Projects</h1>
+          <h1 className="flex justify-center font-bold text-2xl">Projects</h1>
           <div className="space-y-2 flex flex-col">
             {projects.map((project, index) => (
               <Link key={index} href={`/projects/${project.name}`}>
