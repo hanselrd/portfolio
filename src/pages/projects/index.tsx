@@ -1,3 +1,4 @@
+import Debug from "@/components/Debug";
 import Page from "@/components/Page";
 import projects from "@/data/projects.json";
 import Link from "next/link";
@@ -9,15 +10,17 @@ const ProjectsIndex: React.FC = () => {
       <Page title="Projects" description="List of personal development projects">
         <div className="space-y-6 flex flex-col">
           <h1 className="flex justify-center font-bold text-4xl">Projects</h1>
-          <div className="space-y-2 flex flex-col">
-            {projects.map((project, index) => (
-              <Link key={index} href={`/projects/${project.name}`}>
-                <a className="flex justify-center mx-auto sm:transform sm:transition-transform sm:ease-in-out sm:duration-500 sm:hover:scale-125">
-                  {project.name}
-                </a>
-              </Link>
-            ))}
-          </div>
+          <Debug>
+            <div className="space-y-2 flex flex-col">
+              {projects.map((project, index) => (
+                <Link key={index} href={`/projects/${project.name}`}>
+                  <a className="flex justify-center mx-auto sm:transform sm:transition-transform sm:ease-in-out sm:duration-500 sm:hover:scale-125">
+                    {project.name}
+                  </a>
+                </Link>
+              ))}
+            </div>
+          </Debug>
         </div>
       </Page>
     </>

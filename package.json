@@ -8,10 +8,14 @@
     "postbuild": "next-sitemap --config next-sitemap.config.js",
     "start": "next start",
     "lint:eslint": "eslint '**/*.{js,jsx,ts,tsx}'",
-    "lint:prettier": "prettier '**/*.{html,css,js,jsx,ts,tsx,json,md}' --check",
+    "lint:prettier:0": "prettier '**/*.{html,css,js,jsx,ts,tsx,json,md}' --check",
+    "lint:prettier:1": "prettier --parser json '**/.*rc' --check",
+    "lint:prettier": "run-s lint:prettier:*",
     "lint": "run-s lint:*",
     "format:eslint": "eslint '**/*.{js,jsx,ts,tsx}' --fix",
-    "format:prettier": "prettier '**/*.{html,css,js,jsx,ts,tsx,json,md}' --write",
+    "format:prettier:0": "prettier '**/*.{html,css,js,jsx,ts,tsx,json,md}' --write",
+    "format:prettier:1": "prettier --parser json '**/.*rc' --write",
+    "format:prettier": "run-s format:prettier:*",
     "format": "run-s format:*"
   },
   "dependencies": {

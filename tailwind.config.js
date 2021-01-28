@@ -10,17 +10,17 @@ module.exports = {
       fontFamily: {
         poppins: ["Poppins", ...defaultTheme.fontFamily.sans],
         lato: ["Lato", ...defaultTheme.fontFamily.sans],
-        montserrat: ["Montserrat", ...defaultTheme.fontFamily.sans],
+        montserrat: ["Montserrat", ...defaultTheme.fontFamily.sans]
       },
       colors: {
-        gray: colors.trueGray,
-      },
-    },
+        gray: colors.trueGray
+      }
+    }
   },
   variants: {
     extend: {
-      animation: ["motion-safe", "motion-reduce"],
-    },
+      animation: ["motion-safe", "motion-reduce"]
+    }
   },
-  plugins: [require("@tailwindcss/forms"), require("@tailwindcss/typography")],
+  plugins: [require("@tailwindcss/forms"), require("@tailwindcss/typography")]
 };

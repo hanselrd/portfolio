@@ -17,15 +17,17 @@ const Header: React.FC = () => {
             onClick={() => {
               setShowMenu(!showMenu);
             }}
-            className="focus:outline-none sm:transform sm:transition-transform sm:ease-in-out sm:duration-500 sm:hover:scale-125">
+            className="focus:outline-none sm:transform sm:transition-transform sm:ease-in-out sm:duration-500 sm:hover:scale-125"
+          >
             <HiMenuAlt1 size={30} />
           </button>
           <div className="flex">
             <span
               className={clsx({
                 "text-gray-600 dark:text-gray-400": !DEV,
-                "text-red-600 dark:text-red-400": DEV,
-              })}>
+                "text-red-600 dark:text-red-400": DEV
+              })}
+            >
               <HiOutlineBookmark size={30} />
             </span>
             <span className="font-semibold text-lg my-auto">Hansel De La Cruz</span>
@@ -34,7 +36,8 @@ const Header: React.FC = () => {
             onClick={() => {
               themeActions.toggleMode();
             }}
-            className="grid focus:outline-none sm:transform sm:transition-transform sm:ease-in-out sm:duration-500 sm:hover:scale-125">
+            className="grid focus:outline-none sm:transform sm:transition-transform sm:ease-in-out sm:duration-500 sm:hover:scale-125"
+          >
             {themeState.mode &&
               (themeState.mode === "dark" ? (
                 <span className="col-start-1 row-start-1">

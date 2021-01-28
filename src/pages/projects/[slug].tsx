@@ -14,7 +14,8 @@ const ProjectsSlug: React.FC<ProjectsSlugProps> = (props) => {
       <Page
         namespace="Project"
         title={props.project.name}
-        description={props.project.description || ""}>
+        description={props.project.description || ""}
+      >
         <div>Project {props.project.name}</div>
         <div>{props.project.description}</div>
         <div>{props.project.language}</div>
@@ -32,13 +33,13 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
         projects.map((project) => ({ params: { slug: project.name }, locale }))
       )
     ),
-    fallback: false,
+    fallback: false
   };
 };
 
 export const getStaticProps: GetStaticProps<ProjectsSlugProps> = async (context) => {
   return {
-    props: { project: projects.filter((project) => project.name === context.params?.slug)[0] },
+    props: { project: projects.filter((project) => project.name === context.params?.slug)[0] }
   };
 };
 

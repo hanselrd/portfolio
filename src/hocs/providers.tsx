@@ -5,7 +5,7 @@ import { AppProps } from "next/app";
 import React from "react";
 
 const withProviders = <P extends AppProps>(Component: React.ComponentType<P>): React.FC<P> => {
-  const WithProvidersComponent: React.FC<P> = (props) => {
+  const WithProviders: React.FC<P> = (props) => {
     return (
       <>
         <StoreProvider store={store}>
@@ -16,7 +16,7 @@ const withProviders = <P extends AppProps>(Component: React.ComponentType<P>): R
       </>
     );
   };
-  return WithProvidersComponent;
+  return WithProviders;
 };
 
 export default withProviders;
