@@ -6,7 +6,12 @@ module.exports = {
   darkMode: "class",
   theme: {
     extend: {
-      screens: { print: { raw: "print" } },
+      screens: {
+        xs: "480px",
+        portrait: { raw: "(orientation: portrait)" },
+        landscape: { raw: "(orientation: landscape)" },
+        print: { raw: "print" }
+      },
       fontFamily: {
         poppins: ["Poppins", ...defaultTheme.fontFamily.sans],
         lato: ["Lato", ...defaultTheme.fontFamily.sans],
