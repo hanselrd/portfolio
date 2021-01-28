@@ -12,12 +12,12 @@ const Page: React.FC<PageProps> = (props) => {
     <>
       <NextSeo
         title={`${props.namespace ? `${props.namespace}: ` : ""}${
-          props.title ? `${props.title} ` : ""
+          props.title ? `${props.title}` : ""
         }${props.namespace || props.title ? " | " : ""}Hansel De La Cruz`}
         description={props.description}
         openGraph={{
           title: `${props.namespace ? `${props.namespace}: ` : ""}${
-            props.title ? `${props.title} ` : ""
+            props.title ? `${props.title}` : ""
           }${props.namespace || props.title ? " | " : ""}Hansel De La Cruz`,
           description: props.description
         }}
