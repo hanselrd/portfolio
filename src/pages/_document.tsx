@@ -16,7 +16,11 @@ class Document extends D {
 
   public render(): JSX.Element {
     return (
-      <Html>
+      <Html
+        lang={
+          this.props.__NEXT_DATA__.locale ? this.props.__NEXT_DATA__.locale.split("-")[0] : "en"
+        }
+      >
         <Head />
         <body className="bg-gray-100 font-poppins transition-colors duration-500 dark:bg-gray-900 dark:text-white tap-highlight-none">
           <Main />
