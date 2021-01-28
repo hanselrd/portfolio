@@ -1,4 +1,3 @@
-import { BROWSER } from "@/core/environment";
 import { Action, Thunk, action, thunk } from "easy-peasy";
 
 export interface ThemeModel {
@@ -13,9 +12,7 @@ export const themeModel: ThemeModel = {
   start: thunk((actions, payload, helpers) => {
     if (
       helpers.getState().mode === "dark" ||
-      (!helpers.getState().mode &&
-        BROWSER &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches)
+      (!helpers.getState().mode && window.matchMedia("(prefers-color-scheme: dark)").matches)
     ) {
       actions.changeMode("dark");
     } else {
