@@ -21,7 +21,7 @@ const Header: React.FC = () => {
     <>
       <header
         className={clsx(
-          "bg-gray-100 dark:bg-gray-900 p-6 2xl:px-40 fixed left-0 top-0 w-full z-10 sm:px-8 md:px-10 lg:px-14 xl:px-24",
+          "bg-gray-100 p-6 fixed left-0 top-0 w-full z-10 dark:bg-gray-900 sm:px-8 md:px-10 lg:px-14 xl:px-24 2xl:px-40",
           { "shadow-md": pageYOffset > 0 }
         )}
       >
@@ -44,8 +44,8 @@ const Header: React.FC = () => {
               >
                 <HiOutlineBookmark size={30} />
               </span>
-              <span className="xs:hidden font-semibold text-lg my-auto">Hansel D.</span>
-              <span className="hidden xs:inline font-semibold text-lg my-auto">
+              <span className="font-semibold text-lg my-auto xs:hidden">Hansel D.</span>
+              <span className="hidden font-semibold text-lg my-auto xs:inline">
                 Hansel De La Cruz
               </span>
             </a>

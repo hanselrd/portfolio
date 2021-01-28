@@ -7,15 +7,16 @@
     "build": "next build",
     "postbuild": "next-sitemap --config next-sitemap.config.js",
     "start": "next start",
+    "lint+format:prettier": "sed -i \"/this.sortedMediaQueries = /s/\\['sm', 'md', 'lg', 'xl'\\]/['dark', 'xs', 'sm', 'md', 'lg', 'xl', '2xl', 'portrait', 'landscape', 'print']/g\" node_modules/tailwind-classes-sorter/lib/index.js",
     "lint:eslint": "eslint '**/*.{js,jsx,ts,tsx}'",
     "lint:prettier:0": "prettier '**/*.{html,css,js,jsx,ts,tsx,json,md}' --check",
     "lint:prettier:1": "prettier --parser json '**/.*rc' --check",
-    "lint:prettier": "run-s lint:prettier:*",
+    "lint:prettier": "run-s lint+format:prettier lint:prettier:*",
     "lint": "run-s lint:*",
     "format:eslint": "eslint '**/*.{js,jsx,ts,tsx}' --fix",
     "format:prettier:0": "prettier '**/*.{html,css,js,jsx,ts,tsx,json,md}' --write",
     "format:prettier:1": "prettier --parser json '**/.*rc' --write",
-    "format:prettier": "run-s format:prettier:*",
+    "format:prettier": "run-s lint+format:prettier format:prettier:*",
     "format": "run-s format:*"
   },
   "dependencies": {
