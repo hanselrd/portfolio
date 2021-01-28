@@ -288,7 +288,7 @@ module.exports = {
     "no-trailing-spaces": "off",
     "no-undef": "off",
     "no-undef-init": "error",
-    "no-underscore-dangle": "error",
+    "no-underscore-dangle": "off",
     "no-unreachable": "warn",
     "no-unsafe-finally": "error",
     "no-unused-expressions": [

@@ -37,20 +37,29 @@ const App: React.FC<AppProps> = (props) => {
         title="Hansel De La Cruz"
         description="Hansel De La Cruz"
         canonical={`${NEXT_PUBLIC_URL}${
-          router.locale && router.locale !== router.defaultLocale ? `/${router.locale}` : ""
+          router.locale && router.locale !== router.defaultLocale
+            ? `/${router.locale.toLowerCase()}`
+            : ""
         }${router.asPath !== "/" ? router.asPath : ""}`}
         mobileAlternate={{
           media: "only screen and (max-width: 640px)",
           href: `${NEXT_PUBLIC_URL}${
-            router.locale && router.locale !== router.defaultLocale ? `/${router.locale}` : ""
+            router.locale && router.locale !== router.defaultLocale
+              ? `/${router.locale.toLowerCase()}`
+              : ""
           }${router.asPath !== "/" ? router.asPath : ""}`
         }}
         languageAlternates={_.flattenDeep([
           router.locales!.map((locale) => ({
-            hrefLang: locale,
-            href: `${NEXT_PUBLIC_URL}${locale !== router.defaultLocale ? `/${locale}` : ""}${
-              router.asPath !== "/" ? router.asPath : ""
-            }`
+            hrefLang:
+              router
+                .locales!.filter((value) => value.split("-")[0] === locale.split("-")[0])
+                .indexOf(locale) === 0
+                ? locale.split("-")[0]
+                : locale.toLowerCase(),
+            href: `${NEXT_PUBLIC_URL}${
+              locale !== router.defaultLocale ? `/${locale.toLowerCase()}` : ""
+            }${router.asPath !== "/" ? router.asPath : ""}`
           })),
           {
             hrefLang: "x-default",
@@ -60,11 +69,14 @@ const App: React.FC<AppProps> = (props) => {
         openGraph={{
           type: "website",
           url: `${NEXT_PUBLIC_URL}${
-            router.locale && router.locale !== router.defaultLocale ? `/${router.locale}` : ""
+            router.locale && router.locale !== router.defaultLocale
+              ? `/${router.locale.toLowerCase()}`
+              : ""
           }${router.asPath !== "/" ? router.asPath : ""}`,
           title: "Hansel De La Cruz",
           description: "Hansel De La Cruz",
           site_name: "Hansel De La Cruz",
+          locale: router.locale?.replace("-", "_"),
           images: [
             {
               url: `${NEXT_PUBLIC_URL}/logo-ogimage.png`,
