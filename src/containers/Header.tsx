@@ -14,10 +14,10 @@ const Header: React.FC = () => {
       <header className="bg-gray-100 dark:bg-gray-900 p-6 2xl:px-40 fixed left-0 top-0 shadow-md w-full z-10 sm:px-8 md:px-10 lg:px-14 xl:px-24">
         <div className="container flex justify-between mx-auto">
           <button
+            className="focus:outline-none sm:transform sm:transition-transform sm:ease-in-out sm:duration-500 sm:hover:scale-125"
             onClick={() => {
               setShowMenu(!showMenu);
             }}
-            className="focus:outline-none sm:transform sm:transition-transform sm:ease-in-out sm:duration-500 sm:hover:scale-125"
           >
             <HiMenuAlt1 size={30} />
           </button>
@@ -33,10 +33,10 @@ const Header: React.FC = () => {
             <span className="font-semibold text-lg my-auto">Hansel De La Cruz</span>
           </div>
           <button
+            className="grid focus:outline-none sm:transform sm:transition-transform sm:ease-in-out sm:duration-500 sm:hover:scale-125"
             onClick={() => {
               themeActions.toggleMode();
             }}
-            className="grid focus:outline-none sm:transform sm:transition-transform sm:ease-in-out sm:duration-500 sm:hover:scale-125"
           >
             {themeState.mode &&
               (themeState.mode === "dark" ? (
