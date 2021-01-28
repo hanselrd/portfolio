@@ -7,5 +7,5 @@ export const { useStoreActions, useStoreState, useStoreDispatch } = createTypedH
 
 export default createStore(persist(rootModel, { storage: "localStorage" }), {
   name: "__store",
-  middleware: NODE_ENV === "development" ? [logger] : [],
+  middleware: NODE_ENV === "development" ? [logger] : []
 });

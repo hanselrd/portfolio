@@ -1,22 +1,22 @@
 module.exports = {
   env: {
     browser: true,
-    node: true,
+    node: true
   },
   extends: [
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:react/recommended",
     "prettier",
-    "prettier/@typescript-eslint",
+    "prettier/@typescript-eslint"
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaFeatures: {
-      jsx: true,
+      jsx: true
     },
     project: "tsconfig.json",
-    sourceType: "module",
+    sourceType: "module"
   },
   plugins: [
     "@typescript-eslint",
@@ -26,7 +26,7 @@ module.exports = {
     "eslint-plugin-prefer-arrow",
     "eslint-plugin-react",
     "eslint-plugin-react-hooks",
-    "eslint-plugin-unused-imports",
+    "eslint-plugin-unused-imports"
   ],
   rules: {
     "@typescript-eslint/adjacent-overload-signatures": "error",
@@ -38,14 +38,14 @@ module.exports = {
           Object: { message: "Avoid using the `Object` type. Did you mean `object`?" },
           Function: {
             message:
-              "Avoid using the `Function` type. Prefer a specific function type, like `() => void`.",
+              "Avoid using the `Function` type. Prefer a specific function type, like `() => void`."
           },
           Boolean: { message: "Avoid using the `Boolean` type. Did you mean `boolean`?" },
           Number: { message: "Avoid using the `Number` type. Did you mean `number`?" },
           String: { message: "Avoid using the `String` type. Did you mean `string`?" },
-          Symbol: { message: "Avoid using the `Symbol` type. Did you mean `symbol`?" },
-        },
-      },
+          Symbol: { message: "Avoid using the `Symbol` type. Did you mean `symbol`?" }
+        }
+      }
     ],
     "@typescript-eslint/consistent-type-assertions": "error",
     "@typescript-eslint/dot-notation": "error",
@@ -54,8 +54,8 @@ module.exports = {
       "off",
       {
         multiline: { delimiter: "none", requireLast: true },
-        singleline: { delimiter: "semi", requireLast: false },
-      },
+        singleline: { delimiter: "semi", requireLast: false }
+      }
     ],
     "@typescript-eslint/naming-convention": [
       "off",
@@ -64,9 +64,9 @@ module.exports = {
         format: ["PascalCase"],
         custom: {
           regex: "^I[A-Z]",
-          match: true,
-        },
-      },
+          match: true
+        }
+      }
     ],
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/no-empty-interface": "error",
@@ -89,7 +89,7 @@ module.exports = {
     "@typescript-eslint/semi": ["off", null],
     "@typescript-eslint/triple-slash-reference": [
       "error",
-      { path: "always", types: "prefer-import", lib: "always" },
+      { path: "always", types: "prefer-import", lib: "always" }
     ],
     "@typescript-eslint/type-annotation-spacing": "off",
     "@typescript-eslint/unified-signatures": "error",
@@ -113,7 +113,7 @@ module.exports = {
     "import/no-webpack-loader-syntax": "error",
     "import/order": [
       "warn",
-      { "alphabetize": { order: "asc", caseInsensitive: true }, "newlines-between": "never" },
+      { "alphabetize": { order: "asc", caseInsensitive: true }, "newlines-between": "never" }
     ],
     "jsdoc/check-alignment": "error",
     "jsdoc/check-indentation": "error",
@@ -180,10 +180,10 @@ module.exports = {
           ["&", "|", "^", "~", "<<", ">>", ">>>"],
           ["==", "!=", "===", "!==", ">", ">=", "<", "<="],
           ["&&", "||"],
-          ["in", "instanceof"],
+          ["in", "instanceof"]
         ],
-        allowSamePrecedence: false,
-      },
+        allowSamePrecedence: false
+      }
     ],
     "no-multi-str": "warn",
     "no-multiple-empty-lines": "off",
@@ -257,7 +257,7 @@ module.exports = {
       "statusbar",
       "stop",
       "toolbar",
-      "top",
+      "top"
     ],
     "no-restricted-properties": [
       "error",
@@ -265,14 +265,14 @@ module.exports = {
         object: "require",
         property: "ensure",
         message:
-          "Please use import() instead. More info: https://facebook.github.io/create-react-app/docs/code-splitting",
+          "Please use import() instead. More info: https://facebook.github.io/create-react-app/docs/code-splitting"
       },
       {
         object: "System",
         property: "import",
         message:
-          "Please use import() instead. More info: https://facebook.github.io/create-react-app/docs/code-splitting",
-      },
+          "Please use import() instead. More info: https://facebook.github.io/create-react-app/docs/code-splitting"
+      }
     ],
     "no-restricted-syntax": ["warn", "WithStatement"],
     "no-script-url": "warn",
@@ -293,7 +293,7 @@ module.exports = {
     "no-unsafe-finally": "error",
     "no-unused-expressions": [
       "error",
-      { allowShortCircuit: true, allowTernary: true, allowTaggedTemplates: true },
+      { allowShortCircuit: true, allowTernary: true, allowTaggedTemplates: true }
     ],
     "no-unused-labels": "error",
     "no-unused-vars": "off",
@@ -304,7 +304,7 @@ module.exports = {
     "no-useless-escape": "warn",
     "no-useless-rename": [
       "warn",
-      { ignoreDestructuring: false, ignoreImport: false, ignoreExport: false },
+      { ignoreDestructuring: false, ignoreImport: false, ignoreExport: false }
     ],
     "no-var": "error",
     "no-whitespace-before-property": "warn",
@@ -351,18 +351,18 @@ module.exports = {
     "unused-imports/no-unused-imports-ts": "warn",
     "unused-imports/no-unused-vars": [
       "warn",
-      { vars: "all", varsIgnorePattern: "^_", args: "after-used", argsIgnorePattern: "^_" },
+      { vars: "all", varsIgnorePattern: "^_", args: "after-used", argsIgnorePattern: "^_" }
     ],
     "unused-imports/no-unused-vars-ts": [
       "warn",
-      { vars: "all", varsIgnorePattern: "^_", args: "after-used", argsIgnorePattern: "^_" },
+      { vars: "all", varsIgnorePattern: "^_", args: "after-used", argsIgnorePattern: "^_" }
     ],
     "use-isnan": "error",
-    "valid-typeof": "off",
+    "valid-typeof": "off"
   },
   settings: {
     react: {
-      version: "detect",
-    },
-  },
+      version: "detect"
+    }
+  }
 };
