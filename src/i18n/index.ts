@@ -1,5 +1,34 @@
 export interface I18nTable {
-  language: string;
-  title: string;
-  welcome: string;
+  common: {
+    language: string;
+    developmentVersion: string;
+  };
+  pages: {
+    "index": {
+      title: string;
+    };
+    "home": {
+      title: string;
+    };
+    "projectsIndex": {
+      title: string;
+      description: string;
+    };
+    "projectsSlug": {
+      namespace: string;
+      title: string;
+    };
+    "about": {
+      title: string;
+    };
+    "contact": {
+      title: string;
+    };
+    "404": {
+      title: string;
+    };
+    "error": {
+      title: string;
+    };
+  };
 }

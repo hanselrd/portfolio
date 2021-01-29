@@ -1,7 +1,7 @@
+import Link from "@/components/Link";
 import { DEV } from "@/core/environment";
 import { useStoreActions, useStoreState } from "@/core/store";
 import clsx from "clsx";
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { HiMenuAlt1, HiMoon, HiOutlineBookmark, HiOutlineMoon, HiTranslate } from "react-icons/hi";
 
@@ -34,23 +34,21 @@ const Header: React.FC = () => {
           >
             <HiMenuAlt1 size={30} />
           </button>
-          <Link href="/">
-            <a className="flex">
-              <span
-                className={clsx({
-                  "text-gray-600 dark:text-gray-400": !DEV,
-                  "text-red-600 dark:text-red-400": DEV
-                })}
-              >
-                <HiOutlineBookmark size={30} />
-              </span>
-              <span className="font-semibold text-lg my-auto xs:hidden">Hansel D.</span>
-              <span className="hidden font-semibold text-lg my-auto xs:inline">
-                Hansel De La Cruz
-              </span>
-            </a>
+          <Link className="flex" embedded href="/">
+            <span
+              className={clsx({
+                "text-gray-600 dark:text-gray-400": !DEV,
+                "text-red-600 dark:text-red-400": DEV
+              })}
+            >
+              <HiOutlineBookmark size={30} />
+            </span>
+            <span className="font-semibold text-lg my-auto xs:hidden">Hansel D.</span>
+            <span className="hidden font-semibold text-lg my-auto xs:inline">
+              Hansel De La Cruz
+            </span>
           </Link>
-          <div className="space-x-1 flex sm:space-x-3">
+          <div className="space-x-1 flex xs:space-x-2 sm:space-3">
             <button className="focus:outline-none sm:transform sm:transition-transform sm:ease-in-out sm:duration-500 sm:hover:scale-125">
               <HiTranslate size={30} />
             </button>

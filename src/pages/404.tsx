@@ -1,5 +1,4 @@
 import Page from "@/components/Page";
-import { DEV } from "@/core/environment";
 import { I18nTable } from "@/i18n";
 import { GetStaticProps } from "next";
 import { I18nProps, useI18n } from "next-rosetta";
@@ -10,15 +9,8 @@ const Error404: React.FC = () => {
 
   return (
     <>
-      <Page
-        namespace="404"
-        title="This page could not be found"
-        description="This page could not be found"
-      >
-        <div>404</div>
-        <div>{JSON.stringify({ DEV })}</div>
-        <div>{i18n.t("title")}</div>
-        <div>{i18n.t("welcome", { name: "Hansel" })}</div>
+      <Page namespace="404" title={i18n.t("pages.404.title")}>
+        <div>404 {i18n.t("pages.404.title")}</div>
       </Page>
     </>
   );

@@ -1,5 +1,4 @@
 import Page from "@/components/Page";
-import { DEV } from "@/core/environment";
 import { I18nTable } from "@/i18n";
 import { GetStaticProps } from "next";
 import { I18nProps, useI18n } from "next-rosetta";
@@ -13,13 +12,11 @@ const Error: React.FC<ErrorProps> = (props) => {
     <>
       <Page
         namespace={props.statusCode ? props.statusCode.toString() : "404"}
-        title="This page is temporarily unavailable"
-        description="This page is temporarily unavailable"
+        title={i18n.t("pages.error.title")}
       >
-        <div>{props.statusCode}</div>
-        <div>{JSON.stringify({ DEV })}</div>
-        <div>{i18n.t("title")}</div>
-        <div>{i18n.t("welcome", { name: "Hansel" })}</div>
+        <div>
+          {props.statusCode ? props.statusCode.toString() : "404"} {i18n.t("pages.error.title")}
+        </div>
       </Page>
     </>
   );
