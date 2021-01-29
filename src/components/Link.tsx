@@ -17,7 +17,7 @@ const Link: React.FC<LinkProps> = (props) => {
         <NextLink href={props.href} locale={props.locale}>
           <a
             className={clsx(props.className, "w-max", {
-              "sm:transform sm:transition-transform sm:ease-in-out sm:duration-500 sm:hover:scale-125": !props.embedded
+              "sm:transform sm:transition-transform sm:ease-in-out sm:duration-500 sm:hover:scale-125": !props.embedded,
             })}
           >
             {props.children}
@@ -26,7 +26,7 @@ const Link: React.FC<LinkProps> = (props) => {
       ) : (
         <a
           className={clsx(props.className, "w-max", {
-            "sm:transform sm:transition-transform sm:ease-in-out sm:duration-500 sm:hover:scale-125": !props.embedded
+            "sm:transform sm:transition-transform sm:ease-in-out sm:duration-500 sm:hover:scale-125": !props.embedded,
           })}
           href={props.href}
           target="_blank"

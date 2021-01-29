@@ -13,7 +13,7 @@ module.exports = {
       // "en-ca",
       // "en-gb",
       "es-la",
-      "es-es"
+      // "es-es",
       // "es-mx",
       // "fa-ir",
       // "fi-fi",
@@ -38,6 +38,6 @@ module.exports = {
       // "vi-vn",
       // "zh-cn"
     ],
-    defaultLocale: "en-us"
-  }
+    defaultLocale: "en-us",
+  },
 };

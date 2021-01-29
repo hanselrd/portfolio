@@ -43,7 +43,7 @@ const App: React.FC<AppProps> = (props) => {
           media: "only screen and (max-width: 640px)",
           href: `${NEXT_PUBLIC_URL}${
             router.locale && router.locale !== router.defaultLocale ? `/${router.locale}` : ""
-          }${router.asPath !== "/" ? router.asPath : ""}`
+          }${router.asPath !== "/" ? router.asPath : ""}`,
         }}
         languageAlternates={_.flattenDeep([
           router.locales!.map((locale) => ({
@@ -55,12 +55,12 @@ const App: React.FC<AppProps> = (props) => {
                 : locale,
             href: `${NEXT_PUBLIC_URL}${locale !== router.defaultLocale ? `/${locale}` : ""}${
               router.asPath !== "/" ? router.asPath : ""
-            }`
+            }`,
           })),
           {
             hrefLang: "x-default",
-            href: `${NEXT_PUBLIC_URL}${router.asPath !== "/" ? router.asPath : ""}`
-          }
+            href: `${NEXT_PUBLIC_URL}${router.asPath !== "/" ? router.asPath : ""}`,
+          },
         ])}
         openGraph={{
           type: "website",
@@ -78,9 +78,9 @@ const App: React.FC<AppProps> = (props) => {
               url: `${NEXT_PUBLIC_URL}/logo-ogimage.png`,
               width: 1200,
               height: 630,
-              alt: "Logo"
-            }
-          ]
+              alt: "Logo",
+            },
+          ],
         }}
       />
       {NODE_ENV === "development" && (

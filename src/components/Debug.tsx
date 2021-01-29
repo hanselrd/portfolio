@@ -18,10 +18,10 @@ const Debug: React.FC<DebugProps> = (props) => {
                   child.props.className,
                   {
                     border: props.width === 1,
-                    [`border-${props.width!}`]: props.width && props.width > 1
+                    [`border-${props.width!}`]: props.width && props.width > 1,
                   },
                   "border-red-500"
-                )
+                ),
               });
             }
           })
