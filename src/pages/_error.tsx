@@ -12,7 +12,7 @@ const Error: React.FC<ErrorProps> = (props) => {
   return (
     <>
       <Page
-        namespace={props.statusCode.toString()}
+        namespace={props.statusCode ? props.statusCode.toString() : "404"}
         title="This page is temporarily unavailable"
         description="This page is temporarily unavailable"
       >
