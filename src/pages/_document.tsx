@@ -17,6 +17,13 @@ class Document extends NextDocument {
   public render(): JSX.Element {
     return (
       <Html
+        dir={
+          this.props.__NEXT_DATA__.locale
+            ? ["ar", "he"].indexOf(this.props.__NEXT_DATA__.locale.split("-")[0]) > -1
+              ? "rtl"
+              : "ltr"
+            : "ltr"
+        }
         lang={
           this.props.__NEXT_DATA__.locale ? this.props.__NEXT_DATA__.locale.split("-")[0] : "en"
         }

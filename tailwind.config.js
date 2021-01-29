@@ -30,7 +30,13 @@ module.exports = {
   variants: {
     extend: {
       animation: ["motion-safe", "motion-reduce"],
+      divideWidth: ["direction"],
+      space: ["direction"],
     },
   },
-  plugins: [require("@tailwindcss/forms"), require("@tailwindcss/typography")],
+  plugins: [
+    require("@tailwindcss/forms"),
+    require("@tailwindcss/typography"),
+    require("tailwindcss-dir")(),
+  ],
 };
