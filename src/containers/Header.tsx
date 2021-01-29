@@ -38,7 +38,7 @@ const Header: React.FC = () => {
             <span
               className={clsx({
                 "text-gray-600 dark:text-gray-400": !DEV,
-                "text-red-600 dark:text-red-400": DEV
+                "text-red-600 dark:text-red-400": DEV,
               })}
             >
               <HiOutlineBookmark size={30} />

@@ -3,34 +3,34 @@ import { I18nTable } from ".";
 export const table: I18nTable = {
   common: {
     language: "Español",
-    developmentVersion: "Versión de desarrollo"
+    developmentVersion: "Versión de desarrollo",
   },
   pages: {
     "index": {
-      title: "Bienvenido"
+      title: "Bienvenido",
     },
     "home": {
-      title: "Inicio"
+      title: "Inicio",
     },
     "projectsIndex": {
       title: "Proyectos",
-      description: "Lista de proyectos de desarrollo personal"
+      description: "Lista de proyectos de desarrollo personal",
     },
     "projectsSlug": {
       namespace: "Proyecto",
-      title: "Proyecto {{slug}}"
+      title: "Proyecto {{slug}}",
     },
     "about": {
-      title: "Información"
+      title: "Información",
     },
     "contact": {
-      title: "Contacto"
+      title: "Contacto",
     },
     "404": {
-      title: "No se pudo encontrar esta página"
+      title: "No se pudo encontrar esta página",
     },
     "error": {
-      title: "Esta página no esta disponible temporalmente"
-    }
-  }
+      title: "Esta página no esta disponible temporalmente",
+    },
+  },
 };

@@ -6,7 +6,7 @@ export interface RootModel {
 }
 
 export const rootModel: RootModel = {
-  theme: themeModel
+  theme: themeModel,
 };
 
 export default createStore(rootModel);

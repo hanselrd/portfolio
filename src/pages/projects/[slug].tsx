@@ -37,7 +37,7 @@ export const getStaticPaths: GetStaticPaths = async (context) => {
         projects.map((project) => ({ params: { slug: project.name }, locale }))
       )
     ),
-    fallback: false
+    fallback: false,
   };
 };
 
@@ -49,8 +49,8 @@ export const getStaticProps: GetStaticProps<I18nProps<I18nTable> & ProjectsSlugP
   return {
     props: {
       table,
-      project: projects.filter((project) => project.name === context.params?.slug)[0]
-    }
+      project: projects.filter((project) => project.name === context.params?.slug)[0],
+    },
   };
 };
 

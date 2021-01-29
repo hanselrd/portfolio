@@ -33,5 +33,5 @@ export const themeModel: ThemeModel = {
   }),
   changeModeInternal: action((state, payload) => {
     state.mode = payload;
-  })
+  }),
 };

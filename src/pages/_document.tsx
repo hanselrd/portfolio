@@ -4,7 +4,7 @@ import NextDocument, {
   Head,
   Html,
   Main,
-  NextScript
+  NextScript,
 } from "next/document";
 import React from "react";
 
