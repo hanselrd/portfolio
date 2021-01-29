@@ -1,6 +1,5 @@
 import clsx from "clsx";
 import NextLink from "next/link";
-import { useRouter } from "next/router";
 import React from "react";
 
 interface LinkProps {
@@ -12,23 +11,10 @@ interface LinkProps {
 }
 
 const Link: React.FC<LinkProps> = (props) => {
-  const router = useRouter();
-
   return (
     <>
       {!props.external ? (
-        <NextLink
-          href={props.href}
-          locale={
-            props.locale
-              ? props.locale !== router.defaultLocale
-                ? props.locale.toLowerCase()
-                : props.locale
-              : router.locale !== router.defaultLocale
-              ? router.locale?.toLowerCase()
-              : router.locale
-          }
-        >
+        <NextLink href={props.href} locale={props.locale}>
           <a
             className={clsx(props.className, "w-max", {
               "sm:transform sm:transition-transform sm:ease-in-out sm:duration-500 sm:hover:scale-125": !props.embedded
