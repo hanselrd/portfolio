@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 import Footer from "@/containers/Footer";
 import Header from "@/containers/Header";
-import { DEV, NEXT_PUBLIC_URL } from "@/core/environment";
+import { DEV, NEXT_PUBLIC_URL, NODE_ENV } from "@/core/environment";
 import { useStoreActions } from "@/core/store";
 import withProviders from "@/hocs/providers";
 import _ from "lodash";
@@ -87,7 +87,7 @@ const App: React.FC<AppProps> = (props) => {
           ]
         }}
       />
-      {DEV && (
+      {NODE_ENV === "development" && (
         <div className="bg-gray-700 rounded-full flex items-center justify-center h-6 text-xs m-8 p-3 fixed bottom-0 left-0 text-white w-6 z-50 xs:bg-red-700 sm:bg-yellow-700 md:bg-green-700 lg:bg-blue-700 xl:bg-indigo-700 2xl:bg-purple-700">
           <div className="block xs:hidden sm:hidden md:hidden lg:hidden xl:hidden 2xl:hidden">
             al

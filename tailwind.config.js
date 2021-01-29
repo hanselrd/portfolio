@@ -5,13 +5,18 @@ module.exports = {
   purge: ["src/{pages,components,containers}/**/*.{js,jsx,ts,tsx}"],
   darkMode: "class",
   theme: {
+    screens: {
+      "xs": "480px",
+      "sm": "640px",
+      "md": "768px",
+      "lg": "1024px",
+      "xl": "1280px",
+      "2xl": "1536px",
+      "portrait": { raw: "(orientation: portrait)" },
+      "landscape": { raw: "(orientation: landscape)" },
+      "print": { raw: "print" }
+    },
     extend: {
-      screens: {
-        xs: { min: "480px", max: "639px" },
-        portrait: { raw: "(orientation: portrait)" },
-        landscape: { raw: "(orientation: landscape)" },
-        print: { raw: "print" }
-      },
       fontFamily: {
         poppins: ["Poppins", ...defaultTheme.fontFamily.sans],
         lato: ["Lato", ...defaultTheme.fontFamily.sans],

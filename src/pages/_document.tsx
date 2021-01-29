@@ -1,4 +1,4 @@
-import D, {
+import NextDocument, {
   DocumentContext,
   DocumentInitialProps,
   Head,
@@ -8,9 +8,9 @@ import D, {
 } from "next/document";
 import React from "react";
 
-class Document extends D {
+class Document extends NextDocument {
   public static async getInitialProps(ctx: DocumentContext): Promise<DocumentInitialProps> {
-    const initialProps = await D.getInitialProps(ctx);
+    const initialProps = await NextDocument.getInitialProps(ctx);
     return initialProps;
   }
 

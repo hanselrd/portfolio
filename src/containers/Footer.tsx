@@ -1,15 +1,18 @@
 import { DEV } from "@/core/environment";
+import { useI18n } from "next-rosetta";
 import React from "react";
 import { FaCopyright, FaFacebookSquare, FaGithub, FaHammer, FaLinkedinIn } from "react-icons/fa";
 
 const Footer: React.FC = () => {
+  const i18n = useI18n<I18nTable>();
+
   return (
     <>
       <footer className="bg-black px-6 py-20 text-white w-full sm:px-8 md:px-10 lg:px-14 xl:px-24 2xl:px-40">
         <div className="container space-y-10 flex flex-col mx-auto">
           <div className="space-x-8 flex justify-center font-medium text-sm">
-            <span>About Me</span>
-            <span>Contact</span>
+            <span>{i18n.t("pages.about.title")}</span>
+            <span>{i18n.t("pages.contact.title")}</span>
           </div>
           <div className="space-x-12 flex justify-center">
             <FaFacebookSquare size={30} />
@@ -28,7 +31,7 @@ const Footer: React.FC = () => {
               <span className="my-auto">
                 <FaHammer />
               </span>
-              <span>Development version</span>
+              <span>{i18n.t("common.developmentVersion")}</span>
             </div>
           )}
         </div>
