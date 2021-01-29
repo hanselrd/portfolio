@@ -1,4 +1,5 @@
 import { DEV } from "@/core/environment";
+import { I18nTable } from "@/i18n";
 import { useI18n } from "next-rosetta";
 import React from "react";
 import { FaCopyright, FaFacebookSquare, FaGithub, FaHammer, FaLinkedinIn } from "react-icons/fa";
