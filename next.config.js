@@ -3,8 +3,9 @@ module.exports = {
     localeDetection: false,
     locales: [
       "en-us",
-      "es-la",
+      "ar-ar",
       "de-de",
+      "es-la",
       "fr-fr",
       "hi-in",
       "it-it",

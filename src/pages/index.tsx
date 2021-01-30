@@ -14,7 +14,6 @@ const Index: React.FC = () => {
     <>
       <Page title={i18n.t("pages.index.title")}>
         <div>{i18n.t("pages.index.title")}</div>
-        <div>{router.asPath}</div>
         <div className="flex flex-col">
           {router.locales &&
             router.locales.map((locale, index) => (
