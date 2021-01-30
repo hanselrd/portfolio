@@ -13,8 +13,8 @@ const Footer: React.FC = () => {
       <footer className="bg-black px-6 py-20 text-white w-full sm:px-8 md:px-10 lg:px-14 xl:px-24 2xl:px-40">
         <div className="container space-y-10 flex flex-col mx-auto">
           <div className="space-x-8 flex justify-center font-medium text-sm rtl:space-x-reverse">
-            <span>{i18n.t("pages.about.title")}</span>
-            <span>{i18n.t("pages.contact.title")}</span>
+            <Link href="/about">{i18n.t("pages.about.title")}</Link>
+            <Link href="/contact">{i18n.t("pages.contact.title")}</Link>
           </div>
           <div className="space-x-12 flex justify-center rtl:space-x-reverse">
             <Link external href="https://www.facebook.com/hansel.delacruz.14">
