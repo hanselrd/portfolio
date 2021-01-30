@@ -19,6 +19,15 @@ const App: React.FC<AppProps> = (props) => {
     themeActions.start();
   }, [themeActions]);
 
+  useEffect(() => {
+    document.documentElement.dir = router.locale
+      ? ["ar", "he"].indexOf(router.locale.split("-")[0]) > -1
+        ? "rtl"
+        : "ltr"
+      : "ltr";
+    document.documentElement.lang = router.locale ? router.locale.split("-")[0] : "en";
+  }, [router.locale]);
+
   return (
     <>
       <Head>
