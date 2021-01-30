@@ -1,3 +1,4 @@
+import Link from "@/components/Link";
 import { DEV } from "@/core/environment";
 import { I18nTable } from "@/i18n";
 import { useI18n } from "next-rosetta";
@@ -16,16 +17,24 @@ const Footer: React.FC = () => {
             <span>{i18n.t("pages.contact.title")}</span>
           </div>
           <div className="space-x-12 flex justify-center rtl:space-x-reverse">
-            <FaFacebookSquare size={30} />
-            <FaGithub size={30} />
-            <FaLinkedinIn size={30} />
+            <Link external href="https://www.facebook.com/hansel.delacruz.14">
+              <FaFacebookSquare size={30} />
+            </Link>
+            <Link external href="https://github.com/hanselrd">
+              <FaGithub size={30} />
+            </Link>
+            <Link external href="https://www.linkedin.com/in/hansel-de-la-cruz-532199144">
+              <FaLinkedinIn size={30} />
+            </Link>
           </div>
           <div dir="ltr" className="space-x-1 flex justify-center text-xs text-gray-400">
             <span className="my-auto">
               <FaCopyright />
             </span>
             <span>Copyright {new Date().getFullYear()}</span>
-            <span className="font-bold">Hansel De La Cruz</span>
+            <Link className="font-bold" embedded href="/">
+              Hansel De La Cruz
+            </Link>
           </div>
           {DEV && (
             <div className="space-x-1 flex justify-center text-xs text-red-400 rtl:space-x-reverse">
