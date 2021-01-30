@@ -18,6 +18,9 @@ export interface I18nTable {
       namespace: string;
       title: string;
     };
+    "resume": {
+      title: string;
+    };
     "about": {
       title: string;
     };

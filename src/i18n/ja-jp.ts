@@ -20,6 +20,9 @@ export const table: I18nTable = {
       namespace: "事業",
       title: "事業 {{slug}}",
     },
+    "resume": {
+      title: "記録",
+    },
     "about": {
       title: "情報",
     },

@@ -20,6 +20,9 @@ export const table: I18nTable = {
       namespace: "계획",
       title: "계획 {{slug}}",
     },
+    "resume": {
+      title: "기록",
+    },
     "about": {
       title: "정보",
     },

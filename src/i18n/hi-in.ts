@@ -20,6 +20,9 @@ export const table: I18nTable = {
       namespace: "प्रोजेक्ट",
       title: "प्रोजेक्ट {{slug}}",
     },
+    "resume": {
+      title: "रिकॉर्ड",
+    },
     "about": {
       title: "जानकारी",
     },
