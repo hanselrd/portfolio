@@ -10,7 +10,8 @@ const Error404: React.FC = () => {
   return (
     <>
       <Page namespace="404" title={i18n.t("pages.404.title")}>
-        <div>404 {i18n.t("pages.404.title")}</div>
+        <h1>404</h1>
+        <h2>{i18n.t("pages.404.title")}</h2>
       </Page>
     </>
   );

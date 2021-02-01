@@ -14,9 +14,8 @@ const Error: React.FC<ErrorProps> = (props) => {
         namespace={props.statusCode ? props.statusCode.toString() : "404"}
         title={i18n.t("pages.error.title")}
       >
-        <div>
-          {props.statusCode ? props.statusCode.toString() : "404"} {i18n.t("pages.error.title")}
-        </div>
+        <h1>{props.statusCode ? props.statusCode.toString() : "404"}</h1>
+        <h2>{i18n.t("pages.error.title")}</h2>
       </Page>
     </>
   );

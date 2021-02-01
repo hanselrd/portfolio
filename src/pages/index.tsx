@@ -13,7 +13,7 @@ const Index: React.FC = () => {
   return (
     <>
       <Page title={i18n.t("pages.index.title")}>
-        <div>{i18n.t("pages.index.title")}</div>
+        <h1>{i18n.t("pages.index.title")}</h1>
         <div className="flex flex-col">
           {router.locales &&
             router.locales.map((locale, index) => (

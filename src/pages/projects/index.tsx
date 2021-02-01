@@ -15,21 +15,13 @@ const ProjectsIndex: React.FC = () => {
         title={i18n.t("pages.projectsIndex.title")}
         description={i18n.t("pages.projectsIndex.description")}
       >
-        <div className="space-y-6 flex flex-col">
-          <h1 className="flex justify-center font-bold text-2xl">
-            {i18n.t("pages.projectsIndex.title")}
-          </h1>
-          <div className="space-y-2 flex flex-col">
-            {projects.map((project, index) => (
-              <Link
-                key={index}
-                className="flex justify-center mx-auto"
-                href={`/projects/${project.name}`}
-              >
-                {project.name}
-              </Link>
-            ))}
-          </div>
+        <h1>{i18n.t("pages.projectsIndex.title")}</h1>
+        <div className="flex flex-col">
+          {projects.map((project, index) => (
+            <Link key={index} href={`/projects/${project.name}`}>
+              {project.name}
+            </Link>
+          ))}
         </div>
       </Page>
     </>

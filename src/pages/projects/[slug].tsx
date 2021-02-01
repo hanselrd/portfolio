@@ -1,3 +1,4 @@
+import Link from "@/components/Link";
 import Page from "@/components/Page";
 import projects from "@/data/projects.json";
 import { I18nTable } from "@/i18n";
@@ -20,11 +21,16 @@ const ProjectsSlug: React.FC<ProjectsSlugProps> = (props) => {
         title={props.project.name}
         description={props.project.description || ""}
       >
-        <div>{i18n.t("pages.projectsSlug.title", { slug: props.project.name })}</div>
+        <h1>{i18n.t("pages.projectsSlug.namespace")}</h1>
+        <h2 className="uppercase">{props.project.name}</h2>
         <div>{props.project.description}</div>
-        <div>{props.project.language}</div>
+        <div>
+          <span dir="ltr">{props.project.language}</span>
+        </div>
         <div>{props.project.license?.name}</div>
-        <div>{props.project.html_url}</div>
+        <Link external href={props.project.html_url}>
+          {props.project.html_url}
+        </Link>
       </Page>
     </>
   );

@@ -10,7 +10,7 @@ const About: React.FC = () => {
   return (
     <>
       <Page title={i18n.t("pages.about.title")}>
-        <div>{i18n.t("pages.about.title")}</div>
+        <h1>{i18n.t("pages.about.title")}</h1>
       </Page>
     </>
   );

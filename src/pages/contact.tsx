@@ -10,7 +10,7 @@ const Contact: React.FC = () => {
   return (
     <>
       <Page title={i18n.t("pages.contact.title")}>
-        <div>{i18n.t("pages.contact.title")}</div>
+        <h1>{i18n.t("pages.contact.title")}</h1>
       </Page>
     </>
   );

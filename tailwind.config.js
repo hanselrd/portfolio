@@ -25,6 +25,40 @@ module.exports = {
       colors: {
         gray: colors.trueGray,
       },
+      typography: (theme) => ({
+        dark: {
+          css: {
+            color: "white",
+            h1: {
+              color: "white",
+            },
+            h2: {
+              color: "white",
+            },
+            h3: {
+              color: "white",
+            },
+            h4: {
+              color: "white",
+            },
+            h5: {
+              color: "white",
+            },
+            h6: {
+              color: "white",
+            },
+            p: {
+              color: "white",
+            },
+            a: {
+              "color": "white",
+              "&:hover": {
+                color: "white",
+              },
+            },
+          },
+        },
+      }),
     },
   },
   variants: {
@@ -32,6 +66,7 @@ module.exports = {
       animation: ["motion-safe", "motion-reduce"],
       divideWidth: ["direction"],
       space: ["direction"],
+      typography: ["dark"],
     },
   },
   plugins: [

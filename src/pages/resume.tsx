@@ -10,7 +10,7 @@ const Resume: React.FC = () => {
   return (
     <>
       <Page title={i18n.t("pages.resume.title")}>
-        <div>{i18n.t("pages.resume.title")}</div>
+        <h1>{i18n.t("pages.resume.title")}</h1>
       </Page>
     </>
   );
