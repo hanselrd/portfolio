@@ -6,6 +6,7 @@ import clsx from "clsx";
 import { useI18n } from "next-rosetta";
 import React, { useEffect, useState } from "react";
 import { HiMenu, HiMoon, HiOutlineBookmark, HiOutlineMoon, HiTranslate } from "react-icons/hi";
+import { RemoveScroll } from "react-remove-scroll";
 
 const Header: React.FC = () => {
   const i18n = useI18n<I18nTable>();
@@ -54,11 +55,13 @@ const Header: React.FC = () => {
                 Hansel De La Cruz
               </span>
             </Link>
-            <nav className="space-x-4 flex hidden my-auto rtl:space-x-reverse md:block lg:space-x-6 xl:space-x-8">
-              <Link href="/home">{i18n.t("pages.home.title")}</Link>
-              <Link href="/projects">{i18n.t("pages.projectsIndex.title")}</Link>
-              <Link href="/resume">{i18n.t("pages.resume.title")}</Link>
-            </nav>
+            <RemoveScroll enabled={false} forwardProps>
+              <nav className="space-x-4 flex hidden my-auto rtl:space-x-reverse md:block lg:space-x-6 xl:space-x-8">
+                <Link href="/home">{i18n.t("pages.home.title")}</Link>
+                <Link href="/projects">{i18n.t("pages.projectsIndex.title")}</Link>
+                <Link href="/resume">{i18n.t("pages.resume.title")}</Link>
+              </nav>
+            </RemoveScroll>
           </div>
           <div className="space-x-1 flex rtl:space-x-reverse xs:space-x-2 sm:space-3">
             <button className="focus:outline-none sm:transform sm:transition-transform sm:ease-in-out sm:duration-500 sm:hover:scale-125">

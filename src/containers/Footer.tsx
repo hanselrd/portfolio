@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
     <>
       <footer className="bg-black px-6 py-20 text-white w-full sm:px-8 md:px-10 lg:px-14 xl:px-24 2xl:px-40">
         <div className="container space-y-10 flex flex-col mx-auto">
-          <div className="space-y-10 flex flex-col sm:space-y-0 sm:flex-row sm:justify-around">
+          <div className="space-y-10 flex flex-col md:space-y-0 md:flex-row md:justify-around">
             <div className="space-x-8 flex justify-center font-medium text-sm rtl:space-x-reverse">
               <Link href="/about">{i18n.t("pages.about.title")}</Link>
               <Link href="/contact">{i18n.t("pages.contact.title")}</Link>
