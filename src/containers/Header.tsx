@@ -56,7 +56,7 @@ const Header: React.FC = () => {
               </span>
             </Link>
             <RemoveScroll enabled={false} forwardProps>
-              <nav className="space-x-4 flex hidden my-auto rtl:space-x-reverse md:block lg:space-x-6 xl:space-x-8">
+              <nav className="space-x-4 hidden my-auto rtl:space-x-reverse md:flex lg:space-x-6 xl:space-x-8">
                 <Link href="/home">{i18n.t("pages.home.title")}</Link>
                 <Link href="/projects">{i18n.t("pages.projectsIndex.title")}</Link>
                 <Link href="/resume">{i18n.t("pages.resume.title")}</Link>
