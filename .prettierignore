@@ -1,6 +1,4 @@
-.cra
 .next
-build
-coverage
-node_modules
-out
+.spago
+ancestry
+output
